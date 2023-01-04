@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MongoAccess</id>
+    <version>1.0.0</version>
+    <authors>MongoAccess</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="MongoDB.Bson" version="2.11.2" exclude="Build,Analyzers" />
+        <dependency id="MongoDB.Driver" version="2.11.2" exclude="Build,Analyzers" />
+        <dependency id="MongoDB.Driver.Core" version="2.11.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <contentFiles>
+      <files include="any/netcoreapp3.1/snappy32.dll" buildAction="Content" />
+      <files include="any/netcoreapp3.1/snappy64.dll" buildAction="Content" />
+      <files include="any/netcoreapp3.1/libzstd.dll" buildAction="Content" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="C:\Users\Shuo\Desktop\2021Session4\Session14\MQTTManager\MongoAccess\bin\Release\netcoreapp3.1\MongoAccess.dll" target="lib\netcoreapp3.1\MongoAccess.dll" />
+    <file src="C:\Users\Shuo\.nuget\packages\mongodb.driver.core\2.11.2\runtimes\win\native\snappy32.dll" target="content\snappy32.dll" />
+    <file src="C:\Users\Shuo\.nuget\packages\mongodb.driver.core\2.11.2\runtimes\win\native\snappy32.dll" target="contentFiles\any\netcoreapp3.1\snappy32.dll" />
+    <file src="C:\Users\Shuo\.nuget\packages\mongodb.driver.core\2.11.2\runtimes\win\native\snappy64.dll" target="content\snappy64.dll" />
+    <file src="C:\Users\Shuo\.nuget\packages\mongodb.driver.core\2.11.2\runtimes\win\native\snappy64.dll" target="contentFiles\any\netcoreapp3.1\snappy64.dll" />
+    <file src="C:\Users\Shuo\.nuget\packages\mongodb.driver.core\2.11.2\runtimes\win\native\libzstd.dll" target="content\libzstd.dll" />
+    <file src="C:\Users\Shuo\.nuget\packages\mongodb.driver.core\2.11.2\runtimes\win\native\libzstd.dll" target="contentFiles\any\netcoreapp3.1\libzstd.dll" />
+  </files>
+</package>

@@ -1,0 +1,315 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Links{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-auto-rows: 120px;
+        }
+
+        .box1 {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 1;
+            background-color: #e6e6e6;
+        }
+
+        .box2 {
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 1;
+            font-size: 120%;
+            background-color: #e6e6e6;
+        }
+
+        .box3 {
+            grid-column-start: 3;
+            grid-column-end: 5;
+            grid-row-start: 1;
+            grid-row-end: 1;
+            font-size: 120%;
+            background-color: #e6e6e6;
+        } 
+        .box4 {
+            grid-column-start: 9;
+            grid-column-end: 12;
+            grid-row-start: 1;
+        }
+        /* Create two equal columns that floats next to each other 
+        .column {
+            float: left;
+            width: 20%;
+            padding: 20px;
+            height: 130px; /* Should be removed. Only for demonstration  
+          }
+         
+        .column2 {
+            float: left;
+            width: 20%;
+            padding: 10px;
+            height: 130px; /* Should be removed. Only for demonstration  
+        
+        } 
+        .column3 {
+            float: left;
+            width: 25%;
+            padding: 10px;
+            height: 130px; /* Should be removed. Only for demonstration 
+        }
+        */
+ 
+    </style>
+</head>
+ 
+<body>
+    <div class="wrapper">
+        <div class="box1">
+            <img src="" alt="" srcset="" id="weather-icon">
+        </div>
+        <div class="box2">
+            <div id="location">Loading Location</div>
+            <div class="desc">Unable to Fetch Information</div>
+            <div class="weather">
+                <div class="c">Updating</div>
+                <div class="circle"></div>
+                <!--div class="f">Updating</div>-->
+            </div>
+        </div>
+        <div class="box3">
+            <div class="info">
+                <div class="sunrise">Updating</div>
+                <div class="sunset">Updating</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <img src="https://www.tetratech.com/en/images/latrobe-institute-is19-028-960.jpg?blobheader=image/jpeg" alt="Logo image" width="1000" height="600" vertical-align: text-center>
+    <br />
+    <br />   <br />
+ 
+</body>
+@section Scripts {
+    <script>
+
+        function getCookie(cookieName) {
+            let cookie = {};
+            document.cookie.split(';').forEach(function (el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            })
+            return cookie[cookieName];
+        }
+
+        const user = getCookie('user')
+        if (user === null || user === '' || user === undefined) {
+            location.href = "/Login";
+        }
+
+        const api = 'e3ecc09b04d573d27ba717db51146c8e'; //Replace with your API
+        const iconImg = document.getElementById('weather-icon');
+        const loc = document.querySelector('#location');
+        const tempC = document.querySelector('.c');
+        const tempF = document.querySelector('.f');
+        const desc = document.querySelector('.desc');
+        const sunriseDOM = document.querySelector('.sunrise');
+        const sunsetDOM = document.querySelector('.sunset');
+        window.addEventListener('load', () => {
+            let long;
+            let lat;
+            // Accesing Geolocation of User
+            lat = -37.720596581264225;
+            long = 145.04800102816586;
+            const base = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${api}&units=metric`;
+
+            // Using fetch to get data
+            fetch(base)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    const { temp, feels_like } = data.main;
+                    const place = data.name;
+                    const { description, icon } = data.weather[0];
+                    const { sunrise, sunset } = data.sys;
+
+                    const iconUrl = `http://openweathermap.org/img/wn/${icon}@@2x.png`;
+                    const fahrenheit = (temp * 9) / 5 + 32;
+
+                    // Converting Epoch(Unix) time to GMT
+                    const sunriseGMT = new Date(sunrise * 1000);
+                    const sunsetGMT = new Date(sunset * 1000);
+
+                    // Interacting with DOM to show data
+                    iconImg.src = iconUrl;
+                    loc.textContent = `${place}`;
+                    desc.textContent = `${description}`;
+                    tempC.textContent = `${temp.toFixed(2)} °C /  ${fahrenheit.toFixed(2)} °F` ;
+                   // tempF.textContent = `${fahrenheit.toFixed(2)} °F`;
+                    sunriseDOM.textContent = `Sunrise: ${sunriseGMT.toLocaleDateString()}, ${sunriseGMT.toLocaleTimeString()}`;
+                    sunsetDOM.textContent = `Sunset: ${sunsetGMT.toLocaleDateString()}, ${sunsetGMT.toLocaleTimeString()}`;
+                });
+
+        });
+    </script>
+}
+
+
+@*
+
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-2">SensorID</div>
+            <div class="col-4"><input type="text" id="userInput" /></div>
+        </div>
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+
+
+
+
+    <table id="examplecode" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <table id="table1" class="table table-striped">
+        <thead style="background-color: silver">
+            <tr>
+                <th>Sensor Id1</th>
+            </tr>
+        </thead>
+        <tr id="messagesList">
+        </tr>
+
+    </table>
+
+    @section Scripts{
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script>
+
+            function AddRowToHTML(x, y) {
+                var tableRef = document.getElementById('examplecode').getElementsByTagName('tbody')[0];
+                var newRow = tableRef.insertRow(tableRef.rows.length);
+                var myHtmlContent = "<tr><td>" + x + "</td><td>" + y + "</td><td>SignalR</td>";
+                newRow.innerHTML = myHtmlContent;
+            }
+
+            var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+            //Disable send button until connection is established
+            document.getElementById("sendButton").disabled = true;
+            connection.on("ReceiveMessage", function (user, message) {
+                var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+            });
+
+            connection.start().then(function () {
+                document.getElementById("sendButton").disabled = false;
+            }).catch(function (err) {
+                return console.error(err.toString());
+            });
+
+            document.getElementById("sendButton").addEventListener("click", function (event) {
+                var user = document.getElementById("userInput").value;
+                var message = document.getElementById("messageInput").value;
+                connection.invoke("SendMessage", user, message).catch(function (err) {
+                    return console.error(err.toString());
+                });
+                event.preventDefault();
+            });
+
+            var testdata =
+                [{
+                    "Name": "test",
+                    "Position": "PY",
+                    "Office": "CTI"
+                }];
+
+
+
+            $(document).ready(function () {
+                var tableData =
+                    [{
+                        "Name": "TB001",
+                        "Position": "PY",
+                        "Office": "CTI"
+                    }]
+
+                tableData.push({
+                    "Name": "002",
+                    "Position": "CT",
+                    "Office": "CTI"
+                })
+
+                var tbl = $('#examplecode').DataTable({
+                    "data": tableData,
+                    "columns": [
+                        { "data": "Name" },
+                        { "data": "Position" },
+                        { "data": "Office" }
+                    ]
+                });
+
+                setTimeout(() => {
+                    tbl.row.add({
+                        "Name": "0001",
+                        "Position": "SC",
+                        "Office": "CTI"
+                    })
+
+                    tbl.rows().invalidate("data").draw(false);
+                }, 3000)
+            });
+
+        </script>
+    }
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+
+    <!--<script src="~/js/chat.js"></script>-->
+
+
+
+*@
+

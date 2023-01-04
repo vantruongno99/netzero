@@ -1,0 +1,783 @@
+﻿
+
+<style>
+
+    body {
+        background: #1B213B;
+        color: #777;
+        font-family: Montserrat, Arial, sans-serif;
+    }
+
+    .body-bg {
+        background: #F3F4FA !important;
+    }
+
+    h1, h2, h3, h4, h5, h6, strong {
+        font-weight: 600;
+    }
+
+    .sparkboxes .box1 {
+        background-image: linear-gradient( 135deg, #f2f2f2 10%, #a6a6a6 100%);
+    }
+
+    .sparkboxes .box2 {
+        background-image: linear-gradient( 135deg, #f2f2f2 10%, #a6a6a6 100%);
+    }
+
+    .sparkboxes .box3 {
+        background-image: linear-gradient( 135deg, #f2f2f2 10%, #a6a6a6 100%);
+    }
+
+    .sparkboxes .box4 {
+        background-image: linear-gradient( 135deg, #ff6666 10%, #ff1a1a 100%);
+        max-height: 128px;
+    }
+
+    .box .apexcharts-xaxistooltip {
+        background: #800000;
+        color: #ff6666;
+    }
+
+    .content-area {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+
+    .box {
+        background-color: #262D47;
+        padding: 25px 25px;
+        border-radius: 4px;
+    }
+
+    .columnbox {
+        padding-right: 15px;
+        background: #737373;
+    }
+
+    .radialbox {
+        max-height: 333px;
+        margin-bottom: 60px;
+    }
+
+    .apexcharts-legend-series tspan:nth-child(3) {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .edit-on-codepen {
+        text-align: right;
+        width: 100%;
+        padding: 0 20px 40px;
+        position: relative;
+        top: -30px;
+        cursor: pointer;
+    }
+
+    /* fusionexport btn CSS START */
+    #fusionexport-btn {
+        min-width: 169px;
+        min-height: 38px;
+        text-align: center;
+    }
+
+        #fusionexport-btn .span {
+            display: inline-block;
+        }
+
+        #fusionexport-btn[disabled] {
+            cursor: wait;
+        }
+
+    .spinner-border {
+        display: none;
+    }
+
+    #fusionexport-btn[disabled] .spinner-border {
+        display: inline-block;
+    }
+
+    #fusionexport-btn[disabled] .btn-text {
+        display: none;
+    }
+</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title> Dashboard - Dark Style</title>
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+</head>
+
+<h3>Sensor Data</h3>
+
+
+<div id="wrapper">
+    <div class="content-area">
+        <div class="container-fluid">
+            <div class="text-right mt-3 mb-3 d-fixed">
+                <a href="./charts"
+                   target="_blank"
+                   class="btn btn-success mr-2">
+                    <span class="btn-text"> Refresh </span>
+                </a>
+            </div>
+            <div class="main">
+                <div class="row sparkboxes mt-4">
+                    <div class="col-md-3">
+                        <div class="box box1">
+                            <div class="details">
+                                <h3 id="spark1Amount">0</h3>
+                                <h4>Total AirCon</h4>
+                            </div>
+                            <div id="spark1"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box box2">
+                            <div class="details">
+                                <h3 id="spark2Amount">0</h3>
+                                <h4>Active AirCon</h4>
+                            </div>
+                            <div id="spark2"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box box3">
+                            <div class="details">
+                                <h3 id="spark3Amount">0</h3>
+                                <h4>Inactive AirCon</h4>
+                            </div>
+                            <div id="spark3"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box box4">
+                            <div class="details">
+                                <h3 id="spark4Amount">0</h3>
+                                <h4>Faulty AirCon</h4>
+                            </div>
+                            <div id="spark4"></div>
+                        </div>
+                    </div>
+                    <div id="spark4"></div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <section class="p-3 border border-primary">
+            <div class="row">
+
+                <div class="col-md-1">
+                    <div class="box columnbox mt-4" hidden>
+
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    <div class="box columnbox mt-4">
+                        <div id="columnchart"> </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="box columnbox mt-4">
+                    <div id="columnchart"> </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box  mt-4">
+                    <div id="linechart"> </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box radialbox mt-4">
+                    <div id="circlechart"> </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box mt-4">
+                    <div class="mt-4">
+                        <div id="progress1"> </div>
+                    </div>
+                    <div class="mt-4">
+                        <div id="progress2"> </div>
+                    </div>
+                    <div class="mt-4">
+                        <div id="progress3"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        @* <div class="row">
+                <div class="float-right edit-on-codepen">
+                    <a target="_blank"
+                       href="https://codepen.io/apexcharts/pen/pxZKqL">
+                        <img src="assets/edit-on-codepen.png" alt="Edit on Codepen" />
+                    </a>
+                </div>
+            </div>*@
+    </div>
+</div>
+
+ 
+<div style="width:1000px;height:800px">
+    <canvas id="canvas"> </canvas>
+</div>
+
+
+<div style="width:1000px;height:800px">
+    <canvas id="canvas2"> </canvas>
+</div>
+
+<div id="chart">
+</div>
+@section Scripts {
+
+    <script src="~/js/Chart.min.js"></script>
+    <script src="~/js/apexcharts.js"></script>
+    <!-- installing few libraries -->
+    <script src="~/js/axios.min.js"></script>
+    <script src="~/js/download.min.js"></script>
+    <script>
+
+        function getCookie(cookieName) {
+            let cookie = {};
+            document.cookie.split(';').forEach(function (el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            })
+            return cookie[cookieName];
+        }
+
+        const user = getCookie('user')
+        if (user === null || user === '' || user === undefined) {
+            location.href = "/Login";
+        }
+
+        window.Apex = {
+            chart: {
+                foreColor: '#ccc',
+                toolbar: {
+                    show: false
+                },
+            },
+            stroke: {
+                width: 3
+            },
+            dataLabels: {
+                enabled: false
+            },
+            tooltip: {
+                theme: 'dark'
+            },
+            grid: {
+                borderColor: "#535A6C",
+                xaxis: {
+                    lines: {
+                        show: true
+                    }
+                }
+            }
+        };
+        var spark1 = {
+            chart: {
+                id: 'spark1',
+                group: 'sparks',
+                type: 'line',
+                height: 80,
+                sparkline: {
+                    enabled: true
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 1,
+                    left: 1,
+                    blur: 2,
+                    opacity: 0.2,
+                }
+            },
+            series: [{
+                data: [25, 66, 41, 59, 25, 44, 12, 36, 9, 21]
+            }],
+            stroke: {
+                curve: 'smooth'
+            },
+            markers: {
+                size: 0
+            },
+            grid: {
+                padding: {
+                    top: 20,
+                    bottom: 10,
+                    left: 110
+                }
+            },
+            colors: ['#fff'],
+            tooltip: {
+                x: {
+                    show: true
+                },
+                y: {
+                    title: {
+                        formatter: function formatter(val) {
+                            return '';
+                        }
+                    }
+                }
+            }
+        }
+        var spark2 = {
+            chart: {
+                id: 'spark2',
+                group: 'sparks',
+                type: 'line',
+                height: 80,
+                sparkline: {
+                    enabled: true
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 1,
+                    left: 1,
+                    blur: 2,
+                    opacity: 0.2,
+                }
+            },
+            series: [{
+                data: [12, 14, 2, 47, 32, 44, 14, 55, 41, 69]
+            }],
+            stroke: {
+                curve: 'smooth'
+            },
+            grid: {
+                padding: {
+                    top: 20,
+                    bottom: 10,
+                    left: 110
+                }
+            },
+            markers: {
+                size: 0
+            },
+            colors: ['#fff'],
+            tooltip: {
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function formatter(val) {
+                            return '';
+                        }
+                    }
+                }
+            }
+        }
+        var spark3 = {
+            chart: {
+                id: 'spark3',
+                group: 'sparks',
+                type: 'line',
+                height: 80,
+                sparkline: {
+                    enabled: true
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 1,
+                    left: 1,
+                    blur: 2,
+                    opacity: 0.2,
+                }
+            },
+            series: [{
+                data: [47, 45, 74, 32, 56, 31, 44, 33, 45, 19]
+            }],
+            stroke: {
+                curve: 'smooth'
+            },
+            markers: {
+                size: 0
+            },
+            grid: {
+                padding: {
+                    top: 20,
+                    bottom: 10,
+                    left: 110
+                }
+            },
+            colors: ['#fff'],
+            xaxis: {
+                crosshairs: {
+                    width: 1
+                },
+            },
+            tooltip: {
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function formatter(val) {
+                            return '';
+                        }
+                    }
+                }
+            }
+        }
+
+        var spark4 = {
+            chart: {
+                id: 'spark4',
+                group: 'sparks',
+                type: 'line',
+                height: 80,
+                sparkline: {
+                    enabled: true
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 1,
+                    left: 1,
+                    blur: 2,
+                    opacity: 0.2,
+                }
+            },
+            series: [{
+                data: [15, 75, 47, 65, 14, 32, 19, 54, 44, 61]
+            }],
+            stroke: {
+                curve: 'smooth'
+            },
+            markers: {
+                size: 0
+            },
+            grid: {
+                padding: {
+                    top: 20,
+                    bottom: 10,
+                    left: 110
+                }
+            },
+            colors: ['#fff'],
+            xaxis: {
+                crosshairs: {
+                    width: 1
+                },
+            },
+            tooltip: {
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function formatter(val) {
+                            return '';
+                        }
+                    }
+                }
+            }
+        }
+       // new ApexCharts(document.querySelector("#spark1"), spark1).render();
+       /// new ApexCharts(document.querySelector("#spark2"), spark2).render();
+      //  new ApexCharts(document.querySelector("#spark3"), spark3).render();
+       // new ApexCharts(document.querySelector("#spark4"), spark4).render();
+    window.Apex = {
+        chart: {
+                foreColor: '#fff',
+                toolbar: {
+                    show: false
+                },
+            },
+            colors: ['#FCCF31', '#17ead9', '#f02fc2'],
+            stroke: {
+                width: 3
+            },
+            dataLabels: {
+                enabled: false
+            },
+            grid: {
+                borderColor: "#40475D",
+            },
+
+            xaxis: {
+                axisTicks: {
+                    color: '#333'
+                },
+                axisBorder: {
+                    color: "#333"
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    gradientToColors: ['#F55555', '#6078ea', '#6094ea']
+                },
+            },
+            tooltip: {
+                theme: 'dark',
+                style: {
+                    fontSize: '17px',
+                    fontFamily: undefined
+                },
+                onDatasetHover: {
+                    highlightDataSeries: true,
+                },
+                x: {
+                    show: true,
+                    formatter: undefined
+                   }
+             },
+            yaxis: {
+                decimalsInFloat: 2,
+                opposite: true,
+                labels: {
+                    offsetX: -10
+                }
+            }
+        };
+        var optionsColumn = {
+            chart: {
+                width: '95%',
+
+                type: 'bar',
+                events: {
+                    animationEnd:  function (chartCtx, opts) {
+                        window.setInterval(function () {
+                            var url = '/TopicManager/GetChartsList';
+                            $.getJSON(url, function (res) {
+                                console.log(res);
+                                var count = res.map(function (e) {
+                                    var allcount = e.Note;
+                                    const words = allcount.split('KING');
+                                    document.getElementById("spark1Amount").innerHTML = words[0];
+                                    document.getElementById("spark2Amount").innerHTML = words[1];
+                                    document.getElementById("spark3Amount").innerHTML = words[2];
+                                    document.getElementById("spark4Amount").innerHTML = words[3];
+                                    return e.Note;
+                                });
+                                var labels = res.map(function (e) {
+                                    return e.Campus + '-' + e.Building + '-' + e.Room + ' ' + e.Reason + "  " + " SetTemp " + e.SetTemperature + " RoomTemp " + e.RoomTemperature + " Humidity " + e.Humidity + " Battery " + e.BatteryPercentage + " Power " + e.PowerOnOff + " Id " + e.SensorId;
+                                });
+                                var data = res.map(function (e) {
+                                    return e.RoomTemperature;
+                                });
+                                console.log(labels);
+                                console.log(res);
+                                chartCtx.updateOptions({
+                                    series: [{
+                                        data: data
+                                    }],
+                                    xaxis: {
+                                        categories: labels
+                                    },
+                                    subtitle: {
+                                        text: 'Air Con Temperature °C',
+                                                      style: {
+                                                          fontSize: '17px'
+                                        },
+                                        align: 'bottom',
+                                    }
+                                }, false, false);
+                            });
+                        }, 2000)
+                    }
+                },
+                toolbar: {
+                    show: true
+                },
+                bar: {
+                    barHeight: '10%'
+                },
+                zoom: {
+                    enabled: true
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                textAnchor: 'start',
+                style: {
+                    colors: ['#fff']
+                },
+                formatter: function (val, opt) {
+                    return opt.w.globals.labels[opt.dataPointIndex]
+                },
+                offsetX: 0,
+                dropShadow: {
+                    enabled: true
+                }
+            },
+
+            plotOptions: {
+                bar: {
+                    barHeight: '80%',
+                    distributed: false,
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'bottom'
+                    },
+                }
+            },
+            stroke: {
+                width: 0,
+            },
+            series: [{
+                name: 'Temperature °C' ,
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }],
+            title: {
+                text: 'Building Rooms',
+                align: 'left',
+                style: {
+                    fontSize: '16px'
+                }
+            },
+            subtitle: {
+                text: 'Loading',
+                floating: true,
+                align: 'right',
+                offsetY: 0,
+                style: {
+                    fontSize: '22px'
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    type: 'vertical',
+                    shadeIntensity: 0.5,
+                    inverseColors: false,
+                    opacityFrom: 1,
+                    opacityTo: 0.8,
+                    stops: [0, 100]
+                }
+            },
+            xaxis: {
+                labels: {
+                    show: true
+                },
+                type: 'category',
+                categories: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+            },
+            yaxis: {
+                labels: {
+                    show: false
+                }
+            },
+
+            legend: {
+                show: false
+            },
+        }
+        var chartColumn = new ApexCharts(
+            document.querySelector("#columnchart"),
+            optionsColumn
+        );
+        chartColumn.render();
+
+        document.getElementById("spark1Amount").innerHTML = "0";
+        document.getElementById("spark2Amount").innerHTML = "0";
+        document.getElementById("spark3Amount").innerHTML = "0";
+        document.getElementById("spark4Amount").innerHTML = "0";
+
+
+        @*
+        $(document).ready(function () {
+            $.get(`/TopicManager/GetChartsList`).then((res) => {
+                let jsonfile = JSON.parse(res)
+                console.log(jsonfile);
+
+                var labels = jsonfile.map(function (e) {
+                    return e.Campus + '-' + e.Building + '-' + e.Room
+                        ;
+                });
+                var data = jsonfile.map(function (e) {
+                    return e.Temperature;
+                });
+                var ctx = canvas.getContext('2d');
+                var config = {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Temperature °C',
+                            data: data,
+                            backgroundColor: 'rgba(0, 119, 204, 0.3)'
+                        }]
+                    },
+                    options: {
+                        legend: { display: true },
+                        title: {
+                            display: true,
+                            text: 'Latest Temperature °C in Different Buildings'
+                        }
+                    }
+                };
+                var chart = new Chart(ctx, config);
+
+                var options = {
+                    chart: {
+                        type: 'bar'
+                    },
+                    series: [{
+                        name: 'sales',
+                        data: data
+                    }],
+                    xaxis: {
+                        categories: labels
+                    }
+                }
+
+                var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+                chart.render();
+            });
+        });
+
+        $(document).ready(function () {
+            $.get(`/TopicManager/GetChartsList`).then((res) => {
+                let jsonfile = JSON.parse(res)
+                console.log(jsonfile);
+
+                var labels = jsonfile.map(function (e) {
+                    return e.Campus + '-' + e.Building + '-' + e.Room;
+                });
+                var data = jsonfile.map(function (e) {
+                    return e.Temperature;
+                });
+                var ctx = canvas2.getContext('2d');
+                var config = {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Temperature °C',
+                            data: data,
+                            backgroundColor: 'rgba(0, 119, 204, 0.3)'
+                        }]
+                    },
+                    options: {
+                        legend: { display: true },
+                        title: {
+                            display: true,
+                            text: 'Latest Temperature °C in Different Buildings'
+                        }
+                    }
+                };
+                var chart = new Chart(ctx, config);
+            });
+        });*@
+
+    </script>
+
+}

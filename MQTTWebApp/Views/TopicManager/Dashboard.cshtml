@@ -1,0 +1,2909 @@
+﻿@*Author Dr Shuo Ding La Trobe University, 2021   *@
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<h3>Administrator Dashboard</h3>
+<hr />
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto+Condensed:wght@300&display=swap">
+<style>
+    h1 {
+        font-size: 28px;
+    }
+
+    #configTabular {
+        font-size: 10px;
+        background-color: #f2f2f2;
+        line-height: 30px;
+    }
+
+    #sensorTabular {
+        font-size: 10px;
+        background-color: #f2f2f2;
+        line-height: 30px;
+        width: 950px;
+    }
+
+    .tabulator-col-title {
+        text-align: center;
+    }
+
+    .modal-dialog {
+        width: 500px;
+        height: 840px !important;
+    }
+
+    .modal-header {
+        background-color: #337AB7;
+        padding: 16px 16px;
+        color: #FFF;
+        border-bottom: 16px dashed #337AB7;
+    }
+
+    .modal-content {
+        /* 80% of window height */
+        height: 80%;
+        background-color: #e6e6e6;
+    }
+
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        height: 150vh;
+        overflow-y: auto;
+    }
+
+    .ui-dialog {
+        background: #ffd7b3;
+    }
+
+        .ui-dialog .ui-dialog-buttonpane {
+            text-align: center;
+            background: #ffd7b3;
+        }
+
+            .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+                float: none;
+            }
+
+        .ui-dialog .ui-dialog-titlebar {
+            border: 0;
+            padding: .5em 1em;
+            color: white;
+            background: #e65c00;
+            overflow: auto;
+            zoom: 1;
+        }
+
+        .ui-dialog .ui-dialog-titlebar-close {
+            display: none;
+        }
+
+        .ui-dialog .ui-dialog-content {
+            border: 0;
+            overflow: auto;
+            zoom: 1;
+        }
+
+        .ui-dialog .ui-dialog-buttonpane {
+            border: 0;
+            overflow: auto;
+            zoom: 1;
+        }
+
+    table.dataTable tbody tr td {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+</style>
+@section Links {
+    <link rel="stylesheet" href=http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css>
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/css/select2.min.css">
+    <link href="~/css/jquery-weekdays.css" rel="stylesheet" />
+    <link href="~/css/jquery.ptTimeSelect.css" rel="stylesheet" />
+    <link href="~/css/jquery-weekdays.css" rel="stylesheet" />
+    <link href="~/css/tabulator.min.css" rel="stylesheet" />
+}
+
+<!--<link rel="stylesheet" href="~/css/jquery-ui.css">-->
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a href="#selectschedule" class="nav-link" data-toggle="tab">Daily Schedule</a>
+    </li>
+    <li class="nav-item">
+        <a href="#holidayschedule" class="nav-link" data-toggle="tab">Holiday Schedule</a>
+    </li>
+    <li class="nav-item">
+        <a href="#addsensorschedule" class="nav-link" data-toggle="tab">Add Sensor</a>
+    </li>
+</ul>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="modaltitle">Schedule Configuration Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="modalbodymsg">
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button id="btnCancel" type="button" class="btn btn-danger">Cancel</button>
+                <button type="button" class="btn btn-success" id="btnSave">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="selectschedule">
+        <br />
+        <br />
+        <h4 class="mt-2">Select Location</h4>
+        <p>Select a campus, building, or specific rooms </p>
+        <div class="ui-widget">
+            <label for="CampusSelect">Select a Campus </label> <br />
+            <select class="js-example-basic-multiple" id=CampusSelect name="CampusSelect[]" multiple="multiple" style="width: 65%">
+            </select>
+        </div>
+        <br />
+        <div class="ui-widget">
+            <label for="BuildingSelect">Select a Building  </label><br />
+            <select class="js-example-basic-multiple" id=BuildingSelect name="BuildingSelect[]" multiple="multiple" style="width: 65%">
+            </select>
+        </div>
+        <br />
+        <div class="ui-widget">
+            <label for="RoomSelect">Select a Room  </label><br />
+            <select class="js-example-basic-multiple" id=RoomSelect name="RoomSelect[]" multiple="multiple" style="width: 65%">
+            </select>
+        </div>
+        <!--  <table id="messageTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Model</th>
+                    <th>Campus</th>
+                    <th>Building</th>
+                    <th>Room</th>
+                    <th>Time</th>
+                    <th>SetTemp</th>
+                    <th>RoomTemp</th>
+                    <th>FanSpeed</th>
+                    <th>Mode</th>
+                    <th>Battery</th>
+                    <th>Power</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Model</th>
+                    <th>Campus</th>
+                    <th>Building</th>
+                    <th>Room</th>
+                    <th>Time</th>
+                    <th>SetTemp</th>
+                    <th>RoomTemp</th>
+                    <th>FanSpeed</th>
+                    <th>Mode</th>
+                    <th>Battery</th>
+                    <th>Power</th>
+                </tr>
+            </tfoot>
+        </table>-->
+        <br />
+        <div>
+            <button hidden onclick="initializeSensor()" class="btn btn-primary">
+                Create Default Database
+            </button>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="p-3 border border-primary">
+                    <h3>Current Setting</h3>
+                    <br />
+                    <div class="container">
+                        <br />
+                        <div id="configTabular"></div>
+                        <!--  data-url="/TopicManager/GetWarningList"-->
+                        <table id="configTable2" hidden class="display nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Campus</th>
+                                    <th>Building</th>
+                                    <th>Room</th>
+                                    <th>LastSetTime</th>
+                                    <th>Priority</th>
+                                    <th>StartDate</th>
+                                    <th>EndDate</th>
+                                    <th>StartTime</th>
+                                    <th>EndTime</th>
+                                    <th>WeekDays</th>
+                                    <th>Temperature</th>
+                                    <th>FanSpeed</th>
+                                    <th>Mode</th>
+                                    <th>ResetTimer</th>
+                                    <th>PowerStatus</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <br />
+                        <div class="w3-show-inline-block">
+                            <div class="w3-bar">
+                                <button class="w3-btn w3-teal" id="Undobutton" style="font-size: 16px; height: 40px; width: 141px">UNDO EDIT</button>
+                                <button class="w3-btn w3-teal" id="Redobutton" style="font-size: 16px; height: 40px; width: 141px">REDO EDIT</button>
+                                <button class="w3-btn w3-black" id="Savebutton" style="font-size: 16px; height: 40px; width: 141px">UPDATE</button>
+                                <button class="w3-btn w3-teal" id="Removebutton" style="font-size: 16px; height: 40px; width: 141px">DELETE</button>
+                                <button class="w3-btn w3-teal" id="Jsonbutton" style="font-size: 16px; height: 40px; width: 151px">EXPORT JSON</button>
+                                <button class="w3-btn w3-teal" id="Pdfbutton" style="font-size: 16px; height: 40px; width: 151px">EXPORT PDF</button>
+                                <button class="w3-btn w3-teal" id="Csvbutton" style="font-size: 16px; height: 40px; width: 151px">EXPORT CSV</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="container">
+                                <section class="p-3 border border-light">
+                                    <h3>Schedule</h3>
+                                    <!-- This is a comment   <label for="from">From</label>
+                                          <input type="text" id="from" name="from">
+                                    <label for="to">to</label>
+                                    <input type="text" id="to" name="to">--->
+
+                                    <h6>Select Date</h6>
+                                    <div class="form-inline">
+                                        <input type="text" id="from" name="from" placeholder="Start Date" class="form-control" required>
+                                        <input type="text" id="to" name="to" placeholder="End Date" class="form-control" required>
+                                    </div>
+                                    <br />
+                                    <h6>Select Time</h6>
+                                    <div class="form-inline">
+                                        <input type="text" name="sTime" id="sTime" placeholder="Start Time" class="form-control" required="required">
+                                        <input type="text" name="eTime" id="eTime" placeholder="End Time" class="form-control" required>
+                                    </div>
+                                    <br />
+                                    <h6>Select Weekdays</h6>
+                                    <section id="weekdaysSelectedValues"> </section>
+                                    <br />
+                                    <!--  <div>
+                                    <button type="button" id="submit">Show Selected Date and Time</button>
+                                    </div>-->
+
+                                    <div id="dialog-1"
+                                         title="Selected Schedule"></div>
+                                    <button id="opener" class="btn btn-warning btn-block" style="font-size: 20px; height: 50px; width: 200px">Confirm Schedule</button>
+
+                                    <br />
+                                    <br /> <br />
+
+                                </section>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="container">
+                                <section class="p-3 border border-light">
+                                    <h3>Control</h3>
+
+                                    <!--  <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Temperature: </span>
+                                        </div>
+                                        <input type="number" class="form-control" id="temperature_simple" placeholder="Input Temperature °C (10°C-30°C)" aria-label="Temperature" aria-describedby="Temperature">
+                                    </div>-->
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Temperature: </span>
+                                        </div>
+                                        <select class="custom-select" id="temperature_simple">
+                                            <option value="" readonly="true" selected>Select Temperature °C </option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option selected value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                        <!--  <input type="number" class="form-control" id="fanspeed_simple" placeholder="Input Fan Speed (1-10)" aria-label="Fan Speed" aria-describedby="Fan Speed">-->
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Fan Speed: </span>
+                                        </div>
+                                        <select class="custom-select" id="fanspeed_simple">
+                                            <option value="" readonly="true" selected>Select Fan Speed</option>
+                                            <option value="0">Speed 1</option>
+                                            <option value="1">Speed 2</option>
+                                            <option value="2">Speed 3</option>
+                                            <option value="3">Speed 4</option>
+                                            <option value="4">Speed 5</option>
+                                            <option selected value="5">Auto</option>
+                                            <option value="6">Silent</option>
+                                        </select>
+                                        <!--  <input type="number" class="form-control" id="fanspeed_simple" placeholder="Input Fan Speed (1-10)" aria-label="Fan Speed" aria-describedby="Fan Speed">-->
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Mode: </span>
+                                        </div>
+                                        <select class="custom-select" id="mode_simple">
+                                            <option value="" readonly="true" selected>Select Mode</option>
+                                            <option selected value="AUTO">Auto</option>
+                                            <option value="DRY">Dry</option>
+                                            <option value="COOL">Cool</option>
+                                            <option value="HEAT">Heat</option>
+                                            <option value="FAN">Fan Only</option>
+                                        </select>
+                                    </div>
+
+                                    <div hidden class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Reset to Default </span>
+                                        </div>
+                                        <select class="custom-select" id="refreshingtime_simple">
+                                            <option value="" readonly="true" selected>Select Resetting to Default Timer</option>
+                                            <option selected value="1">1h</option>
+                                            <option value="2">2h</option>
+                                            <option value="3">3h</option>
+                                            <option value="5">5h</option>
+                                            <option value="8">8h</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Power Status: </span>
+                                        </div>
+                                        <div class="form-control">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="powerstatus_simple" id="powerstatuson_simple" value="1" checked>
+                                                <label class="form-check-label" for="powerstatuson_simple">Power On</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="powerstatus_simple" id="powerstatusoff_simple" value="0">
+                                                <label class="form-check-label" for="powerstatusoff_simple">Power Off</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Schedule: </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="schedule_simple" placeholder="Select Schedule Date and Time" aria-label="schedule_simple" aria-describedby="Schedule">
+                                    </div>
+
+                                    <!-- Rectangular switch --<span class="slider">>
+
+                                    <!-- Rounded switch -->
+                                    <h3 hidden>Advanced Options</h3>
+                                    <label class="switch" hidden>
+                                        <input type="checkbox" id="myCheck" name="myCheck"
+                                               unchecked onclick="ShowHideSection()" />
+                                        <span class="slider round"></span>
+                                    </label>
+
+                                    <p id="text" style="display:none">Advanced Options are checked</p>
+
+                                    <section id="hiddentext" style="display:none">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Action: </span>
+                                            </div>send
+                                            @* <input type="text" class="form-control" id="note_simple" placeholder="Choose Sensor Actions " aria-label="note" aria-describedby="note">*@
+                                            <select class="custom-select" id="command_simple">
+                                                <option value="" readonly="true" selected>Select Sensor Actions</option>
+                                                <option value="reboot">Reboot Sensor</option>
+                                                <option value="updatesensortopic">Update Sensor Topic</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">SensorId: </span>
+                                            </div>
+                                            <input type="text" class="form-control" id="sensorid_simple" placeholder="Input Specific Sensor ID (Optional)" aria-label="sensorid" aria-describedby="sensorid">
+                                        </div>
+                                    </section>
+
+                                    <div id="sendmessage"
+                                         title="Notification">
+                                        <p>The configuration message has been sent successfully</p>
+                                    </div>
+                                    <button onclick="publish_simple()" class="btn btn-success btn-block" id="sendbutton" style="font-size: 24px; height: 55px; width: 460px">Activate</button>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <br />
+
+        <br /><br /><br /><br /><br />
+
+    </div>
+
+
+    <div class="tab-pane fade" id="holidayschedule">
+        <br /><br />
+        <p>Select Public Holidays </p>
+
+        <input id="chkall" type="checkbox">Select All
+
+        <div class="ui-widget">
+            <select class="js-example-basic-multiple" id=HolidaySelect name="HolidaySelect[]" multiple="multiple" style="width: 50%; height: 435px">
+            </select>
+        </div>
+        <br />
+        <br />
+        <p>Select University Holidays </p>
+        <div class="form-inline">
+            <input type="text" id="holidayfrom" name="holidayfrom" placeholder="Start Date" class="form-control" required>
+            <input type="text" id="holidayto" name="holidayto" placeholder="End Date" class="form-control" required>
+        </div>
+
+        <br />
+
+        <div id="AddHoliday"
+             title="University Holiday Added"></div>
+        <button id="AddHolidayButton">Add Date</button>
+    </div>
+    <div class="tab-pane fade" id="addsensorschedule">
+        <br /><br />
+        <p>Select One Campus </p>
+        <div class="ui-widget">
+            <select class="js-example-basic-multiple" id=SensorSelect name="SensorSelect[]" multiple="multiple" style="width: 40%; height: 435px">
+            </select>
+        </div>
+        <br />
+        <p>Select One Building </p>
+        <div class="ui-widget">
+            <select class="js-example-basic-multiple" id=SensorBuildingSelect name="SensorBuildingSelect[]" multiple="multiple" style="width: 40%; height: 435px">
+            </select>
+        </div>
+        <br />
+
+        <p>Select One Room </p>
+        <div class="ui-widget">
+            <select class="js-example-basic-multiple" id=SensorRoomSelect name="SensorRoomSelect[]" multiple="multiple" style="width: 40%; height: 435px">
+            </select>
+        </div>
+        <br />
+        <section style="display: none;">
+            <p>Select One Sensor </p>
+            <div class="ui-widget">
+                <select class="js-example-basic-multiple" id=SingleSensorSelect name="SingleSensorSelect[]" multiple="multiple" style="width: 40%; height: 435px">
+                </select>
+            </div>
+            <br />
+            <div class="form-inline">
+                <input type="hidden" id="uidvalue" name="uidvalue" placeholder="Id" class="form-control" required>
+            </div>
+            <p>Campus</p>
+            <div class="form-inline">
+                <input id="campusvalue" name="campusvalue" placeholder="Campus" class="form-control" required>
+            </div>
+            <br />
+            <p>Building</p>
+            <div class="form-inline">
+                <input id="buildingvalue" name="buildingvalue" placeholder="Building" class="form-control" required>
+            </div>
+            <br />
+            <p>Room</p>
+            <div class="form-inline">
+                <input id="roomvalue" name="roomvalue" placeholder="Room" class="form-control" required>
+            </div>
+            <br />
+            <p>Sensor ID</p>
+            <div class="form-inline">
+                <input type="text" id="sensoridvalue" name="sensoridvalue" placeholder="Sensor ID" class="form-control" required>
+            </div>
+            <br />
+            <p>AirCon Model</p>
+            <div class="form-inline">
+                <input type="text" id="airconvalue" name="airconvalue" placeholder="Choose AirCon" list="acs" class="form-control" required>
+                <datalist id="acs">
+                    <option>MITSUBISHI</option>
+                    <option>PANASONIC</option>
+                    <option>DAIKIN</option>
+                    <option>DAIKIN_OLD</option>
+                    <option>TOSHIBA</option>
+                    <option>FUJITSU</option>
+                </datalist>
+            </div><br />
+            <p>Wakeup Timer</p>
+            <div class="form-inline">
+                <input type="text" id="wakeuptimervalue" name="wakeuptimervalue" placeholder="Wakeup Timer" class="form-control" required>
+            </div>
+            <br />
+            <p>Sequence Number</p>
+            <div class="form-inline">
+                <input type="text" id="numbervalue" name="numbervalue" placeholder="No." class="form-control" required>
+            </div>
+            <br />
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkremovesensorid" onclick="checkDeleteID()">
+                <label class="form-check-label" for="exampleCheck1">Remove Sensor ID</label>
+            </div>
+            <br />
+            <div id="AddSensor" title="Add New Sensor"></div>
+            <button id="AddSensorButton">Add New Sensor</button>
+            <br />
+        </section>
+        <br />
+        <div class="container">
+            <br />
+            <button class="button button-highlight button-circle button-large" id="plusbutton" style="background-color: #b3b3b3; color: white; width: 150px; height: 45px; " value="Click Me!!"><i class="fa fa-plus"></i></button>
+            <br />
+            <div id="sensorTabular"></div>
+            <br />
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    <button class="w3-btn w3-teal" id="Undobuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">UNDO EDIT</button>
+                    <button class="w3-btn w3-teal" id="Redobuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">REDO EDIT</button>
+                    <button class="w3-btn w3-black" id="Savebuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">UPDATE</button>
+                    <button class="w3-btn w3-teal" id="Removebuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">DELETE</button>
+                    <button class="w3-btn w3-teal" id="Jsonbuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">JSON</button>
+                    <button class="w3-btn w3-teal" id="Pdfbuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">PDF</button>
+                    <button class="w3-btn w3-teal" id="Csvbuttonaddsensor" style="font-size: 16px; height: 40px; width: 130px">CSV</button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="w3-show-inline-block">
+                <div class="w3-bar">
+                    <a href='/TopicManager/GetAddSensorJson'
+                       target="_blank"
+                       class="btn btn-success mr-2">
+                        <span class="btn-text"> Export Full Sensor List in JSON </span>
+                    </a>
+                    <input type="button" class="btn btn-success mr-2" value="Export Full Sensor List in CSV" onclick=" relocate_home()">
+
+                    <a href="./Dashboard"
+                       target="_blank"
+                       class="btn btn-success mr-2">
+                        <span class="btn-text"> Reload Page </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+
+@*
+    <div class="ui-widget">
+        <label for="campusList">Select a Campus</label>
+        <select id="campusList">
+        </select>
+    </div>
+    <br />
+
+    <div class="ui-widget">
+        <label for="building">Select a Building</label>
+        <select id="building" multiple>
+        </select>
+    </div>
+    <br />
+    <div class="ui-widget">
+        <label for="room">Select a Room   </label>
+        <select id="room" multiple size="5">
+        </select>
+    </div>
+
+*@
+
+@*
+        <h4>Advanced Control</h4>
+        <div class="container">
+          <section class="p-3 border border-primary">
+                    <h2>Initialize Sensor</h2>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Sensor Id: </span>
+                        </div>
+                        <input type="text" class="form-control" id="sensorId" placeholder="Sensor Id" aria-label="Sensor Id" aria-describedby="Sensor Id">
+                        <button onclick="initializeSensor()" class="btn btn-primary">
+                            Initialize Sensor
+                        </button>
+                    </div>
+                </section>
+                <br>
+
+                <section class="p-3 border border-primary">
+                    <h2>Reboot Sensor</h2>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Sensor Id: </span>
+                        </div>
+                        <input type="text" class="form-control" id="sensorId_reboot" placeholder="Sensor Id" aria-label="Sensor Id" aria-describedby="Sensor Id">
+                        <button onclick="initializeSensor()" class="btn btn-primary">
+                            Reboot Sensor
+                        </button>
+                    </div>
+                </section>
+                <br>
+
+
+    <section class="p-3 border border-primary">
+        <h2>Publish Message</h2>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Topic: </span>
+            </div>
+            <input type="text" class="form-control" id="topic" placeholder="Topic" aria-label="Topic" aria-describedby="Topic">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">SensorId: </span>
+            </div>
+            <input type="text" class="form-control" id="sensorid" placeholder="sensorid" aria-label="sensorid" aria-describedby="sensorid222">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Note: </span>
+            </div>
+            <input type="text" class="form-control" id="note" placeholder="note" aria-label="note" aria-describedby="note">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Temperature: </span>
+            </div>
+            <input type="number" class="form-control" id="temperature" placeholder="Temperature" aria-label="Temperature" aria-describedby="Temperature">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Fan Speed: </span>
+            </div>
+            <input type="number" class="form-control" id="fanspeed" placeholder="Fan Speed" aria-label="Fan Speed" aria-describedby="Fan Speed">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Power Status: </span>
+            </div>
+            <div class="form-control">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="powerstatus" id="powerstatuson" value="1" checked>
+                    <label class="form-check-label" for="powerstatuson">Power On</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="powerstatus" id="powerstatusoff" value="0">
+                    <label class="form-check-label" for="powerstatusoff">Power Off</label>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="publish()" class="btn btn-success btn-block" style="font-size: 20px; height: 60px; width: 200px">Publish Message</button>
+    </section>
+    </div>*@
+
+
+
+@section Scripts{
+    <script src="~/js/jquery.ptTimeSelect.js"></script>
+    <script>
+        function getCookie(cookieName) {
+            let cookie = {};
+            document.cookie.split(';').forEach(function (el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            })
+            return cookie[cookieName];
+        }
+
+        const user = getCookie('user')
+        if (user === null || user === '' || user === undefined) {
+            location.href = "/Login";
+        }
+
+        var dateEditor = function (cell, onRendered, success, cancel) {
+            //cell - the cell component for the editable cell
+            //onRendered - function to call when the editor has been rendered
+            //success - function to call to pass the successfuly updated value to Tabulator
+            //cancel - function to call to abort the edit and return to a normal cell
+
+            //create and style input
+            var cellValue = moment(cell.getValue(), "DD/MM/YYYY").format("YYYY-MM-DD"),
+                input = document.createElement("input");
+
+            input.setAttribute("type", "date");
+            input.style.padding = "4px";
+            input.style.width = "100%";
+            input.style.boxSizing = "border-box";
+            input.value = cellValue;
+            onRendered(function () {
+                input.focus();
+                input.style.height = "100%";
+            });
+
+            function onChange() {
+                if (input.value != cellValue) {
+                    success(moment(input.value, "YYYY-MM-DD").format("DD/MM/YYYY"));
+                } else {
+                    cancel();
+                }
+            }
+
+            //submit new value on blur or change
+            input.addEventListener("blur", onChange);
+
+            //submit new value on enter
+            input.addEventListener("keydown", function (e) {
+                if (e.keyCode == 13) {
+                    onChange();
+                }
+
+                if (e.keyCode == 27) {
+                    cancel();
+                }
+            });
+
+            return input;
+        };
+
+        tippy('#Undobutton', {
+            content: "Click to undo your edit",
+        });
+        tippy('#Redobutton', {
+            content: "Click to redo your edit",
+        });
+        tippy('#Savebutton', {
+            content: "Submit configuration updates to the server",
+        });
+        tippy('#Removebutton', {
+            content: "Permanently delete configurations from the server",
+        });
+
+        tippy('#Pdfbutton', {
+            content: "Download current configurations to PDF file",
+        });
+        tippy('#Csvbutton', {
+            content: "Download current configurations to CSV file",
+        });
+        tippy('#Jsonbutton', {
+            content: "Download current configurations to Json file",
+        });
+        tippy('#sendbutton', {
+            content: "Activate and send your configuration to the server",
+        });
+        tippy('#opener', {
+            content: "Click to confirm schedule selection",
+        });
+
+        var table = new Tabulator("#configTabular", {
+            height: "330px",
+            layout: "fitColumns",
+            placeholder: "No Data",
+            //pagination
+            pagination: "local",
+            paginationSize: 5,
+            paginationSizeSelector: [5, 10, 15, 20, true],
+            history: true,
+            // layout: "fitColumns",
+            //resizableRows: true,
+            // layout: "fitDataFill",
+            responsiveLayout: "collapse",
+            responsiveLayoutCollapseStartOpen: false,
+            resizableColumns: true,
+            //delete
+            selectable: true, //make rows selectable
+            rowDblClick: function (e, row) {
+                var data = row.getData(); //get data object for row
+                var sensormsge = "Schedule ID: " + data.Id + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Start Date:  " + data.StartDate + "<br/>"
+                    + "End Date:  " + data.EndDate + "<br/>" + "Start Time:  " + data.StartTime + "<br/>" + "End Time:  " + data.EndTime + "<br/>" + "Week Days: " + data.WeekDays + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                    " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h  <br/>" + "Power: " + data.PowerStatus + " <br/>";
+                document.getElementById("modalbodymsg").innerHTML = sensormsge;
+                document.getElementById("modaltitle").innerHTML = "Configuration Details";
+                document.getElementById("btnSave").innerHTML = "OK";
+                $('#myModal').modal('show');
+                $('#btnCancel').unbind().click(function () {
+                    document.getElementById("modaltitle").innerHTML = "";
+                    document.getElementById("modalbodymsg").innerHTML = "";
+                    $('#myModal').modal('hide');
+                });
+                $('#btnSave').unbind().click(function () {
+                    document.getElementById("modaltitle").innerHTML = "";
+                    document.getElementById("modalbodymsg").innerHTML = "";
+                    $('#myModal').modal('hide');
+                });
+            },
+            columns: [
+                { formatter: "responsiveCollapse", width: 30, minWidth: 30, hozAlign: "center", resizable: false, headerSort: false },
+                {
+                    formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", width: 40, headerSort: false, cellClick: function (e, cell) {
+                        cell.getRow().toggleSelect();
+                    }
+                },
+                { title: "Priority", field: "Priority", sorter: "string", width: 90, editor: "select", editorParams: { values: { "Temporary": "Temporary", "Daily": "Daily", "Holiday": "Holiday" } }, responsive: 0, validator: "required" },
+                {
+                    title: "StartDate", field: "StartDate", sorter: "date", width: 100, hozAlign: "center", editor: dateEditor, responsive: 0, validator: "required"
+                },
+                { title: "EndDate", field: "EndDate", hozAlign: "center", sorter: "string", width: 90, editor: dateEditor, responsive: 0, validator: "required" },
+                {
+                    title: "StartTime", field: "StartTime", hozAlign: "center", sorter: "string", width: 100, editor: true, responsive: 0, validator: "required"
+                },
+                {
+                    title: "EndTime", field: "EndTime", hozAlign: "center", sorter: "string", width: 90, editor: true, responsive: 0, validator: "required"
+                },
+                {
+                    title: "WeekDays", field: "WeekDays", hozAlign: "center", sorter: "string", width: 110, editor: "select", editorParams: {
+                        values: [
+                            {
+                                label: "Monday",
+                                value: "M",
+                            },
+                            {
+                                label: "Tuesday",
+                                value: "Tu",
+                            },
+                            {
+                                label: "Wednesday",
+                                value: "We",
+                            },
+                            {
+                                label: "Thursday",
+                                value: "Th",
+                            },
+                            {
+                                label: "Friday",
+                                value: "F",
+                            },
+                            {
+                                label: "Saturday",
+                                value: "Sa",
+                            },
+                            {
+                                label: "Sunday",
+                                value: "Su",
+                            },
+                        ],
+                        multiselect: true
+                    }, responsive: 0
+                },
+                { title: "Temperature", field: "Temperature", hozAlign: "center", sorter: "string", width: 120, editor: "select", editorParams: { values: { "16": "16", "17": "17", "18": "18", "19": "19", "20": "20", "21": "21", "22": "22", "23": "23", "24": "24", "25": "25", "26": "26", "27": "27", "28": "28", "29": "29", "30": "30" } }, responsive: 0, validator: "required" },
+                { title: "Fan", field: "FanSpeed", hozAlign: "center", sorter: "string", width: 80, editor: "select", editorParams: { values: { "SPEED_1": "Speed 1", "SPEED_2": "Speed 2", "SPEED_3": "Speed 3", "SPEED_4": "Speed 4", "SPEED_5": "Speed 5", "AUTO": "Auto", "SILENT": "Silent" } }, responsive: 0, validator: "required" },
+                { title: "Mode", field: "Mode", hozAlign: "center", sorter: "string", width: 80, editor: "select", editorParams: { values: { "AUTO": "Auto", "DRY": "Dry", "COOL": "Cool", "HEAT": "Heat", "FAN": "Fan Only" } }, responsive: 0, validator: "required" },
+                { title: "Power", field: "PowerStatus", hozAlign: "center", sorter: "string", width: 100, editor: "select", editorParams: { values: { "ON": "ON", "OFF": "OFF" } }, responsive: 0, validator: "required" },
+                { title: "Campus", field: "Campus", sorter: "string", width: 90, responsive: 2, download: true },
+                { title: "Building", field: "Building", sorter: "string", width: 90, responsive: 3, download: true },
+                { title: "Room", field: "Room", sorter: "string", width: 90, responsive: 4, download: true },
+                { title: "Created", field: "Timestamp", hozAlign: "center", width: 100, responsive: 5, download: true },
+                { title: "ResetTimer", field: "ResetTimer", hozAlign: "center", sorter: "string", width: 90, editor: true, responsive: 6, download: true },
+                { title: "Schedule ID", field: "Id", hozAlign: "center", width: 100, responsive: 7, download: true },
+            ],
+        });
+        //Add row on "Add Row" button click
+        $("#add-row").click(function () {
+            table.addRow({});
+        });
+        //Delete row on "Delete Row" button click
+        $("#Savebutton").unbind().click(function () {
+            var jsonstringdelete = JSON.stringify(table.getSelectedData());
+            console.log(table.getSelectedData());
+            $('#myModal').modal('show');
+            var selectedRows = table.getSelectedRows();
+            var sensormsge = ""
+            var datevalidation = "";
+            var hasError = false;
+            if (selectedRows.length == 0) {
+                w1 = "Please make selection to proceed";
+                sensormsge = w1.fontcolor("red");
+                hasError = true;
+            }
+            else {
+                for (var i = 0; i < selectedRows.length; i++) {
+                    var data = selectedRows[i].getData();
+                    var startdate = data.StartDate;
+                    var enddate = data.EndDate;
+                    var starttime = data.StartTime;
+                    var endtime = data.EndTime;
+                    var weekday = data.WeekDays;
+                    var dateMomentObjectS = moment(startdate, "DD/MM/YYYY"); // 1st argument - string, 2nd argument - format
+                    var dateObjectS = dateMomentObjectS.toDate();
+                    var dateMomentObjectE = moment(enddate, "DD/MM/YYYY"); // 1st argument - string, 2nd argument - format
+                    var dateObjectE = dateMomentObjectE.toDate();
+                    var todayObject = moment(new Date()).startOf('day');
+                    if (!dateMomentObjectS.isValid()) {
+                        warningofthis = "Error in [" + i + "] Start Date:  " + "\"" + dateObjectS + "\"  is INVALID" + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        startdate = startdate.fontcolor("red");
+                        hasError = true;
+                    }
+                    if (!dateMomentObjectE.isValid()) {
+                        warningofthis = "Error in [" + i + "] End Date:  " + "\"" + dateObjectE + "\" is INVALID" + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        enddate = enddate.fontcolor("red");
+                        hasError = true;
+                    }
+                    if (dateMomentObjectS < todayObject) {
+                        warningofthis = "Error in [" + i + "] Start Date: " + startdate + " CANNOT be earlier than Today: " + todayObject.format("DD/MM/YYYY") + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        startdate = startdate.fontcolor("red");
+                        hasError = true;
+                    }
+                    if (dateObjectE < dateObjectS) {
+                        warningofthis = "Error in [" + i + "] End Date: " + enddate + " CANNOT be earlier than Start Date: " + startdate + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        enddate = enddate.fontcolor("red");
+                        startdate = startdate.fontcolor("red");
+                        hasError = true;
+                    }
+
+                    if (!weekday || weekday.length == 0) {
+                        warningofthis = "Error in [" + i + "] WeekDay: CANNOT be empty <br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        hasError = true;
+                    }
+
+                    let stime = starttime.toUpperCase();
+                    let etime = endtime.toUpperCase();
+
+                    var timeofstart = moment(stime, 'HH:mm a');
+                    var timeofend = moment(etime, 'HH:mm a');
+
+                    if (!(stime.includes("AM") || stime.includes("PM"))) {
+                        hasError = true;
+                        var w3 = "Error in [" + i + "]" + " Start Time MUST has AM or PM: " + stime + " <br/>";
+                        starttime = starttime.fontcolor("red");
+                        datevalidation += w3.fontcolor("red");
+                    }
+                    if (!(etime.includes("AM") || etime.includes("PM"))) {
+                        hasError = true;
+                        var w3 = "Error in [" + i + "]" + " End Time MUST have AM or PM: " + etime + " <br/>";
+                        endtime = endtime.fontcolor("red");
+                        datevalidation += w3.fontcolor("red");
+                    }
+                    if (!timeofstart.isValid()) {
+                        warningofthis = "Error in [" + i + "] Start Time:  " + "\"" + starttime + "\" is INVALID" + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        starttime = starttime.fontcolor("red");
+                        hasError = true;
+                    }
+                    if (!timeofend.isValid()) {
+                        warningofthis = "Error in [" + i + "] End Time:  " + "\"" + endtime + "\" is INVALID" + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        endtime = endtime.fontcolor("red");
+                        hasError = true;
+                    }
+                    if (timeofstart >= timeofend) {
+                        warningofthis = "Error in [" + i + "] End Time: " + endtime + " MUST be later than Start Time: " + starttime + "<br/>";
+                        datevalidation += warningofthis.fontcolor("red");
+                        starttime = starttime.fontcolor("red");
+                        endtime = endtime.fontcolor("red");
+                        hasError = true;
+                    }
+                    sensormsge = sensormsge + "[" + i + "] " + "Schedule ID: " + data.Id + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Start Date:  " + startdate + "<br/>"
+                        + "End Date:  " + enddate + "<br/>" + "Start Time:  " + starttime + "<br/>" + "End Time:  " + endtime + "<br/>" + "Week Days: " + data.WeekDays + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                        " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h  <br/>" + "Power: " + data.PowerStatus + " <br/> <br/>";
+                }
+                if (hasError) {
+                    sensormsge = "Please correct input: <br/>" + datevalidation.fontcolor("red") + "<br/>" + sensormsge;
+                }
+                else {
+                    var w2 = " WARNING! <br/> You are UPDATING the following configurations.<br/> Please CONFIRM to proceed. <br/>";
+                    sensormsge = w2.fontcolor("red") + sensormsge;
+                }
+            }
+            var jsonstringdelete = JSON.stringify(table.getSelectedData());
+            document.getElementById("modaltitle").innerHTML = "Update Configuration";
+            document.getElementById("btnSave").innerHTML = "Confirm";
+            if (hasError)
+                document.getElementById("btnSave").innerHTML = "Abandon";
+            document.getElementById("modalbodymsg").innerHTML = sensormsge;
+            $('#btnCancel').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+            });
+            $('#btnSave').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+                if (!hasError) {
+                    $.post(`/TopicManager/OperateConfigureTable`,
+                        {
+                            jasondata: jsonstringdelete,
+                            isDelete: false
+                        });
+                    alert("Update Configuration Successfully ");
+                }
+            });
+        });
+        //Clear table on "Empty the table" button click
+        $("#Undobutton").click(function () {
+            var meg = document.getElementById('Undobutton');
+            meg.innerHTML = "UNDO EDIT";
+            table.undo();
+            var undoCount = table.getHistoryUndoSize();
+            meg.innerHTML = "UNDO LEFT " + undoCount;
+            if (undoCount == 0)
+                meg.innerHTML = "UNDO EDIT";
+        });
+        $("#Redobutton").click(function () {
+            table.redo();
+            var meg = document.getElementById('Redobutton');
+            meg.innerHTML = "REDO EDIT";
+            var redoCount = table.getHistoryRedoSize();
+            meg.innerHTML = "REDO LEFT " + redoCount;
+            if (redoCount == 0)
+                meg.innerHTML = "REDO EDIT";
+        });
+
+        $("#Removebutton").unbind().click(function () {
+            var jsonstringdelete = JSON.stringify(table.getSelectedData());
+            $('#myModal').modal('show');
+            var selectedRows = table.getSelectedRows();
+            var sensormsge = ""
+            if (selectedRows.length == 0)
+                sensormsge = "Please make selection to proceed";
+            else {
+                warning = " WARNING! <br/> You are DELETING the following configurations.<br/> Please CONFIRM to proceed. <br/>";
+                sensormsge = warning.fontcolor("red");
+            }
+            for (var i = 0; i < selectedRows.length; i++) {
+                var data = selectedRows[i].getData();
+                var sensormsge = sensormsge + "Schedule ID: " + data.Id + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Start Date:  " + data.StartDate + "<br/>"
+                    + "End Date:  " + data.EndDate + "<br/>" + "Start Time:  " + data.StartTime + "<br/>" + "End Time:  " + data.EndTime + "<br/>" + "Week Days: " + data.WeekDays + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                    " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h  <br/>" + "Power: " + data.PowerStatus + " <br/>";
+            }
+            document.getElementById("modaltitle").innerHTML = "Delete Configuration";
+            document.getElementById("modalbodymsg").innerHTML = sensormsge;
+            $('#btnCancel').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+            });
+            $('#btnSave').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+                if (sensormsge != "Please make selection to proceed") {
+                    $.post(`/TopicManager/OperateConfigureTable`,
+                        {
+                            jasondata: jsonstringdelete,
+                            isDelete: true
+                        });
+                    for (var i = 0; i < selectedRows.length; i++) {
+                        var data = selectedRows[i].getData();
+                        selectedRows[i].delete();
+                    }
+                    alert("Delete Configuration Successfully");
+                }
+            });
+
+            /*  var selectedRows = table.getSelectedRows();
+              var sensormsge = " WARNING! <br/> You are DELETING the configuration changes to server. <br/> Please CONFIRM or CANCEL <br/> <br/> <br/>";
+              for (var i = 0; i < selectedRows.length; i++) {
+                  var data = selectedRows[i].getData();
+                  var sensormsge = sensormsge + "Schedule ID: " + data.Id + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Start Date:  " + data.StartDate + "<br/>"
+                      + "End Date:  " + data.EndDate + "<br/>" + "Start Time:  " + data.StartTime + "<br/>" + "End Time:  " + data.EndTime + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                      " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h  <br/> <br/>";
+              }
+              $('#myModal').modal('show');
+              document.getElementById("modaltitle").innerHTML = "Delete Configuration";
+              document.getElementById("modalbodymsg").innerHTML = sensormsge;
+              $('#btnCancel').click(function () {
+                  $('#myModal').modal('hide');
+                  document.getElementById("modaltitle").innerHTML = "";
+                  document.getElementById("modalbodymsg").innerHTML = "";
+              });
+              $('#btnSave').click(function (data) {
+                  var jsonstringdelete = JSON.stringify(table.getSelectedData());
+                  $.post(`/TopicManager/OperateConfigureTable`,
+                      {
+                          jasondata: jsonstringdelete,
+                          isDelete: true
+                      });
+                  console.log("will send this to delete!");
+                  console.log(jsonstringdelete);
+                  document.getElementById("modaltitle").innerHTML = "";
+                  document.getElementById("modalbodymsg").innerHTML = "";
+                  $('#myModal').modal('hide');
+                  for (var i = 0; i < selectedRows.length; i++) {
+                      var data = selectedRows[i].getData();
+                      selectedRows[i].delete();
+                  }
+              });
+              // alert("WARNING! You are trying to delete data. Please click OK to confirm \n\n\n\n" + jsonstring + "\n");
+                var data = row.getData();
+              var selectedRows = table.getSelectedRows();
+              for (var i = 0; i < selectedRows.length + 1; i++) {
+                  console.log(selectedRows.length, i);
+                  var data = selectedRows[i].getData();
+                  var thisID = data.Id;
+                  var warningtitle = " WARNING! <br/> You are DELETING the configuration changes to server. <br/> Please CONFIRM or CANCEL <br/> <br/> <br/>";
+                  var sensormsge = warningtitle + "Schedule ID: " + thisID + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Start Date:  " + data.StartDate + "<br/>"
+                      + "End Date:  " + data.EndDate + "<br/>" + "Start Time:  " + data.StartTime + "<br/>" + "End Time:  " + data.EndTime + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                      " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h <br/> JSON <br/>";
+                  var thisconfigJson = "[" + JSON.stringify(data) + "]";
+                  document.getElementById("modalbodymsg").innerHTML = sensormsge;
+                  $('#myModal').modal('show');
+                  $('#btnCancel').click(function () {
+                      $('#myModal').modal('hide');
+                      document.getElementById("modalbodymsg").innerHTML = "";
+                  });
+                  var thisrow = selectedRows[i];
+                  var confirmdeleted = false;
+                  $('#btnSave').click(function (data) {
+                      $.post(`/TopicManager/OperateConfigureTable`,
+                          {
+                              jasondata: thisconfigJson,
+                              isDelete: true
+                          });
+                      document.getElementById("modalbodymsg").innerHTML = "";
+                      $('#myModal').modal('hide');
+                      thisrow.delete();
+                  });
+              }*/
+        });
+
+        $("#Jsonbutton").click(function () {
+            table.download("json", "AirConConfig.json", {
+                orientation: "portrait", //set page orientation to portrait
+                title: "La Trobe University AirCon Configuration Report", //add title to report
+            });
+        });
+        $("#Pdfbutton").click(function () {
+            table.download("pdf", "AirConConfig.pdf", {
+                orientation: "landscape", //set page orientation to portrait
+                title: "La Trobe University AirCon Configuration Report", //add title to report
+                autoTable: { //advanced table styling
+                    styles: {
+                        fillColor: [239, 154, 154],
+                        fontSize: 6
+                    },
+                    columnStyles: {
+                        id: { fillColor: 255 }
+                    },
+                    margin: { top: 60 },
+                }
+            });
+        })
+
+        $("#Csvbutton").click(function () {
+            table.download("csv", "AirConConfig.csv", {
+                orientation: "portrait", //set page orientation to portrait
+                title: "La Trobe University AirCon Configuration Report", //add title to report
+            });
+        });
+
+        //Reset table contents on "Reset the table" button click
+        $("#reset").click(function () {
+            table.setData(tabledata);
+        });
+        function checkDeleteID() {
+            var checkbox = document.getElementById('checkremovesensorid');
+            if (checkbox.checked == true) {
+                alert("Warning: You are removing current sensor ID ");
+                document.getElementById('sensoridvalue').value = "UNASSIGNED";
+            }
+        }
+    </script>
+    <script>
+        var sensortable = new Tabulator("#sensorTabular", {
+            height: "300px",
+            layout: "fitColumns",
+            placeholder: "No Data",
+            //pagination
+            pagination: "local",
+            paginationSize: 5,
+            paginationSizeSelector: [5, 10, 15, 20, true],
+            history: true,
+            resizableColumns: true,
+            //delete
+            selectable: true, //make rows selectable
+            columns: [
+                {
+                    formatter: "rowSelection", titleFormatter: "rowSelection", hozAlign: "center", width: 40, headerSort: false, cellClick: function (e, cell) {
+                        cell.getRow().toggleSelect();
+                    }
+                },
+                { title: "Campus", field: "campus", hozAlign: "center", sorter: "string", width: 100, validator: "required" },
+                {
+                  title: "Building", field: "building", hozAlign: "center", sorter: "string", width: 100, validator: "required"
+                },
+                { title: "Room", field: "room", hozAlign: "center", sorter: "string", width: 100, editor: true, validator: "required" },
+
+                { title: "Vendor", field: "vendor", hozAlign: "center", sorter: "string", width: 90, editor: "select", editorParams: { values: { "MITSUBISHI": "MITSUBISHI", "PANASONIC": "PANASONIC", "DAIKIN": "DAIKIN", "DAIKIN_OLD": "DAIKIN_OLD", "TOSHIBA": "TOSHIBA", "FUJITSU": "FUJITSU" } }, validator: "required" },
+                {
+                  title: "Sensor ID", field: "sensorid", hozAlign: "center", sorter: "string", width: 140, editor: true,
+                },
+                { title: "WakeUp Timer (min)", field: "wakeuptimer", hozAlign: "center", sorter: "string", width: 170, editor: "select", editorParams: { values: { "1": "1", "5": "5", "15": "15", "30": "30", "60": "60", "120": "120", "240": "240" } }, validator: "required" },
+                { title: "Reference Index", field: "id", sorter: "string", width: 200, validator: "required" }
+            ]
+        });
+        //Clear table on "Empty the table" button click
+        $("#Undobuttonaddsensor").click(function () {
+            var meg = document.getElementById('Undobuttonaddsensor');
+            meg.innerHTML = "UNDO EDIT";
+            sensortable.undo();
+            var undoCount = sensortable.getHistoryUndoSize();
+            meg.innerHTML = "UNDO LEFT " + undoCount;
+            if (undoCount == 0)
+                meg.innerHTML = "UNDO EDIT";
+        });
+        $("#Redobuttonaddsensor").click(function () {
+            sensortable.redo();
+            var meg = document.getElementById('Redobuttonaddsensor');
+            meg.innerHTML = "REDO EDIT";
+            var redoCount = sensortable.getHistoryRedoSize();
+            meg.innerHTML = "REDO LEFT " + redoCount;
+            if (redoCount == 0)
+                meg.innerHTML = "REDO EDIT";
+        });
+        $("#Jsonbuttonaddsensor").click(function () {
+            sensortable.download("json", "AirConConfig.json", {
+                orientation: "portrait", //set page orientation to portrait
+                title: "La Trobe University Smart AirCon Sensor Updating Log", //add title to report
+            });
+        });
+        $("#Pdfbuttonaddsensor").click(function () {
+            sensortable.download("pdf", "AirConConfig.pdf", {
+                orientation: "landscape", //set page orientation to portrait
+                title: "La Trobe University Smart AirCon Sensor Updating Log", //add title to report
+                autoTable: { //advanced table styling
+                    styles: {
+                        fillColor: [239, 154, 154],
+                        fontSize: 6
+                    },
+                    columnStyles: {
+                        id: { fillColor: 255 }
+                    },
+                    margin: { top: 60 },
+                }
+            });
+        })
+        $("#Csvbuttonaddsensor").click(function () {
+            sensortable.download("csv", "AirConConfig.csv", {
+                orientation: "portrait", //set page orientation to portrait
+                title: "La Trobe University Smart AirCon Sensor Updating Log", //add title to report
+            });
+        });
+        //Delete row on "Delete Row" button click
+        $("#plusbutton").unbind().click(function () {
+            var jsonstringdelete = JSON.stringify(sensortable.getSelectedData());
+            console.log(jsonstringdelete);
+            var room_items = $("#SensorRoomSelect").val();
+            var campus_items = $("#SensorSelect").val();
+            var building_items = $("#SensorBuildingSelect").val();
+            if (!room_items || room_items.length == 0 || !building_items || building_items.length == 0 || !building_items || building_items.length == 0) {
+                $("#AddSensor").dialog("open");
+                $('#AddSensor').dialog("option", "title", "Error!");
+                document.getElementById("AddSensor").innerHTML = "Please select Campus, Building, and Room before adding a sensor!";
+            }
+            else {
+                var hash = {};
+                hash['id'] = "NEWENTRY";
+                hash['campus'] = campus_items;
+                hash['building'] = building_items;
+                hash['room'] = room_items;
+                hash['sensorid'] = "UNASSIGNED";
+                hash['vendor'] = "DAIKIN";
+                hash['wakeuptimer'] = "60";
+                hash['number'] = "10";
+                $("#AddSensor").dialog("open");
+                $('#AddSensor').dialog("option", "title", "Warning!");
+                document.getElementById("AddSensor").innerHTML = "A new sensor entry is added. <br/> <br/> Please input Vendor & Sensor Id, and click UPDATE button";
+                sensortable.addRow(hash);
+            }
+        });
+        async function CheckSensoridDuplication(entryid, sensoridtocheck) {
+            var res = await $.get('/TopicManager/GetAddSensorJson');
+            let foundsame = "NO";
+            result = JSON.parse(res);
+            for (var i = 0; i < result.length; i++) {
+                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                    for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                        for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
+                            var sensor = result[i].buildinglist[j].roomlist[k].sensorlist[x];
+                            var id = sensor.id;
+                            var sensorid = sensor.sensorid;
+                            var campus = sensor.campus;
+                            var building = sensor.building;
+                            var room = sensor.room;
+                            if (sensoridtocheck != "UNASSIGNED" && sensorid != "UNASSIGNED") {
+                                if (sensoridtocheck == sensorid) {
+                                    if ((entryid == "NEWENTRY") || ((entryid != "NEWENTRY") && (entryid != id))) {
+                                        foundsame = "Ref. [" + entryid + "] <br/> " + " Duplicated Sensor ID [" + sensoridtocheck + "] is found in Ref. [" + id + "]"
+                                            + "<br/> Campus: " + campus  
+                                            + "<br/> Building: " + building  
+                                            + "<br/> Room: " + room  
+                                            + "<br/> <br/> Please re-assign distinct Sensor ID !<br/> <br/>";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (foundsame != "NO") {
+                    console.log("findme duplicated", foundsame);
+                }
+            }
+            return await foundsame;
+        }
+
+        /*  async function CheckSensoridDuplication(entryid, sensoridtocheck) {
+
+              let res = await $.get('/TopicManager/GetAddSensorJson');
+              let foundsame = "NO";
+                  result = JSON.parse(res);
+                  console.log("result",result);
+                  for (var i = 0; i < result.length; i++) {
+                      for (var j = 0; j < result[i].buildinglist.length; j++) {
+                          for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                              for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
+                                  var sensor = result[i].buildinglist[j].roomlist[k].sensorlist[x];
+                                  var id = sensor.id;
+                                  var sensorid = sensor.sensorid;
+                                  var campus = sensor.campus;
+                                  var building = sensor.building;
+                                  var room = sensor.room;
+                                  if (sensoridtocheck != "UNASSIGNED" && sensorid != "UNASSIGNED") {
+                                      console.log("CHECK ID", sensoridtocheck, sensorid);
+                                      if (sensoridtocheck == sensorid) {
+                                          if (entryid == "NEWENTRY") {
+                                              foundsame = " Duplicated Sensor ID: [" + sensoridtocheck + "] is found in " + campus + " " + building + " " + room + "<br />" + " Please re-assign <br/> <br/>";
+                                          }
+                                          if (entryid != "NEWENTRY") {
+                                              if (entryid != id) {
+                                                   {
+                                                      foundsame = " Duplicated Sensor ID: [" + sensoridtocheck + "] is found in " + campus + " " + building + " " + room + "<br />" + " Please re-assign <br/> <br/>";
+                                                  }
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+              }
+              return   Promise.resolve(foundsame)
+
+          }*/
+
+        $("#Savebuttonaddsensor").unbind().click(async function () {
+            var jsonstringdelete = JSON.stringify(sensortable.getSelectedData());
+            console.log(jsonstringdelete);
+            $('#myModal').modal('show');
+            var duplicationmesg = "";
+            var alertmessage = "";
+            var result;
+
+            var selectedRows = sensortable.getSelectedRows();
+            var sensormsge = "";
+            var datavalidation = "";
+            var hasError = false;
+            if (selectedRows.length == 0) {
+                w1 = "Please make selection to proceed";
+                sensormsge = w1.fontcolor("red");
+                hasError = true;
+            }
+            else {
+                for (var i = 0; i < selectedRows.length; i++) {
+                    var data = selectedRows[i].getData();
+                    var id = data.id;
+                    var sensorid = data.sensorid;
+                    var campus = data.campus;
+                    var building = data.building;
+                    var room = data.room;
+                    var vendor = data.vendor;
+                    var wakeuptimer = data.wakeuptimer;
+                    if (!vendor || vendor.length == 0 || vendor == "UNASSIGNED") {
+                        datavalidation += "ID [" + id + "] Please input AirCon Model " + "<br/>";
+                        hasError = true;
+                    }
+                    if (!sensorid || sensorid.length == 0) {
+                        datavalidation += "ID [" + id + "] Sensor ID CANNOT be empty. Please input UNASSIGNED if you wish to remove this sensor" + "<br/>";
+                        hasError = true;
+                    }
+                    if (!wakeuptimer || wakeuptimer.length == 0 || wakeuptimer == "UNASSIGNED") {
+                        datavalidation += "ID [" + id + "] Please input Wake Up Timer in Mins " + "<br/>";
+                        hasError = true;
+                    }
+                    var duplicate = await CheckSensoridDuplication(id, sensorid);
+                    if (duplicate != "NO") {
+                        datavalidation += duplicate + "<br />";
+                        hasError = true;
+                    }
+
+                    sensormsge += "Ref.: " + id + "<br/>" + "Campus:  " + campus + "<br/>" + "Building:  " + building + "<br/>" + "Room:  " + room + "<br/>" + "Vendor:  " + vendor + "<br/>" + "SensorID:  " + sensorid + "<br/>" + "WakeUp Timer:  " + wakeuptimer + "<br/><br/>";
+                }
+                if (hasError) {
+                    sensormsge = "WARNING! Please correct input: <br/>" + datavalidation.fontcolor("red") + "<br/>" + sensormsge;
+                }
+                else {
+                    var w2 = " WARNING! <br/> You are UPDATING the following configurations.<br/> Please CONFIRM to proceed. <br/> <br/>";
+                    sensormsge = w2.fontcolor("red") + sensormsge;
+                }
+            }
+            var jsonstringdelete = JSON.stringify(table.getSelectedData());
+            document.getElementById("modaltitle").innerHTML = "Update Configuration";
+            var saveofbutton = document.getElementById("btnSave");
+            var cancelofbutton = document.getElementById("btnCancel");
+            saveofbutton.innerHTML = "Confirm";
+
+            if (hasError) {
+                saveofbutton.innerHTML = "Cancel";
+                cancelofbutton.style.display = "none";
+            }
+            else {
+                cancelofbutton.style.display = "block";
+            }
+            document.getElementById("modalbodymsg").innerHTML = sensormsge;
+            $('#btnCancel').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+            });
+            $('#btnSave').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+                if (!hasError) {
+                    for (var i = 0; i < selectedRows.length; i++) {
+                        var data = selectedRows[i].getData();
+                        var delid = data.id;
+                        var delcampus = data.campus;
+                        var delbuilding = data.building;
+                        var delroom = data.room;
+                        var delsensorid = data.sensorid;
+                        var delvendor = data.vendor;
+                        var delwakeuptimer = data.wakeuptimer;
+                        $.post(`/TopicManager/UpdateSensorID`,
+                            {
+                                id: delid,
+                                sensorid: delsensorid,
+                                vendor: delvendor,
+                                campus: delcampus,
+                                building: delbuilding,
+                                room: delroom,
+                                wakeuptimer: delwakeuptimer,
+                                isDelete: false
+                            }
+                        );
+                    }
+                    console.log("no error update sensor in DB");
+                    $("#AddSensor").dialog("open");
+                    $('#AddSensor').dialog("option", "title", "Success");
+                    document.getElementById("AddSensor").innerHTML = "Sensor Configuration Updated ";
+                }
+            });
+        });
+
+        $("#Removebuttonaddsensor").unbind().click(function () {
+            var jsonstringdelete = JSON.stringify(sensortable.getSelectedData());
+            $('#myModal').modal('show');
+            var selectedRows = sensortable.getSelectedRows();
+            var sensormsge = ""
+            console.log(selectedRows);
+            if (selectedRows.length == 0)
+                sensormsge = "Please make selection to proceed";
+            else {
+                warning = " WARNING! <br/> You are DELETING the following configurations.<br/> Please CONFIRM to proceed. <br/><br/>";
+                sensormsge = warning.fontcolor("red");
+            }
+            for (var i = 0; i < selectedRows.length; i++) {
+                var data = selectedRows[i].getData();
+                var id = data.id;
+                var campus = data.campus;
+                var building = data.building;
+                var room = data.room;
+                var sensorid = data.sensorid;
+                var vendor = data.vendor;
+                var wakeuptimer = data.wakeuptimer;
+                sensormsge += "ID: " + id + "<br/>" + "Campus:  " + campus + "<br/>" + "Building:  " + building + "<br/>" + "Room:  " + room + "<br/>" + "Vendor:  " + vendor + "<br/>" + "SensorID:  " + sensorid + "<br/>" + "WakeUp Timer:  " + wakeuptimer + "<br/><br/>";
+            }
+            document.getElementById("modaltitle").innerHTML = "Delete Configuration";
+            document.getElementById("modalbodymsg").innerHTML = sensormsge;
+            document.getElementById("btnSave").innerHTML = "Confirm";
+            document.getElementById("btnCancel").innerHTML = "Cancel";;
+
+            $('#btnCancel').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+            });
+            $('#btnSave').unbind().click(function () {
+                document.getElementById("modaltitle").innerHTML = "";
+                document.getElementById("modalbodymsg").innerHTML = "";
+                $('#myModal').modal('hide');
+                if (sensormsge != "Please make selection to proceed") {
+
+                    for (var i = 0; i < selectedRows.length; i++) {
+                        var data = selectedRows[i].getData();
+                        var delid = data.id;
+                        var delcampus = data.campus;
+                        var delbuilding = data.building;
+                        var delroom = data.room;
+                        var delsensorid = "UNASSIGNED";
+                        var delvendor = data.vendor;
+                        var delwakeuptimer = data.wakeuptimer;
+
+                        $.post(`/TopicManager/UpdateSensorID`,
+                            {
+                                id: delid,
+                                sensorid: delsensorid,
+                                vendor: delvendor,
+                                campus: delcampus,
+                                building: delbuilding,
+                                room: delroom,
+                                wakeuptimer: delwakeuptimer,
+                                isDelete: true
+                            }
+                        );
+                    }
+
+                    for (var i = 0; i < selectedRows.length; i++) {
+                        var data = selectedRows[i].getData();
+                        selectedRows[i].delete();
+                    }
+                    $("#AddSensor").dialog("open");
+                    $('#AddSensor').dialog("option", "title", "Success");
+                    document.getElementById("AddSensor").innerHTML = "Sensor Configuration Deleted ";
+                }
+            });
+            /*  var selectedRows = table.getSelectedRows();
+              var sensormsge = " WARNING! <br/> You are DELETING the configuration changes to server. <br/> Please CONFIRM or CANCEL <br/> <br/> <br/>";
+              for (var i = 0; i < selectedRows.length; i++) {
+                  var data = selectedRows[i].getData();
+                  var sensormsge = sensormsge + "Schedule ID: " + data.Id + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Start Date:  " + data.StartDate + "<br/>"
+                      + "End Date:  " + data.EndDate + "<br/>" + "Start Time:  " + data.StartTime + "<br/>" + "End Time:  " + data.EndTime + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                      " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h  <br/> <br/>";
+              }
+              $('#myModal').modal('show');
+              document.getElementById("modaltitle").innerHTML = "Delete Configuration";
+              document.getElementById("modalbodymsg").innerHTML = sensormsge;
+              $('#btnCancel').click(function () {
+                  $('#myModal').modal('hide');
+                  document.getElementById("modaltitle").innerHTML = "";
+                  document.getElementById("modalbodymsg").innerHTML = "";
+              });
+              $('#btnSave').click(function (data) {
+                  var jsonstringdelete = JSON.stringify(table.getSelectedData());
+                  $.post(`/TopicManager/OperateConfigureTable`,
+                      {
+                          jasondata: jsonstringdelete,
+                          isDelete: true
+                      });
+                  console.log("will send this to delete!");
+                  console.log(jsonstringdelete);
+                  document.getElementById("modaltitle").innerHTML = "";
+                  document.getElementById("modalbodymsg").innerHTML = "";
+                  $('#myModal').modal('hide');
+                  for (var i = 0; i < selectedRows.length; i++) {
+                      var data = selectedRows[i].getData();
+                      selectedRows[i].delete();
+                  }
+              });
+              // alert("WARNING! You are trying to delete data. Please click OK to confirm \n\n\n\n" + jsonstring + "\n");
+                var data = row.getData();
+              var selectedRows = table.getSelectedRows();
+              for (var i = 0; i < selectedRows.length + 1; i++) {
+                  console.log(selectedRows.length, i);
+                  var data = selectedRows[i].getData();
+                  var thisID = data.Id;
+                  var warningtitle = " WARNING! <br/> You are DELETING the configuration changes to server. <br/> Please CONFIRM or CANCEL <br/> <br/> <br/>";
+                  var sensormsge = warningtitle + "Schedule ID: " + thisID + "<br/>" + "Campus:  " + data.Campus + "<br/>" + "Building:  " + data.Building + "<br/>" + "Room:  " + data.Room + "<br/>" + "Start Date:  " + data.StartDate + "<br/>"
+                      + "End Date:  " + data.EndDate + "<br/>" + "Start Time:  " + data.StartTime + "<br/>" + "End Time:  " + data.EndTime + "<br/>" + "Priority:  " + data.Priority + "<br/>" + "Created:  " + data.Timestamp + "<br/>" +
+                      " Temperature:  " + data.Temperature + " °C <br/> " + "Fan Speed:  " + data.FanSpeed + "<br/>" + "Mode:  " + data.Mode + "<br/>" + "Reset Timer: " + data.ResetTimer + "h <br/> JSON <br/>";
+                  var thisconfigJson = "[" + JSON.stringify(data) + "]";
+                  document.getElementById("modalbodymsg").innerHTML = sensormsge;
+                  $('#myModal').modal('show');
+                  $('#btnCancel').click(function () {
+                      $('#myModal').modal('hide');
+                      document.getElementById("modalbodymsg").innerHTML = "";
+                  });
+                  var thisrow = selectedRows[i];
+                  var confirmdeleted = false;
+                  $('#btnSave').click(function (data) {
+                      $.post(`/TopicManager/OperateConfigureTable`,
+                          {
+                              jasondata: thisconfigJson,
+                              isDelete: true
+                          });
+                      document.getElementById("modalbodymsg").innerHTML = "";
+                      $('#myModal').modal('hide');
+                      thisrow.delete();
+                  });
+              }*/
+        });
+    </script>
+    <script>
+          if (document.cookie == null && document.cookie == '') {
+            window.location.href = './Login'
+        }
+
+        /*
+        $('#submit').click(function () {
+            var selected_items = $("#weekdaysSelectedValues").selectedIndexes();
+            //console.log(selected_items);
+            for (var i = 0; i < selected_items.length; i++) {
+                console.log(selected_items[i]);
+            }
+            var fromvalue = document.getElementById('from').value;
+            var tovalue = document.getElementById('to').value;
+            var sTimeValue = document.getElementById('sTime').value;
+            var eTimeValue = document.getElementById('eTime').value;
+            console.log(fromvalue, tovalue, sTimeValue, eTimeValue);
+        });*/
+        $(function () {
+            $("#AddHoliday").dialog({
+                autoOpen: false,
+                buttons: [
+                    {
+                        text: "OK",
+                        //icon: "ui-icon-arrowreturn-1-e",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                        // Uncommenting the following line would hide the text,
+                        // resulting in the label being used as a tooltip
+                        //showText: false
+                    }
+                ]
+            });
+            $("#AddHolidayButton").click(function () {
+                $("#AddHoliday").dialog("open");
+                var holidayfromvalue = document.getElementById('holidayfrom').value;
+                var holidaytovalue = document.getElementById('holidayto').value;
+                var dateperiod = 'University Holiday: ' + holidayfromvalue + ' - ' + holidaytovalue;
+                // logstring = logstring.replace(/(?:\r\n|\r|\n)/g, "<br>");
+                document.getElementById("AddHoliday").innerHTML = dateperiod;
+                $("#HolidaySelect").append(`<option value="${dateperiod}">${dateperiod}</option>`);
+            });
+        });
+
+        function relocate_home() {
+            $("#SensorSelect").empty();
+            $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                let result = JSON.parse(res)
+                var CSV = '';
+                CSV += "ID,Campus, Building, Room, Vendor, SensorID, No., Wakeuptimer" + '\r\n\n'
+                console.log(result);
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    for (var j = 0; j < result[i].buildinglist.length; j++) {
+                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                            var row = "";
+                            //$("#SensorSelect").append(`<option value="${result[i].buildinglist[j].roomlist[k].id}##${result[i].buildinglist[j].roomlist[k].name}##${result[i].buildinglist[j].roomlist[k].sensorid}##${result[i].buildinglist[j].roomlist[k].vendor}">Campus: ${result[i].name}    Building: ${result[i].buildinglist[j].name}    Room: ${result[i].buildinglist[j].roomlist[k].name}  SensorID:  ${result[i].buildinglist[j].roomlist[k].sensorid} Model:  ${result[i].buildinglist[j].roomlist[k].vendor}</option>`);
+                            for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
+                                var thisid = result[i].buildinglist[j].roomlist[k].sensorlist[x].id;
+                                var thisvendor = result[i].buildinglist[j].roomlist[k].sensorlist[x].vendor;
+                                var thissensorid = result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid;
+                                var thisroom = result[i].buildinglist[j].roomlist[k].sensorlist[x].room;
+                                var thiscampus = result[i].buildinglist[j].roomlist[k].sensorlist[x].campus;
+                                var thisbuilding = result[i].buildinglist[j].roomlist[k].sensorlist[x].building;
+                                var thisnumber = result[i].buildinglist[j].roomlist[k].sensorlist[x].number;
+                                var thiswakeuptimer = result[i].buildinglist[j].roomlist[k].sensorlist[x].wakeuptimer;
+                                row = thisid + "," + thiscampus + "," + thisbuilding + "," + thisroom + "," + thisvendor + "," + thissensorid + "," + thisnumber + "," + thiswakeuptimer;
+                                CSV += row + '\r\n';
+                            }
+                        }
+                    }
+                }
+                var fileName = "AirCon Full Database Report";
+                //this will remove the blank-spaces from the title and replace it with an underscore
+
+                //Initialize file format you want csv or xls
+                var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+                // Now the little tricky part.
+                // you can use either>> window.open(uri);
+                // but this will not work in some browsers
+                // or you will not get the correct file extension
+                //this trick will generate a temp <a /> tag
+                var link = document.createElement("a");
+                link.href = uri;
+                //set the visibility hidden so it will not effect on your web-layout
+                link.style = "visibility:hidden";
+                link.download = fileName + ".csv";
+                //this part will append the anchor tag and remove it after automatic click
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+        }
+
+        function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
+            //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+            var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+
+            var CSV = '';
+            //Set Report title in first row or line
+
+            CSV += ReportTitle + '\r\n\n';
+
+            //This condition will generate the Label/Header
+            if (ShowLabel) {
+                var row = "";
+
+                //This loop will extract the label from 1st index of on array
+                for (var index in arrData[0]) {
+
+                    //Now convert each value to string and comma-seprated
+                    row += index + ',';
+                }
+
+                row = row.slice(0, -1);
+
+                //append Label row with line break
+                CSV += row + '\r\n';
+            }
+
+            //1st loop is to extract each row
+            for (var i = 0; i < arrData.length; i++) {
+                var row = "";
+
+                //2nd loop will extract each column and convert it in string comma-seprated
+                for (var index in arrData[i]) {
+                    row += '"' + arrData[i][index] + '",';
+                }
+
+                row.slice(0, row.length - 1);
+
+                //add a line break after each row
+                CSV += row + '\r\n';
+            }
+
+            if (CSV == '') {
+                alert("Invalid data");
+                return;
+            }
+
+            //Generate a file name
+            var fileName = "MyReport_";
+            //this will remove the blank-spaces from the title and replace it with an underscore
+            fileName += ReportTitle.replace(/ /g, "_");
+
+            //Initialize file format you want csv or xls
+            var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+            // Now the little tricky part.
+            // you can use either>> window.open(uri);
+            // but this will not work in some browsers
+            // or you will not get the correct file extension
+
+            //this trick will generate a temp <a /> tag
+            var link = document.createElement("a");
+            link.href = uri;
+
+            //set the visibility hidden so it will not effect on your web-layout
+            link.style = "visibility:hidden";
+            link.download = fileName + ".csv";
+
+            //this part will append the anchor tag and remove it after automatic click
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+        $(function () {
+            $("#AddSensor").dialog({
+                autoOpen: false,
+
+                buttons: [
+                    {
+                        text: "OK",
+                        //icon: "ui-icon-arrowreturn-1-e",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                        // Uncommenting the following line would hide the text,
+                        // resulting in the label being used as a tooltip
+                        //showText: false
+                    }
+                ]
+            });
+            $("#AddSensorButton").click(function () {
+                $("#AddSensor").dialog("open");
+
+                var UID_items = $("#uidvalue").val();
+                var sensorID_items = $("#sensoridvalue").val().toUpperCase();
+                var vendor_items = $("#airconvalue").val().toUpperCase();
+                var room_items = $("#roomvalue").val().toUpperCase();
+                var campus_items = $("#campusvalue").val();
+                var building_items = $("#buildingvalue").val().toUpperCase();
+                var wakeuptimer_items = $("#wakeuptimervalue").val().toUpperCase();
+                var errormessage = "";
+                if (!UID_items || UID_items.length == 0) {
+                    errormessage += "Error: Please Select from Dropdown List!<br/>"
+                }
+                if (!campus_items || campus_items.length == 0) {
+                    errormessage += "Error: Please Input Campus!<br/> "
+                }
+                if (!building_items || building_items.length == 0) {
+                    errormessage += "Error: Please Input Building!<br/>"
+                }
+                if (!room_items || room_items.length == 0) {
+                    errormessage += "Error: Please Input Room!<br/> "
+                }
+                if (!sensorID_items || sensorID_items.length == 0) {
+                    errormessage += "Error: Please Input Sensor ID!<br/>"
+                }
+                if (!vendor_items || vendor_items.length == 0) {
+                    errormessage += "Error: Please Input AirCon Model!<br/>"
+                }
+                if (!wakeuptimer_items || wakeuptimer_items.length == 0) {
+                    errormessage += "Error: Please Input Wake Up Timer!<br/>"
+                }
+
+                var foundsame = false;
+                var duplicationmesg = "";
+                var alertmessage = "";
+                $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                    let result = JSON.parse(res)
+                    for (var i = 0; i < result.length; i++) {
+                        for (var j = 0; j < result[i].buildinglist.length; j++) {
+                            for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                                if (result[i].buildinglist[j].roomlist[k].sensorid == sensorID_items && result[i].buildinglist[j].roomlist[k].name != room_items && sensorID_items != "UNASSIGNED") {
+                                    console.log('match');
+                                    duplicationmesg += "Duplicated Sensor ID " + sensorID_items + " already exists: Building " + result[i].buildinglist[j].name + " Room " + result[i].buildinglist[j].roomlist[k].name + ". </br>Please remove Sensor ID from this room first.</br>";
+                                    foundsame = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!errormessage || errormessage.length == 0) {
+                        if (!foundsame) {
+                            console.log('ADDED');
+                            alertmessage = " Sensor ID [" + sensorID_items + "] is linked successfully!";
+                            $.post(`/TopicManager/UpdateSensorID`,
+                                {
+                                    inputsensorid: sensorID_items,
+                                    id: UID_items,
+                                    vendor: vendor_items,
+                                    room: room_items
+                                }
+                            );
+                            document.getElementById("AddSensor").innerHTML = alertmessage;
+                        }
+                        else {
+                            console.log('found duplicate');
+                            alertmessage = duplicationmesg;
+                            document.getElementById("AddSensor").innerHTML = alertmessage;
+                        }
+                    }
+                    else
+                        document.getElementById("AddSensor").innerHTML = errormessage;
+                })
+            });
+        });
+
+        // Select all
+        $("#chkall").click(function () {
+            if ($("#chkall").is(':checked')) {
+                $("#HolidaySelect > option").prop("selected", "selected");
+                $("#HolidaySelect").trigger("change");
+            } else {
+                $("#HolidaySelect > option").removeAttr("selected");
+                $("#HolidaySelect").trigger("change");
+            }
+        });
+        $(function () {
+            $("#sendmessage").dialog({
+                autoOpen: false,
+                buttons: [
+                    {
+                        text: "OK",
+                        //icon: "ui-icon-arrowreturn-1-e",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                        // Uncommenting the following line would hide the text,
+                        // resulting in the label being used as a tooltip
+                        //showText: false
+                    }
+                ]
+            });
+        });
+
+        $(function () {
+            $("#dialog-1").dialog({
+                autoOpen: false,
+                buttons: [
+                    {
+                        text: "OK",
+                        //icon: "ui-icon-arrowreturn-1-e",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                        // Uncommenting the following line would hide the text,
+                        // resulting in the label being used as a tooltip
+                        //showText: false
+                    }
+                ],
+                position: {
+                    my: 'center',
+                    at: 'center',
+                }
+            });
+
+            $("#opener").click(function () {
+                $("#dialog-1").dialog("open");
+                var weekday = '';
+                var weekdaydigit = '';
+                var selected_items = $("#weekdaysSelectedValues").selectedIndexes();
+                for (var i = 0; i < selected_items.length; i++) {
+                    var string = selected_items[i];
+                    if (selected_items[i] == 0) {
+                        weekday += 'Sunday ';
+                        weekdaydigit += '0';
+                    }
+                    if (selected_items[i] == 1) {
+                        weekday += 'Monday ';
+                        weekdaydigit += '1';
+                    }
+                    if (selected_items[i] == 2) {
+                        weekday += 'Tuesday ';
+                        weekdaydigit += '2';
+                    }
+                    if (selected_items[i] == 3) {
+                        weekday += 'Wednesday ';
+                        weekdaydigit += '3';
+                    }
+                    if (selected_items[i] == 4) {
+                        weekday += 'Thursday ';
+                        weekdaydigit += '4';
+                    }
+                    if (selected_items[i] == 5) {
+                        weekday += 'Friday ';
+                        weekdaydigit += '5';
+                    }
+                    if (selected_items[i] == 6) {
+                        weekday += 'Saturday ';
+                        weekdaydigit += '6';
+                    }
+                }
+                console.log(weekday);
+                var fromvalue = document.getElementById('from').value;
+                var tovalue = document.getElementById('to').value;
+                var sTimeValue = document.getElementById('sTime').value;
+                var eTimeValue = document.getElementById('eTime').value;
+                if ((fromvalue && fromvalue.length > 0) && (tovalue && tovalue.length > 0) && (sTimeValue && sTimeValue.length > 0) && (eTimeValue && eTimeValue.length > 0) && (selected_items && selected_items.length > 0)) {
+                    var logstring = ' Start Date: ' + fromvalue + '<br\>' + 'End Date: ' + tovalue + '<br\> Start Time: ' + sTimeValue + '<br\> End Time: ' + eTimeValue + '<br\> WeekDays: ' + weekday;
+                    console.log(logstring);
+                    console.log(fromvalue.length, tovalue.length);
+
+                    var starttime = Date.parse('01/01/2021 ' + sTimeValue);
+                    var endtime = Date.parse('01/01/2021 ' + eTimeValue);
+                    if (endtime > starttime) {
+                        var senttoapistring = fromvalue + ',' + tovalue + ',' + sTimeValue + ',' + eTimeValue + ',' + weekdaydigit;
+                        document.getElementById("schedule_simple").value = senttoapistring;
+                        // logstring = logstring.replace(/(?:\r\n|\r|\n)/g, "<br>");
+                        document.getElementById("dialog-1").innerHTML = logstring;
+                    }
+                    else if (endtime < starttime) {
+                        document.getElementById("dialog-1").innerHTML = 'End time should be later than the start time';
+                    }
+                    else if (endtime == starttime) {
+                        document.getElementById("dialog-1").innerHTML = 'Start time and end time must be different';
+                    }
+                }
+                else {
+                    document.getElementById("dialog-1").innerHTML = "Please select start & end date and time & weekdays";
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('#weekdaysSelectedValues').weekdays({
+            });
+        });
+
+        $(document).ready(function () {
+            $('input[name="sTime"]')
+                .ptTimeSelect({
+                    zIndex: 100,
+                    setButtonLabel: "Select",
+                    onBeforeShow: function (input, widget) {
+                        // do something before the widget is made visible.
+                    },
+                    onClose: function (i) {
+                        var res_stime = $(i).val();
+                    }
+                })
+                .show();
+            $('input[name="eTime"]')
+                .ptTimeSelect({
+                    zIndex: 100,
+                    setButtonLabel: "Select",
+                    onBeforeShow: function (input, widget) {
+                        // do something before the widget is made visible.
+                    },
+                    onClose: function (i) {
+                        var res_etime = $(i).val();
+                    }
+                })
+                .show();
+        });
+
+        $(function () {
+            var dateFormat = "dd/mm/yy",
+                from = $("#from")
+                    .datepicker({
+                        dateFormat: 'dd/mm/yy',
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3,
+                        minDate: 0
+                    })
+                    .on("change", function () {
+                        var date = getDate(this);
+                        console.log(date);
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#to").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 3,
+                    minDate: 0
+                })
+                    .on("change", function () {
+                        var date = getDate(this);
+                        console.log(date);
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+
+        $(function () {
+            var dateFormat = "dd/mm/yy",
+                from = $("#holidayfrom")
+                    .datepicker({
+                        dateFormat: 'dd/mm/yy',
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3
+                    })
+                    .on("change", function () {
+                        var date = getDate(this);
+                        console.log(date);
+                        to.datepicker("option", "minDate", getDate(this));
+                    }),
+                to = $("#holidayto").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 3
+                })
+                    .on("change", function () {
+                        var date = getDate(this);
+                        console.log(date);
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+                return date;
+            }
+        });
+
+    </script>
+
+    <script>
+        //NOT used anymore
+        function onSelectRoom(event, ui) {
+            console.log(ui.item.value)
+            $.get(`/TopicManager/GetRoomData?room=${ui.item.value}`).then((res) => {
+                let result = JSON.parse(res)
+                console.log(result)
+                $(document).ready(function () {
+                    $('#messageTable').DataTable({
+                        "destroy": true,
+                        data: result,
+                        "columns": [
+                            { "data": "SensorId" },
+                            { "data": "Vendor" },
+                            { "data": "Campus" },
+                            { "data": "Building" },
+                            { "data": "Room" },
+                            { "data": "Timestamp" },
+                            { "data": "Temperature" },
+                            { "data": "FanSpeed" },
+                            { "data": "PowerOnOff" }
+                        ]
+                    });
+                });
+            })
+        }
+        //NOT used anymore
+        function onSelectBuilding(event, ui) {
+            console.log(ui.item.value)
+            $("#room").selectmenu("destroy")
+            $("#room").empty()
+            $.get(`/TopicManager/RoomList?building=${ui.item.value}`).then((res) => {
+                let result = JSON.parse(res)
+                //$('select option:selected').removeAttr('selected');
+                console.log(result)
+
+                //let arr = []
+                for (var i = 0; i < result.length; i++) {
+                    //arr.push(result[i].Building)
+                    $("#room").append(`<option value="${result[i].Room}">${ui.item.value}-${result[i].Room}</option>`);
+                }
+
+                $("#room").selectmenu({
+                    select: onSelectRoom
+                });
+
+                //  $("#room").selectmenu({
+                //        select: onSelectRoom
+                //   });
+
+                //$("#building").autocomplete({
+                //    source: arr,
+                //    select: onSelectBuilding
+                //});
+            })
+        }
+        //NOT used anymore
+        function onSelectCampus(event, ui) {
+            $("#building").selectmenu("destroy")
+            $("#building").empty()
+
+            $.get(`/TopicManager/BuildingList?campus=${ui.item.value}`).then((res) => {
+                let result = JSON.parse(res)
+                //$('select option:selected').removeAttr('selected');
+                console.log("SelectCampus")
+                console.log(result);
+                //let arr = []
+                for (var i = 0; i < result.length; i++) {
+                    //arr.push(result[i].Building)
+                    $("#building").append(`<option value="${result[i].Building}">${result[i].Building}</option>`);
+                }
+                $("#building").selectmenu({
+                    select: onSelectBuilding
+                });
+
+                //$("#building").autocomplete({
+                //    source: arr,
+                //    select: onSelectBuilding
+                //});
+            })
+        }
+
+        //not used anymore
+        function onSelectMultipleCampus(selected) {
+            $("#building").selectmenu("destroy")
+            $("#building").empty()
+
+            $.get(`/TopicManager/BuildingList?campus=${ui.item.value}`).then((res) => {
+                let result = JSON.parse(res)
+                //$('select option:selected').removeAttr('selected');
+                console.log(result)
+
+                //let arr = []joan
+
+                for (var i = 0; i < result.length; i++) {
+                    //arr.push(result[i].Building)
+                    $("#building").append(`<option value="${result[i].Building}">${result[i].Building}</option>`);
+                }
+                $("#building").selectmenu({
+                    select: onSelectBuilding
+                });
+
+                //$("#building").autocomplete({
+                //    source: arr,
+                //    select: onSelectBuilding
+                //});
+            })
+        }
+
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2({
+                tags: "true",
+                placeholder: "Please Select",
+                allowClear: true,
+                sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+            });
+            $('#SensorSelect').select2({
+                maximumSelectionLength: 1
+            });
+            $('#SensorBuildingSelect').select2({
+                maximumSelectionLength: 1
+            });
+            $('#SensorRoomSelect').select2({
+                maximumSelectionLength: 1
+            });
+
+            $('#SingleSensorSelect').select2({
+                maximumSelectionLength: 1
+            });
+
+            $('#HolidaySelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                var selected_items = $("#HolidaySelect").val();
+                console.log(selected_items);
+            });
+            $('#SensorSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                $('#SensorBuildingSelect').empty();
+                $('#SensorRoomSelect').empty();
+                $('#SingleSensorSelect').empty();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                var campus = $("#SensorSelect").val();
+                console.log(campus);
+                if (campus && campus.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        let result = JSON.parse(res)
+                        let set = []
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    set.push(result[i].buildinglist[j].name);
+                                }
+                            }
+                        }
+                        for (var x = 0; x < set.length; x++) {
+                            $("#SensorBuildingSelect").append(`<option value="${set[x]}">Building: ${set[x]}</option >`);
+                        }
+                    })
+                }
+
+                /*   if ($("#SensorSelect").val()) {
+                       var res = $("#SensorSelect").val()[0];
+                       console.log(res);
+                       const words = res.split('##');
+                       let id = words[0];
+                       let room = words[1];
+                       let sensorid = words[2];
+                       let vendor = words[3];
+                       console.log(id);
+                       document.getElementById('uidvalue').value = id
+                       document.getElementById('airconvalue').value = vendor
+                       document.getElementById('sensoridvalue').value = sensorid
+                       document.getElementById('roomvalue').value = room
+                   }
+                   else {
+                       document.getElementById('uidvalue').value = ''
+                       document.getElementById('airconvalue').value = ''
+                       document.getElementById('sensoridvalue').value = ''
+                       document.getElementById('roomvalue').value = ''
+                   }*/
+            });
+
+            $('#SensorBuildingSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                $('#SensorRoomSelect').empty();
+                $('#SingleSensorSelect').empty();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                var campus = $("#SensorSelect").val();
+                var building = $("#SensorBuildingSelect").val();
+                console.log(campus);
+                console.log(building);
+                if (campus && building && building.length > 0 && campus.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        let result = JSON.parse(res)
+                        let set = []
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    if (result[i].buildinglist[j].name == building) {
+                                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                                            // console.log(result[i].buildinglist[j].roomlist[k]);
+                                            set.push(result[i].buildinglist[j].roomlist[k].name);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (var x = 0; x < set.length; x++) {
+                            $("#SensorRoomSelect").append(`<option value="${set[x]}">Room: ${set[x]}</option >`);
+                        }
+                    })
+                }
+            });
+
+            $('#SensorRoomSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                $('#SingleSensorSelect').empty();
+                var campus = $("#SensorSelect").val();
+                var building = $("#SensorBuildingSelect").val();
+                var room = $("#SensorRoomSelect").val();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                console.log(campus, building, room);
+                if (campus && building && room && building.length > 0 && campus.length > 0 && room.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        console.log("enteselectroom", campus, building, room);
+                        let result = JSON.parse(res)
+                        console.log(result);
+                        let set = []
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    if (result[i].buildinglist[j].name == building) {
+                                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                                            if (result[i].buildinglist[j].roomlist[k].name == room) {
+                                                for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
+                                                    set.push(result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid);
+                                                }
+                                                var sensorlist = result[i].buildinglist[j].roomlist[k].sensorlist;
+                                                const findTable = Tabulator.prototype.findTable("#sensorTabular")[0];
+                                                findTable.setData([]);
+                                                findTable.setData(sensorlist);
+                                                console.log(sensorlist);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (var z = 0; z < set.length; z++) {
+                            $("#SingleSensorSelect").append(`<option value="${set[z]}">Sensor ID: ${set[z]}</option >`);
+                        }
+                    })
+                }
+                /*   if ($("#SensorSelect").val()) {
+                       var res = $("#SensorSelect").val()[0];
+                       console.log(res);
+                       const words = res.split('##');
+                       let id = words[0];
+                       let room = words[1];
+                       let sensorid = words[2];
+                       let vendor = words[3];
+                       console.log(id);
+                       document.getElementById('uidvalue').value = id
+                       document.getElementById('airconvalue').value = vendor
+                       document.getElementById('sensoridvalue').value = sensorid
+                       document.getElementById('roomvalue').value = room
+                   }
+                   else {
+                       document.getElementById('uidvalue').value = ''
+                       document.getElementById('airconvalue').value = ''
+                       document.getElementById('sensoridvalue').value = ''
+                       document.getElementById('roomvalue').value = ''
+                   }*/
+            });
+
+            $('#SingleSensorSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                var campus = $("#SensorSelect").val();
+                var building = $("#SensorBuildingSelect").val();
+                var room = $("#SensorRoomSelect").val();
+                var sensorid = $("#SingleSensorSelect").val();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                console.log(campus, building, room, sensorid);
+                if (campus && building && room && sensorid && building.length > 0 && campus.length > 0 && room.length > 0 && sensorid.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        console.log("single sensor selected", campus, building, room, sensorid);
+                        let result = JSON.parse(res)
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    if (result[i].buildinglist[j].name == building) {
+                                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                                            if (result[i].buildinglist[j].roomlist[k].name == room) {
+                                                console.log("this room found")
+                                                for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
+                                                    console.log(result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid);
+                                                    if (result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid == sensorid) {
+                                                        console.log("this sensor id found");
+                                                        var thisid = result[i].buildinglist[j].roomlist[k].sensorlist[x].id;
+                                                        var thisvendor = result[i].buildinglist[j].roomlist[k].sensorlist[x].vendor;
+                                                        var thissensorid = result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid;
+                                                        var thisroom = result[i].buildinglist[j].roomlist[k].sensorlist[x].room;
+                                                        var thiscampus = result[i].buildinglist[j].roomlist[k].sensorlist[x].campus;
+                                                        var thisbuilding = result[i].buildinglist[j].roomlist[k].sensorlist[x].building;
+                                                        var thisnumber = result[i].buildinglist[j].roomlist[k].sensorlist[x].number;
+                                                        var thiswakeuptimer = result[i].buildinglist[j].roomlist[k].sensorlist[x].wakeuptimer;
+                                                        document.getElementById('uidvalue').value = thisid;
+                                                        document.getElementById('airconvalue').value = thisvendor;
+                                                        document.getElementById('sensoridvalue').value = thissensorid;
+                                                        document.getElementById('roomvalue').value = thisroom;
+                                                        document.getElementById('campusvalue').value = thiscampus;
+                                                        document.getElementById('buildingvalue').value = thisbuilding;
+                                                        document.getElementById('numbervalue').value = thisnumber;
+                                                        document.getElementById('wakeuptimervalue').value = thiswakeuptimer;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+                /*   if ($("#SensorSelect").val()) {
+                       var res = $("#SensorSelect").val()[0];
+                       console.log(res);
+                       const words = res.split('##');
+                       let id = words[0];
+                       let room = words[1];
+                       let sensorid = words[2];
+                       let vendor = words[3];
+                       console.log(id);
+                       document.getElementById('uidvalue').value = id
+                       document.getElementById('airconvalue').value = vendor
+                       document.getElementById('sensoridvalue').value = sensorid
+                       document.getElementById('roomvalue').value = room
+                   }
+                   else {
+                       document.getElementById('uidvalue').value = ''
+                       document.getElementById('airconvalue').value = ''
+                       document.getElementById('sensoridvalue').value = ''
+                       document.getElementById('roomvalue').value = ''
+                   }*/
+            });
+
+            /*  $('#configTable').on('click', 'tr', function () {
+                  var name = $('td', this).eq(1).text();
+                  $('#DescModal').modal("show");
+              });*/
+
+
+            $('#CampusSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                var selected_items = $("#CampusSelect").val();
+                console.log(selected_items);
+                $("#BuildingSelect").empty()
+                $("#RoomSelect").empty()
+
+                $.get(`/TopicManager/MultipleBuildingList?campusList=${selected_items}`).then((res) => {
+                    const words = res.split('KINGOFWORLD');
+                    let res1 = words[0];
+                    let res2 = words[1];
+                    //  let combo = res.split("@@@@");
+                    //  let buildinglist = combo[0];
+                    // let configlist = combo[1];
+                    let result = JSON.parse(res1)
+                    //$('select option:selected').removeAttr('selected');
+                    console.log(result)
+                    //let arr = []
+                    for (var i = 0; i < result.length; i++) {
+                        //arr.push(result[i].Building)
+                        $("#BuildingSelect").append(`<option value="${result[i].Building}">${result[i].Campus},  ${result[i].Building}  Building</option>`);
+                    }
+                    let config = JSON.parse(res2)
+                    console.log(config)
+                    const findTable = Tabulator.prototype.findTable("#configTabular")[0];
+                    findTable.setData([]);
+                    findTable.setData(config);
+
+                    $('#configTable').DataTable({
+                        "destroy": true,
+                        scrollX: true,
+                        scrollY: '70vh',
+                        scrollCollapse: true,
+
+                        select: {
+                            style: 'os',
+                            selector: 'td:first-child'
+                        },
+                        data: config,
+                        "columns": [
+                            { "data": "Campus" },
+                            { "data": "Building" },
+                            { "data": "Room" },
+                            { "data": "Timestamp" },
+                            { "data": "Priority" },
+                            { "data": "StartDate" },
+                            { "data": "EndDate" },
+                            { "data": "StartTime" },
+                            { "data": "EndTime" },
+                            { "data": "WeekDays" },
+                            { "data": "Temperature" },
+                            { "data": "FanSpeed" },
+                            { "data": "Mode" },
+                            { "data": "ResetTimer" },
+                            { "data": "PowerStatus" }
+                        ]
+                    });
+                    $('#configTable').DataTable().draw();
+                })
+            });
+            $(document).ready(function () {
+                $('#messageTable').DataTable();
+            });
+
+
+            // specify the columns
+            $(document).ready(function () {
+                var table = $('#configTable').DataTable({
+                    searching: false,
+                    scrollX: true,
+                    scrollY: '70vh',
+                    scrollCollapse: true,
+                    paging: true,
+                    "autoWidth": false
+                });
+            });
+            $('#BuildingSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                var selected_items = $("#BuildingSelect").val();
+                console.log(selected_items);
+                $("#RoomSelect").empty()
+                $('#messageTable').empty();
+                $.get(`/TopicManager/MultipleRoomList?buildingList=${selected_items}`).then((res) => {
+                    const words = res.split('KINGOFWORLD');
+                    let res1 = words[0];
+                    let res2 = words[1];
+                    let result = JSON.parse(res1)
+                    //$('select option:selected').removeAttr('selected');
+                    console.log(result)
+                    //let arr = []
+                    for (var i = 0; i < result.length; i++) {
+                        //arr.push(result[i].Building)
+                        $("#RoomSelect").append(`<option value="${result[i].Building}-COMBINE-${result[i].Room}">${result[i].Campus},  ${result[i].Building} Building, Room ${result[i].Room} </option >`);
+                    }
+                    let config = JSON.parse(res2)
+                    console.log(config)
+                    const findTable = Tabulator.prototype.findTable("#configTabular")[0];
+                    findTable.setData([]);
+                    findTable.setData(config);
+
+                    $('#configTable').DataTable({
+                        "destroy": true,
+                        scrollX: true,
+                        scrollY: '70vh',
+                        scrollCollapse: true,
+
+                        data: config,
+                        "columns": [
+                            { "data": "Campus" },
+                            { "data": "Building" },
+                            { "data": "Room" },
+                            { "data": "Timestamp" },
+                            { "data": "Priority" },
+                            { "data": "StartDate" },
+                            { "data": "EndDate" },
+                            { "data": "StartTime" },
+                            { "data": "EndTime" },
+                            { "data": "WeekDays" },
+                            { "data": "Temperature" },
+                            { "data": "FanSpeed" },
+                            { "data": "Mode" },
+                            { "data": "ResetTimer" },
+                            { "data": "PowerStatus" }
+                        ]
+                    });
+                    $('#configTable').DataTable().draw();
+                })
+            });
+
+            $('#RoomSelect').on('select2:select select2:unselect select2:clear select2:clearing', function (e) {
+                // var data = e.params.data.text;
+                var selected_items = $("#RoomSelect").val();
+
+                $.get(`/TopicManager/MultipleRoomListData?roomList=${selected_items}`).then((res) => {
+                    const words = res.split('KINGOFWORLD');
+                    let res1 = words[0];
+                    let res2 = words[1];
+                    var result;
+
+                    if (res1)
+                        result = JSON.parse(res1);
+                    //$('select option:selected').removeAttr('selected');
+                    if (res1 && res1.length > 0) {
+                        console.log(res1);
+                    }
+                    if (res2 && res2.length > 0) {
+                        console.log(res2);
+                    }
+                    /*  $('#messageTable').DataTable({
+                          "destroy": true,
+                          data: result,
+                          "columns": [
+                              { "data": "NickName" },
+                              { "data": "Vendor" },
+                              { "data": "Campus" },
+                              { "data": "Building" },
+                              { "data": "Room" },
+                              { "data": "Timestamp" },
+                              { "data": "SetTemperature" },
+                              { "data": "RoomTemperature" },
+                              { "data": "FanSpeed" },
+                              { "data": "Mode" },
+                              { "data": "BatteryPercentage" },
+                              { "data": "PowerOnOff" }
+                          ]
+                      });*/
+
+                    if (res2 && res2.length > 0) {
+                        let config = JSON.parse(res2)
+                        console.log("tabular config data")
+                        console.log(config)
+                        const findTable = Tabulator.prototype.findTable("#configTabular")[0];
+                        findTable.setData([]);
+                        findTable.setData(config);
+                    }
+
+                    /* $('#configTable').DataTable({
+                         "destroy": true,
+                         scrollX: true,
+                         scrollY: '70vh',
+                         scrollCollapse: true,
+                         data: config,
+                         defaultContent: "<button>Click!</button>",
+                         "columns": [
+                             { "data": "Campus" },
+                             { "data": "Building" },
+                             { "data": "Room" },
+                             { "data": "Timestamp" },
+                             { "data": "Priority" },
+                             { "data": "StartDate" },
+                             { "data": "EndDate" },
+                             { "data": "StartTime" },
+                             { "data": "EndTime" },
+                             { "data": "WeekDays" },
+                             { "data": "Temperature" },
+                             { "data": "FanSpeed" },
+                             { "data": "Mode" },
+                             { "data": "ResetTimer" },
+                             { "data": "PowerStatus" }
+                         ]
+                     });
+                     $('#configTable').DataTable().draw();*/
+
+                })
+            });
+            $.get('/TopicManager/GetHolidayList').then((res) => {
+                let result = JSON.parse(res)
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    $("#HolidaySelect").append(`<option value="${result[i].Date}">${result[i].HolidayName} - ${result[i].Date}</option>`);
+                }
+            })
+            $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                let result = JSON.parse(res)
+                let set = []
+                for (var i = 0; i < result.length; i++) {
+                    set.push(result[i].name)
+                    for (var j = 0; j < result[i].buildinglist.length; j++) {
+                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                            //  $("#SensorSelect").append(`<option value="${result[i].buildinglist[j].roomlist[k].id}##${result[i].buildinglist[j].roomlist[k].name}##${result[i].buildinglist[j].roomlist[k].sensorid}##${result[i].buildinglist[j].roomlist[k].vendor}">Campus: ${result[i].name}    Building: ${result[i].buildinglist[j].name}    Room: ${result[i].buildinglist[j].roomlist[k].name}  SensorID:  ${result[i].buildinglist[j].roomlist[k].sensorid} Model:  ${result[i].buildinglist[j].roomlist[k].vendor}</option>`);
+                        }
+                    }
+                }
+                for (var x = 0; x < set.length; x++) {
+                    $("#SensorSelect").append(`<option value="${set[x]}">Campus: ${set[x]}</option >`);
+                }
+            })
+
+            $.get('/TopicManager/CampusList').then((res) => {
+                let result = JSON.parse(res)
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    $("#CampusSelect").append(`<option value="${result[i].Campus}">${result[i].Campus}</option>`);
+                }
+            })
+        });
+        $(document).ready(function () {
+            $.get('/TopicManager/CampusList').then((res) => {
+                let result = JSON.parse(res)
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    $("#campusList").append(`<option value="${result[i].Campus}">${result[i].Campus}</option>`);
+                }
+                $("#campusList").selectmenu({
+                    select: onSelectCampus
+                });
+                $("#building").selectmenu({
+                    select: onSelectBuilding
+                });
+
+                //    $('select').on('change', function (e) {
+                //       console.log(this.value,
+                //          this.options[this.selectedIndex].value,
+                //        $(this).find("option:selected").val());
+                //});
+                $("#room").selectmenu({
+                    select: onSelectRoom
+                });
+
+                //$("#campusList").autocomplete({
+                //    source: set,
+                //    select: onSelectCampus
+                //});
+            })
+        })
+        function initializeSensor() {
+            let id = $('#sensorId').val();
+            id = 33;
+            $.get(`/TopicManager/InitializeSensor?sensorId=${id}`, function (data) {
+                alert(`Sensor Dummy Database has been created.`);
+            });
+        }
+        function publish() {
+            let command = $('#topic').val();
+            let temperature = $('#temperature').val();
+            let fanspeed = $('#fanspeed').val();
+            let sensorid = $('#sensorid').val();
+            let note = $('#note').val();
+            let powerstatus = Boolean(parseInt($('input[name="powerstatus"]:checked').val()));
+            let powerstatusString = powerstatus.toString();
+            $.post(`/TopicManager/PublishMessage`,
+                {
+                    topic: topic,
+                    payload:
+                    {
+                        sensorId: sensorid,
+                        note: note,
+                        temperature: temperature,
+                        fanSpeed: fanspeed,
+                        powerOnOff: powerstatusString
+                    }
+                }
+            );
+        }
+        function publish_simple() {
+            let temperature = $('#temperature_simple').val();
+            let fanspeed = $('#fanspeed_simple').val();
+            let cmd = $('#command_simple').val();
+            let powerstatus_simple = Boolean(parseInt($('input[name="powerstatus_simple"]:checked').val()));
+            let powerstatus_simple_string = powerstatus_simple.toString();
+            let mode = $('#mode_simple').val();
+            let sensorid = $('#sensorid_simple').val();
+            let scheduledaily = $('#schedule_simple').val();
+            if (!scheduledaily || scheduledaily.length == 0) {
+                scheduledaily = ' '
+            }
+            scheduledaily = scheduledaily + '##'
+            let resettimer = $('#refreshingtime_simple').val();
+            resettimer = 1;
+            let holiday = $("#HolidaySelect").val();
+            if (!holiday || holiday.length == 0) {
+                holiday = ' '
+            }
+            let schedule = scheduledaily + holiday;
+            console.log(powerstatus_simple)
+            console.log(powerstatus_simple_string)
+            console.log(schedule)
+            console.log(resettimer)
+            $.post(`/TopicManager/PublishSimpleMessage`,
+                {
+                    temperature: temperature,
+                    fanspeed: fanspeed,
+                    poweronoff: powerstatus_simple_string,
+                    mode: mode,
+                    cmd: cmd,
+                    sensorid: sensorid,
+                    schedule: schedule,
+                    resettimer: resettimer
+                }
+            );
+            $("#sendmessage").dialog("open");
+        }
+        function ShowHideSection() {
+            // Get the checkbox
+            var checkBox = document.getElementById("myCheck");
+            // Get the output text
+            var text = document.getElementById("text");
+
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+                hiddentext.style.display = "block";
+            } else {
+                text.style.display = "none";
+                hiddentext.style.display = "none";
+            }
+        }
+
+        function AddSensorAdvanced() {
+            // Get the checkbox
+            var checkBox = document.getElementById("CheckAddSensor");
+            // Get the output text
+            var text = document.getElementById("text");
+
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+                hiddentext.style.display = "block";
+            } else {
+                text.style.display = "none";
+                hiddentext.style.display = "none";
+            }
+        }
+
+
+    </script>
+}
+

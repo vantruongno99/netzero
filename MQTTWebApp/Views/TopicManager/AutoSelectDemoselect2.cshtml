@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "AutoSelectDemo";
+}
+
+@section Links {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+<h1>AutoSelectDemo</h1>
+<div class="ui-widget">
+    <label for="campusList">Campus List: </label>
+    <input id="campusList">
+</div>
+
+<div class="ui-widget">
+    <label for="building">Building: </label>
+    <input id="building">
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        function onSelectBuilding(event, ui) {
+            
+        }
+
+        function onSelectCampus(event, ui) {
+            $.get(`/TopicManager/BuildingList?campus=${ui.item.value}`).then((res) => {                
+                let result = JSON.parse(res)
+
+                let arr = []
+                for (var i = 0; i < result.length; i++) {
+                    arr.push(result[i].Building)
+                }
+
+                $("#building").autocomplete({
+                    source: arr,
+                    select: onSelectBuilding
+                });
+            })            
+        }
+
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+            $.get('/TopicManager/CampusList').then((res) => {                
+                let result = JSON.parse(res)
+
+                let set = []                
+                for (var i = 0; i < result.length; i++) {
+                    set.push(result[i].Campus)
+                }
+
+                $("#campusList").autocomplete({
+                    source: set,
+                    select: onSelectCampus
+                });
+            })
+        })
+    </script>
+}

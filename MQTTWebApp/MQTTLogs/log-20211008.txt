@@ -1,0 +1,64 @@
+2021-10-08T15:07:00.8697072+11:00  [INF] StartAsync Succeed (6f9ecbb4)
+2021-10-08T15:07:00.8779337+11:00  [INF] MQTT is Started (72692e61)
+2021-10-08T15:07:00.8779900+11:00  [INF] MQTT is NOT Connected (6c2c3554)
+2021-10-08T15:07:00.9021966+11:00  [INF] ## Connected to MQTT broker (240c144e)
+2021-10-08T15:07:01.0471292+11:00  [INF] Subscribe Succeed (a89fc44b)
+2021-10-08T15:09:49.4563653+11:00  [INF] Add a new sensor and subscribe:  BUNDOORA TLC 3-310 TEST222 60 DAIKIN
+ (440bdc97)
+2021-10-08T15:09:49.4564322+11:00  [INF] Publish a New SCfg msg with new D3: DAIKIN,BUNDOORA,TLC,3-310,TEST222,60
+ (5c734801)
+2021-10-08T15:09:49.4622936+11:00  [INF] Published to "ToSensor/TEST222" with payload "{"SensorId":"TEST222","TStamp":"3842654989","WkTime":60,"ConnTime":60,"D3":"DAIKIN,BUNDOORA,TLC,3-310,TEST222,60","CMD":"SCfg"}" ### (82771db8)
+2021-10-08T15:11:55.0940477+11:00  [INF] Published to "ToSensor/TEST222" with payload "{"SensorId":"TEST222","TStamp":"3842655115","WkTime":60,"ConnTime":60,"D3":"","CMD":"SCfg"}" ### (7cf60b4e)
+2021-10-08T15:11:55.0957915+11:00  [INF] Unsubscribe to Topic ToServer/TEST222 
+ (32cac7ef)
+2021-10-08T15:11:55.1096935+11:00  [INF] Update Sensor Info in DB:  BUNDOORA TLC 3-310 UNASSIGNED 60 DAIKIN
+ (b4d612c5)
+2021-10-08T17:37:23.1232415+11:00  [INF] Published to "ToSensor/TEST222" with payload "{"SensorId":"TEST222","TStamp":"3842663843","WkTime":1,"ConnTime":60,"D3":"","CMD":"SCfg"}" ### (04e73fad)
+2021-10-08T17:37:23.1247184+11:00  [INF] Unsubscribe to Topic ToServer/TEST222 
+ (32cac7ef)
+2021-10-08T17:37:23.1248049+11:00  [INF] Subscribe to Topic ToServer/FG 
+ (67236656)
+2021-10-08T17:37:23.1263701+11:00  [INF] Update Sensor Info in DB:  BUNDOORA TLC 3-310 FG 1 YORK
+ (01fc9d24)
+2021-10-08T17:37:23.1264265+11:00  [INF] Replace sensor info - Old:BUNDOORA TLC  3-310 TEST222 YORK 1 New:    BUNDOORA TLC 3-310  FG  YORK 1 
+ (a025c3d5)
+2021-10-08T17:37:23.1264754+11:00  [INF] Publish a New SCfg msg with new D3: YORK,BUNDOORA,TLC,3-310,FG,1
+ (c21e574c)
+2021-10-08T17:37:23.1266875+11:00  [INF] Published to "ToSensor/FG" with payload "{"SensorId":"FG","TStamp":"3842663843","WkTime":1,"ConnTime":60,"D3":"YORK,BUNDOORA,TLC,3-310,FG,1","CMD":"SCfg"}" ### (44bf8b91)
+2021-10-08T19:08:50.0798120+11:00  [INF] Published to "ToSensor/FG" with payload "{"SensorId":"FG","TStamp":"3842669330","WkTime":1,"ConnTime":60,"D3":"","CMD":"SCfg"}" ### (39dae02c)
+2021-10-08T19:08:50.0811382+11:00  [INF] Unsubscribe to Topic ToServer/FG 
+ (dbc3de6d)
+2021-10-08T19:08:50.0812383+11:00  [INF] Subscribe to Topic ToServer/FGA 
+ (33f45710)
+2021-10-08T19:08:50.0826658+11:00  [INF] Update Sensor Info in DB:  BUNDOORA TLC 3-310 FGA 1 YORK
+ (9c53d7a9)
+2021-10-08T19:08:50.0827231+11:00  [INF] Replace sensor info - Old:BUNDOORA TLC  3-310 FG YORK 1 New:    BUNDOORA TLC 3-310  FGA  YORK 1 
+ (482a234d)
+2021-10-08T19:08:50.0827710+11:00  [INF] Publish a New SCfg msg with new D3: YORK,BUNDOORA,TLC,3-310,FGA,1
+ (577e5fc6)
+2021-10-08T19:08:50.0829504+11:00  [INF] Published to "ToSensor/FGA" with payload "{"SensorId":"FGA","TStamp":"3842669330","WkTime":1,"ConnTime":60,"D3":"YORK,BUNDOORA,TLC,3-310,FGA,1","CMD":"SCfg"}" ### (dcc3d90e)
+2021-10-08T19:36:14.1852609+11:00  [INF] StartAsync Succeed (6f9ecbb4)
+2021-10-08T19:36:14.2015513+11:00  [INF] MQTT is Started (72692e61)
+2021-10-08T19:36:14.2017188+11:00  [INF] MQTT is NOT Connected (6c2c3554)
+2021-10-08T19:36:14.2463697+11:00  [INF] ## Connected to MQTT broker (240c144e)
+2021-10-08T19:36:14.4440149+11:00  [INF] Subscribe Succeed (a89fc44b)
+2021-10-08T20:39:49.5248830+11:00  [INF] StartAsync Succeed (6f9ecbb4)
+2021-10-08T20:39:49.5315611+11:00  [INF] MQTT is Started (72692e61)
+2021-10-08T20:39:49.5316119+11:00  [INF] MQTT is NOT Connected (6c2c3554)
+2021-10-08T20:39:49.5573533+11:00  [INF] ## Connected to MQTT broker (240c144e)
+2021-10-08T20:39:49.7062888+11:00  [INF] Subscribe Succeed (a89fc44b)
+2021-10-08T20:47:47.0189286+11:00  [INF] StartAsync Succeed (6f9ecbb4)
+2021-10-08T20:47:47.0261766+11:00  [INF] MQTT is Started (72692e61)
+2021-10-08T20:47:47.0262773+11:00  [INF] MQTT is NOT Connected (6c2c3554)
+2021-10-08T20:47:47.0500711+11:00  [INF] ## Connected to MQTT broker (240c144e)
+2021-10-08T20:47:47.1854911+11:00  [INF] Subscribe Succeed (a89fc44b)
+2021-10-08T20:47:55.0137932+11:00  [INF] StartAsync Succeed (6f9ecbb4)
+2021-10-08T20:47:55.0227687+11:00  [INF] MQTT is Started (72692e61)
+2021-10-08T20:47:55.0228511+11:00  [INF] MQTT is NOT Connected (6c2c3554)
+2021-10-08T20:47:55.0533909+11:00  [INF] ## Connected to MQTT broker (240c144e)
+2021-10-08T20:47:55.2257421+11:00  [INF] Subscribe Succeed (a89fc44b)
+2021-10-08T20:52:42.3414539+11:00  [INF] StartAsync Succeed (6f9ecbb4)
+2021-10-08T20:52:42.3564025+11:00  [INF] MQTT is Started (72692e61)
+2021-10-08T20:52:42.3564983+11:00  [INF] MQTT is NOT Connected (6c2c3554)
+2021-10-08T20:52:42.4063013+11:00  [INF] ## Connected to MQTT broker (240c144e)
+2021-10-08T20:52:42.6036801+11:00  [INF] Subscribe Succeed (a89fc44b)

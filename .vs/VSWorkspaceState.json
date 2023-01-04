@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\MQTTTopicManager",
+    "\\MQTTWebApp",
+    "\\MQTTWebApp\\DBCreate",
+    "\\MQTTWebApp\\Views",
+    "\\MQTTWebApp\\Views\\Home",
+    "\\MQTTWebApp\\Views\\Login",
+    "\\MQTTWebApp\\Views\\Shared",
+    "\\MQTTWebApp\\Views\\TopicManager",
+    "\\MQTTWebApp\\wwwroot"
+  ],
+  "SelectedNode": "\\MQTTTopicManager\\TopicManager.cs",
+  "PreviewInSolutionExplorer": false
+}

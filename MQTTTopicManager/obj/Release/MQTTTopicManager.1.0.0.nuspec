@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MQTTTopicManager</id>
+    <version>1.0.0</version>
+    <authors>MQTTTopicManager</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="MongoAccess" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="RealtimeSignal" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="MQTTnet" version="3.0.12" exclude="Build,Analyzers" />
+        <dependency id="MQTTnet.Extensions.ManagedClient" version="3.0.12" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\Shuo\Desktop\2021Session4\Session14\MQTTManager\MQTTTopicManager\bin\Release\netcoreapp3.1\MQTTTopicManager.dll" target="lib\netcoreapp3.1\MQTTTopicManager.dll" />
+  </files>
+</package>

@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <style>
+        .form-signin {
+            max-width: 25rem;
+            margin: auto;
+            padding-top: 50px;
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+
+<body class="text-center">
+    <main class="form-signin">
+        <form onsubmit="login();return false">
+            <h1 class="h3 mb-3 fw-normal"><b>NetZero </b> - Login</h1>
+            <br />
+
+            <div class="form-floating">
+                <input type="input" class="form-control" id="username" placeholder="Username">
+                <label for="floatingInput">Username</label>
+            </div>
+            <br />
+            <div class="form-floating">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <br />
+
+            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Login</button>
+        </form>
+    </main>
+    <script>
+        function getCookie(cookieName) {
+            let cookie = {};
+            document.cookie.split(';').forEach(function (el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            })
+            return cookie[cookieName];
+        }
+
+        const user = getCookie('user')
+        if (user != null && user != '' && user != undefined) {
+            window.location.href = './Home'
+        }
+
+
+        async function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const formdata = new FormData()
+            formdata.append('Username', username)
+            formdata.append('Password', password)
+
+            try {
+                const response = await fetch(`https://smartregulatedtracking.com:5001/Account/ReactLogin`, {
+                    method: 'POST',
+                    body: formdata,
+                })
+
+                const result = await response.json()
+
+                const user = JSON.stringify(result['Value'])
+
+                var expires = (new Date(Date.now() + 86400 * 1000)).toUTCString();
+
+                document.cookie = `user = ${user}; expires=" + ${expires} + ";`;
+
+                location.reload();
+            }
+
+            catch (error) {
+                console.log(response)
+            }
+
+            return false;
+
+        }
+    </script>
+</body>
+
+</html>

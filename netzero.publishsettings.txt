@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile
+    publishUrl="https://NETZERO.latrobe.edu.au:8172/msdeploy.axd"
+    msdeploySite="NetZeroWeb"
+    destinationAppUrl="http://netzero.latrobe.edu.au:80/"
+    mySQLDBConnectionString=""
+    SQLServerDBConnectionString=""
+    profileName="Default Settings"
+    publishMethod="MSDeploy"
+    userName="VisualStudio" />
+</publishData>
+
+pass latrobe1234#
