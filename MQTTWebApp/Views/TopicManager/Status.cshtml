@@ -117,11 +117,7 @@
     <div class="content-area">
         <div class="container-fluid">
             <div class="text-right mt-3 mb-3 d-fixed">
-                <a href="./charts"
-                   target="_blank"
-                   class="btn btn-success mr-2">
-                    <span class="btn-text"> Refresh </span>
-                </a>
+                <input class="btn btn-success mr-2" type="button" value="Refresh" onClick="window.location.reload()">
             </div>
             <div class="main">
                 <div class="row sparkboxes mt-4">
@@ -555,7 +551,6 @@
                         window.setInterval(function () {
                             var url = '/TopicManager/GetChartsList';
                             $.getJSON(url, function (res) {
-                                console.log(res);
                                 var count = res.map(function (e) {
                                     var allcount = e.Note;
                                     const words = allcount.split('KING');

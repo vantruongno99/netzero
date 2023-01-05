@@ -183,7 +183,7 @@
         //     scrollY: '90vh',
         //    scrollCollapse: true,
 
-        $.get(`/TopicManager/GetSensorData`).then((res) => {
+        $.get(`/TopicManager/GetSensorDataCustom?date=1672888939`).then((res) => {
             warningresult = JSON.parse(res)
             console.log(warningresult)
 

@@ -8066,19 +8066,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Truong\\.nuget\\packages\\": {}
+    "C:\\Users\\vantr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
       "projectName": "MQTTWebApp",
-      "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
-      "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\obj\\",
+      "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+      "packagesPath": "C:\\Users\\vantr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vantr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8092,11 +8092,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
-              "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
+            "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
+              "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
             },
-            "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
-              "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj"
+            "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
+              "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj"
             }
           }
         }
@@ -8162,7 +8162,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -550,19 +550,19 @@ namespace MQTTTopicManager
                                     if (record.FanSpeed == "SPEED_1")
                                         ele.FanSpeed = 0;
                                     if (record.FanSpeed == "SPEED_2")
-                                        ele.FanSpeed = 1; 
+                                        ele.FanSpeed = 1;
                                     if (record.FanSpeed == "SPEED_3")
                                         ele.FanSpeed = 2;
                                     if (record.FanSpeed == "SPEED_4")
                                         ele.FanSpeed = 3;
                                     if (record.FanSpeed == "SPEED_5")
                                         ele.FanSpeed = 4;
-                                    if(record.FanSpeed == "AUTO")
+                                    if (record.FanSpeed == "AUTO")
                                         ele.FanSpeed = 5;
-                                    if(record.FanSpeed == "SILENT")
+                                    if (record.FanSpeed == "SILENT")
                                         ele.FanSpeed = 6;
                                 }
-                                    
+
                                 if (!string.IsNullOrEmpty(record.Temperature))
                                     ele.Temperature = Int16.Parse(record.Temperature);
                                 if (!string.IsNullOrEmpty(record.Mode))
@@ -767,7 +767,7 @@ namespace MQTTTopicManager
                     if (isDelete)
                     {
                         obj.SensorId = "UNASSIGNED";
-                        obj.NickName = "DELETEDFOREVER"; 
+                        obj.NickName = "DELETEDFOREVER";
                         obj.Vendor = "UNASSIGNED";
                         obj.Note = "60";
                         obj.RequestProperties.SensorId = obj.SensorId;
@@ -879,7 +879,7 @@ namespace MQTTTopicManager
                 { } 
                 jsonmsg = "{\"help\": \"https://data.gov.au/data/api/3/action/help_show?name=datastore_search\", \"success\": true, \"result\": {\"include_total\": true, \"resource_id\": \"33673aca-0857-42e5-b8f0-9981b4755686\", \"fields\": [{\"type\": \"int\", \"id\": \"_id\"}, {\"type\": \"text\", \"id\": \"Date\"}, {\"type\": \"text\", \"id\": \"Holiday Name\"}, {\"type\": \"text\", \"id\": \"Information\"}, {\"type\": \"text\", \"id\": \"More Information\"}, {\"type\": \"text\", \"id\": \"Jurisdiction\"}], \"records_format\": \"objects\", \"q\": \"vic\", \"records\": [{\"_id\":88,\"Date\":\"20210308\",\"Holiday Name\":\"Labour Day\",\"Information\":\"Always on a Monday, creating a long weekend. It celebrates the eight-hour working day, a victory for workers in the mid-late 19th century.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":97,\"Date\":\"20211225\",\"Holiday Name\":\"Christmas Day\",\"Information\":\"Christmas Day is an annual holiday which celebrates the birth of Jesus Christ over 2000 years ago.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":99,\"Date\":\"20211227\",\"Holiday Name\":\"Christmas (additional day)\",\"Information\":\"Christmas Day is an annual holiday which celebrates the birth of Jesus Christ over 2000 years ago.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":91,\"Date\":\"20210404\",\"Holiday Name\":\"Easter Sunday\",\"Information\":\"Public Holiday as part of Easter.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":96,\"Date\":\"20211102\",\"Holiday Name\":\"Melbourne Cup\",\"Information\":\"All of Victoria unless alternate local holiday has been arranged by non-metro council.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":92,\"Date\":\"20210405\",\"Holiday Name\":\"Easter Monday\",\"Information\":\"Public Holiday as part of Easter.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":94,\"Date\":\"20210614\",\"Holiday Name\":\"Queen's Birthday\",\"Information\":\"Celebrated on second Monday in June except in Western Australia and Queensland.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":87,\"Date\":\"20210126\",\"Holiday Name\":\"Australia Day\",\"Information\":\"Always celebrated on 26 January\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":100,\"Date\":\"20211228\",\"Holiday Name\":\"Boxing Day (additional day)\",\"Information\":\"Boxing Day occurs the day after Christmas. Sydney-to-Hobart yacht race and Boxing Day Test Match (Cricket) start on this day.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":89,\"Date\":\"20210402\",\"Holiday Name\":\"Good Friday\",\"Information\":\"Easter is celebrated with Good Friday and Easter Monday creating a 4 day long weekend.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":95,\"Date\":\"20210924\",\"Holiday Name\":\"Friday before AFL Grand Final\",\"Information\":\"Friday before the AFL Grand Final\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":93,\"Date\":\"20210425\",\"Holiday Name\":\"Anzac Day\",\"Information\":\"Celebrated on the 25 April each year.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":199,\"Date\":\"20220314\",\"Holiday Name\":\"Labour Day\",\"Information\":\"Always on a Monday, creating a long weekend. It celebrates the eight-hour working day, a victory for workers in the mid-late 19th century.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":207,\"Date\":\"20221225\",\"Holiday Name\":\"Christmas Day\",\"Information\":\"Christmas Day is an annual holiday which celebrates the birth of Jesus Christ over 2000 years ago.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":90,\"Date\":\"20210403\",\"Holiday Name\":\"Saturday before Easter Sunday\",\"Information\":\"Easter Saturday is between Good Friday and Easter Sunday in Australia.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":86,\"Date\":\"20210101\",\"Holiday Name\":\"New Year's Day\",\"Information\":\"New Year's Day is the first day of the calendar year and is celebrated each January 1st\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":98,\"Date\":\"20211226\",\"Holiday Name\":\"Boxing Day\",\"Information\":\"Boxing Day occurs the day after Christmas. Sydney-to-Hobart yacht race and Boxing Day Test Match (Cricket) start on this day.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2021\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":196,\"Date\":\"20220101\",\"Holiday Name\":\"New Year's Day\",\"Information\":\"New Year's Day is the first day of the calendar year and is celebrated each January 1st\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":197,\"Date\":\"20220103\",\"Holiday Name\":\"New Year's Day (additional day)\",\"Information\":\"As 1 January 2022 falls on a Saturday in 2022, the following Monday is observed as an additional public holiday.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":198,\"Date\":\"20220126\",\"Holiday Name\":\"Australia Day\",\"Information\":\"Always celebrated on 26 January\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":200,\"Date\":\"20220415\",\"Holiday Name\":\"Good Friday\",\"Information\":\"Easter is celebrated with Good Friday and Easter Monday creating a 4 day long weekend.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":201,\"Date\":\"20220416\",\"Holiday Name\":\"Saturday before Easter Sunday\",\"Information\":\"Easter Saturday is between Good Friday and Easter Sunday in Australia.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":202,\"Date\":\"20220417\",\"Holiday Name\":\"Easter Sunday\",\"Information\":\"Public Holiday as part of Easter.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":203,\"Date\":\"20220418\",\"Holiday Name\":\"Easter Monday\",\"Information\":\"Public Holiday as part of Easter.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":204,\"Date\":\"20220425\",\"Holiday Name\":\"Anzac Day\",\"Information\":\"Celebrated on the 25 April each year.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":205,\"Date\":\"20220613\",\"Holiday Name\":\"Queen's Birthday\",\"Information\":\"Celebrated on second Monday in June except in Western Australia and Queensland.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":206,\"Date\":\"20221101\",\"Holiday Name\":\"Melbourne Cup\",\"Information\":\"All of Victoria unless alternate local holiday has been arranged by non-metro council.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":208,\"Date\":\"20221226\",\"Holiday Name\":\"Boxing Day\",\"Information\":\"Boxing Day occurs the day after Christmas. Sydney-to-Hobart yacht race and Boxing Day Test Match (Cricket) start on this day.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088},{\"_id\":209,\"Date\":\"20221227\",\"Holiday Name\":\"Christmas (additional day)\",\"Information\":\"As 25 December (Christmas Day) falls on a Sunday in 2022, there is an additional public holiday on the Tuesday.\",\"More Information\":\"https://www.business.vic.gov.au/victorian-public-holidays-and-daylight-saving/victorian-public-holidays-2022\",\"Jurisdiction\":\"vic\",\"rank\":0.0573088}], \"_links\": {\"start\": \"/api/3/action/datastore_search?q=vic&resource_id=33673aca-0857-42e5-b8f0-9981b4755686\", \"next\": \"/api/3/action/datastore_search?q=vic&offset=100&resource_id=33673aca-0857-42e5-b8f0-9981b4755686\"}, \"total\": 29}}"; 
                    _logger.LogInformation("Load Holiday Json");*/
-             
+
 
             StreamReader r = new StreamReader("DBCreate/holiday.json");
             string jsonmsg = r.ReadToEnd();
@@ -1247,7 +1247,7 @@ namespace MQTTTopicManager
                 {
                     reason += " BL ";
                 }
-                
+
                 if (currentStatus.BatteryPercentage <= 4500)
                 {
                     reason += " BD ";
@@ -1258,7 +1258,7 @@ namespace MQTTTopicManager
                 if (sec <= 3600 * 3)
                     isActive = true;
                 else
-                    isActive = false; 
+                    isActive = false;
 
                 if (!isActive) //second, 3 hour 
                 {
@@ -1273,7 +1273,7 @@ namespace MQTTTopicManager
                 if (isActive && Math.Abs(currentStatus.RoomTemperature - currentStatus.SetTemperature) > 5)
                 {
                     reason += " TE ";
-                } 
+                }
 
                 if (reason != "")
                 {
@@ -1337,7 +1337,7 @@ namespace MQTTTopicManager
                 if (reason != "")
                 {
                     countfaulty++;
-                    reason = "Alert - "+ reason;
+                    reason = "Alert - " + reason;
                 }
                 else
                 {
@@ -1414,8 +1414,8 @@ namespace MQTTTopicManager
                 if (isActive && Math.Abs(currentStatus.RoomTemperature - currentStatus.SetTemperature) > 5)
                 {
                     reason += " TE ";
-                }  
- 
+                }
+
                 if (reason != "")
                 {
                     countfaulty++;
@@ -1450,6 +1450,13 @@ namespace MQTTTopicManager
         public async Task<string> GetSensorData()
         {
             List<TimeSeriesObject> obj_list = await _driverTimeSeries.ReadObjectsAsync(o => o.SensorId != null);
+            string warn = JsonSerializer.Serialize(obj_list);
+            return warn;
+        }
+
+        public async Task<string> GetSensorDataCustom(int date)
+        {
+            List<TimeSeriesObject> obj_list = await _driverTimeSeries.ReadObjectsAsync(o => o.SensorId != null && o.Utc > date);
             string warn = JsonSerializer.Serialize(obj_list);
             return warn;
         }

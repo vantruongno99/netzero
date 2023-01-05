@@ -11504,19 +11504,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Truong\\.nuget\\packages\\": {}
+    "C:\\Users\\vantr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Download\\MQTTManager\\MQTTWebApp\\MQTTWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
       "projectName": "MQTTWebApp",
-      "projectPath": "E:\\Download\\MQTTManager\\MQTTWebApp\\MQTTWebApp.csproj",
-      "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-      "outputPath": "E:\\Download\\MQTTManager\\MQTTWebApp\\obj\\publish\\win-x64\\",
+      "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+      "packagesPath": "C:\\Users\\vantr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vantr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11530,11 +11530,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "E:\\Download\\MQTTManager\\MongoAccess\\MongoAccess.csproj": {
-              "projectPath": "E:\\Download\\MQTTManager\\MongoAccess\\MongoAccess.csproj"
+            "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
+              "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
             },
-            "E:\\Download\\MQTTManager\\MQTTTopicManager\\MQTTTopicManager.csproj": {
-              "projectPath": "E:\\Download\\MQTTManager\\MQTTTopicManager\\MQTTTopicManager.csproj"
+            "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
+              "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj"
             }
           }
         }
@@ -11595,15 +11595,15 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[3.1.31, 3.1.31]"
+            "version": "[3.1.32, 3.1.32]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[3.1.31, 3.1.31]"
+            "version": "[3.1.32, 3.1.32]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[3.1.31, 3.1.31]"
+            "version": "[3.1.32, 3.1.32]"
           }
         ],
         "frameworkReferences": {
@@ -11614,7 +11614,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

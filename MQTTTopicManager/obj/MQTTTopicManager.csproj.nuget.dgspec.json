@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {}
+    "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
+    "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
+        "projectUniqueName": "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
         "projectName": "MongoAccess",
-        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
-        "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\obj\\",
+        "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
+        "packagesPath": "C:\\Users\\vantr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vantr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,21 +76,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     },
-    "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
+    "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
+        "projectUniqueName": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
         "projectName": "MQTTTopicManager",
-        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
-        "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\obj\\",
+        "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
+        "packagesPath": "C:\\Users\\vantr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vantr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,11 +109,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
-                "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
+              "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
+                "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
               },
-              "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
-                "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj"
+              "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
+                "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj"
               }
             }
           }
@@ -158,21 +163,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     },
-    "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
+    "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "projectUniqueName": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
         "projectName": "RealtimeSignal",
-        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
-        "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\obj\\",
+        "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "packagesPath": "C:\\Users\\vantr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vantr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -221,7 +231,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }
