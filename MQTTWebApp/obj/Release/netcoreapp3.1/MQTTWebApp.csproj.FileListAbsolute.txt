@@ -1734,6 +1734,8 @@ C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\AutoSelectDemo.cshtml.g.cs
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\AutoSelectDemoselect2.cshtml.g.cs
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\Dashboard.cshtml.g.cs
+C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\SensorCharts.cshtml.g.cs
+C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\Status.cshtml.g.cs
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\MQTTWebApp.RazorTargetAssemblyInfo.cache
@@ -1743,5 +1745,3 @@ C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\MQTTWebApp.c
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\MQTTWebApp.dll
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\MQTTWebApp.pdb
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\MQTTWebApp.genruntimeconfig.cache
-C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\Status.cshtml.g.cs
-C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\Razor\Views\TopicManager\SensorCharts.cshtml.g.cs

@@ -1165,10 +1165,10 @@ C:\Users\vantr\Desktop\netzero\MongoAccess\bin\Release\netcoreapp3.1\refs\System
 C:\Users\vantr\Desktop\netzero\MongoAccess\bin\Release\netcoreapp3.1\refs\System.Xml.XPath.dll
 C:\Users\vantr\Desktop\netzero\MongoAccess\bin\Release\netcoreapp3.1\refs\System.Xml.XPath.XDocument.dll
 C:\Users\vantr\Desktop\netzero\MongoAccess\bin\Release\netcoreapp3.1\refs\WindowsBase.dll
-C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.csproj.AssemblyReference.cache
 C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.AssemblyInfoInputs.cache
 C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.AssemblyInfo.cs
 C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.csproj.CoreCompileInputs.cache
 C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.dll
 C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.pdb
+C:\Users\vantr\Desktop\netzero\MongoAccess\obj\Release\netcoreapp3.1\MongoAccess.csproj.AssemblyReference.cache

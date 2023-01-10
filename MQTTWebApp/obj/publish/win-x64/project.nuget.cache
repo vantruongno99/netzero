@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gxzintPYemODczqfbhSVxgPe1i53+Z9OcpvXHm41tNFAUlA4mL95Dbhe5T3HW0dW21bPDhJvz4TC25ZU8i4xUA==",
+  "dgSpecHash": "Fv3kS42I7ShHu2b+V50m61O4cVxT4LaGz6qz9jkNg4yofj8tDrLZ5ULHkH/EFjhkh0w+55Ii5FkEp9TgKpnQUA==",
   "success": true,
   "projectFilePath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
   "expectedPackageFiles": [
@@ -64,7 +64,7 @@
     "C:\\Users\\vantr\\.nuget\\packages\\mqttnet.aspnetcore\\3.0.16\\mqttnet.aspnetcore.3.0.16.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\mqttnet.extensions.managedclient\\3.0.16\\mqttnet.extensions.managedclient.3.0.16.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\vantr\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\vantr\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\runtime.any.system.collections\\4.3.0\\runtime.any.system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\runtime.any.system.diagnostics.tools\\4.3.0\\runtime.any.system.diagnostics.tools.4.3.0.nupkg.sha512",

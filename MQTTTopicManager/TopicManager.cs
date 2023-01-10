@@ -1454,9 +1454,10 @@ namespace MQTTTopicManager
             return warn;
         }
 
-        public async Task<string> GetSensorDataCustom(int date)
+        public async Task<string> GetSensorDataCustom(int date, string JSONSensorList)
         {
-            List<TimeSeriesObject> obj_list = await _driverTimeSeries.ReadObjectsAsync(o => o.SensorId != null && o.Utc > date);
+            string[] sensorList = JsonSerializer.Deserialize<string[]>(JSONSensorList);
+            List<TimeSeriesObject> obj_list = await _driverTimeSeries.ReadObjectsAsync(o => sensorList.Contains(o.SensorId) && o.Utc > date);
             string warn = JsonSerializer.Serialize(obj_list);
             return warn;
         }

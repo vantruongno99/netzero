@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wTAoR/qxN0FmcCcAP05uwGscI8QSMFQ8fQNS6EOct9rhO2g5neYd0sxom0n0mGAXauyj7xJlG8iuScOG+7oaFQ==",
+  "dgSpecHash": "/3lY1V/SK7YvR4+oxlAO5+3cg9toKpaofBzo229GuZGe6Cnee7XY7B9g5GvjanJU7/IMX8pE3HpYfFMp5Oz/Yg==",
   "success": true,
   "projectFilePath": "C:\\Users\\vantr\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\vantr\\.nuget\\packages\\mongodb.libmongocrypt\\1.2.2\\mongodb.libmongocrypt.1.2.2.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\mqttnet\\3.0.16\\mqttnet.3.0.16.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\mqttnet.extensions.managedclient\\3.0.16\\mqttnet.extensions.managedclient.3.0.16.nupkg.sha512",
+    "C:\\Users\\vantr\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\runtime.any.system.collections\\4.0.11\\runtime.any.system.collections.4.0.11.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\runtime.any.system.diagnostics.tracing\\4.1.0\\runtime.any.system.diagnostics.tracing.4.1.0.nupkg.sha512",
     "C:\\Users\\vantr\\.nuget\\packages\\runtime.any.system.globalization\\4.0.11\\runtime.any.system.globalization.4.0.11.nupkg.sha512",

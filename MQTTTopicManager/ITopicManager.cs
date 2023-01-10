@@ -30,7 +30,7 @@ namespace MQTTTopicManager
 
         public Task<string> GetSensorData();
 
-        public Task<string> GetSensorDataCustom(int date);
+        public Task<string> GetSensorDataCustom(int date, string JSONSensorList);
 
         public Task<string> GetPowerStatistics();
         public string GetMultipleSelectionBuildingList(string campusList);

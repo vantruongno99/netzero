@@ -1157,10 +1157,10 @@ C:\Users\vantr\Desktop\netzero\RealtimeSignal\bin\Release\netcoreapp3.1\refs\Sys
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\bin\Release\netcoreapp3.1\refs\System.Xml.XPath.dll
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\bin\Release\netcoreapp3.1\refs\System.Xml.XPath.XDocument.dll
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\bin\Release\netcoreapp3.1\refs\WindowsBase.dll
-C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.csproj.AssemblyReference.cache
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.AssemblyInfoInputs.cache
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.AssemblyInfo.cs
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.csproj.CoreCompileInputs.cache
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.dll
 C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.pdb
+C:\Users\vantr\Desktop\netzero\RealtimeSignal\obj\Release\netcoreapp3.1\RealtimeSignal.csproj.AssemblyReference.cache

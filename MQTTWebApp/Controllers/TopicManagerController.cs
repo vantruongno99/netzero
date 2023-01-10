@@ -211,14 +211,14 @@ namespace MQTTWebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<string> GetSensorDataCustom(int date)
+        public async Task<string> GetSensorDataCustom(int date, string JSONSensorList)
         {
             // if (!String.IsNullOrEmpty(building))
             //     _topicManager.SetSelecter(building, 2); 
 
             //  var roomList = _deviceMongoDriverDeviceObject.Collection.AsQueryable().Where(c => c.Campus == _topicManager.GetSelecter(1) && c.Building == _topicManager.GetSelecter(2)).Select(c => new { c.Room }).Distinct().ToList();
             //   return JsonSerializer.Serialize(roomList.ToList());
-            return await _topicManager.GetSensorDataCustom(date);
+            return await _topicManager.GetSensorDataCustom( date , JSONSensorList);
         }
 
         [HttpGet]

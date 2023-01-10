@@ -100,69 +100,94 @@
     }
 </style>
 @section Links {
-<link rel="stylesheet" href=http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css>
-<link rel="stylesheet" href="~/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="~/css/select2.min.css">
-<link href="~/css/jquery-weekdays.css" rel="stylesheet" />
-<link href="~/css/jquery.ptTimeSelect.css" rel="stylesheet" />
-<link href="~/css/jquery-weekdays.css" rel="stylesheet" />
-<link href="~/css/tabulator.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href=http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css>
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/css/select2.min.css">
+    <link href="~/css/jquery-weekdays.css" rel="stylesheet" />
+    <link href="~/css/jquery.ptTimeSelect.css" rel="stylesheet" />
+    <link href="~/css/jquery-weekdays.css" rel="stylesheet" />
+    <link href="~/css/tabulator.min.css" rel="stylesheet" />
 }
 
 <!--<link rel="stylesheet" href="~/css/jquery-ui.css">-->
-
-
 <!-- The Modal -->
 
 
-        <br />
-        <br />
-        <h4 class="mt-2">Select Sensors by Location</h4>
-        <p>Select a campus, building, or specific rooms </p>
-        <div class="ui-widget">
-            <label for="CampusSelect">Select a Campus </label> <br />
-            <select class="js-example-basic-multiple" id=CampusSelect name="CampusSelect[]" multiple="multiple" style="width: 65%">
-            </select>
+<br />
+<br />
+<h4 class="mt-2">Select Sensors by Location</h4>
+<p>Select a campus, building, or specific rooms </p>
+<div class="ui-widget">
+    <label for="CampusSelect">Select a Campus </label> <br />
+    <select class="js-example-basic-multiple" id=CampusSelect name="CampusSelect[]" multiple="multiple" style="width: 65%">
+    </select>
+</div>
+<br />
+<div class="ui-widget">
+    <label for="BuildingSelect">Select a Building  </label><br />
+    <select class="js-example-basic-multiple" id=BuildingSelect name="BuildingSelect[]" multiple="multiple" style="width: 65%">
+    </select>
+</div>
+<br />
+<div class="ui-widget">
+    <label for="RoomSelect">Select a Room  </label><br />
+    <select class="js-example-basic-multiple" id=RoomSelect name="RoomSelect[]" multiple="multiple" style="width: 65%">
+    </select>
+</div>
+<br />
+<div class="ui-widget">
+    <label for="RoomSelect">Select Date Range </label><br />
+    <select id="dateSelect" onchange="setDate()" class="js-example-basic-multiple" style="width: 65%">
+        <option value="" disabled selected hidden>Select</option>
+        <option value="day">Day</option>
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+    </select>
+</div>
+<br />
+<div>
+    <button id="myButton" onclick="getData()" class="btn btn-primary">
+        Generate Chart
+    </button>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-12">
+        <div class="p-3 border border-primary">
+            <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+
         </div>
-        <br />
-        <div class="ui-widget">
-            <label for="BuildingSelect">Select a Building  </label><br />
-            <select class="js-example-basic-multiple" id=BuildingSelect name="BuildingSelect[]" multiple="multiple" style="width: 65%">
-            </select>
-        </div>
-        <br />
-        <div class="ui-widget">
-            <label for="RoomSelect">Select a Room  </label><br />
-            <select class="js-example-basic-multiple" id=RoomSelect name="RoomSelect[]" multiple="multiple" style="width: 65%">
-            </select>
-        </div>
-        <br />
-        <div>
-            <button hidden onclick="initializeSensor()" class="btn btn-primary">
-                Create Default Database
-            </button>
-        </div>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-12">
-                <div class="p-3 border border-primary">
-                    <h3>Current Setting</h3>
-                    <p id="demo"></p>
+    </div>
 
 
-                </div>
-                    </div>
 
 
-                </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
 
 
 @section Scripts{
-<script src="~/js/jquery.ptTimeSelect.js"></script>
-<script>
+    <script src="~/js/jquery.ptTimeSelect.js"></script>
+    <script>
         function getCookie(cookieName) {
             let cookie = {};
             document.cookie.split(';').forEach(function (el) {
@@ -177,10 +202,13 @@
             location.href = "/Login";
         }
 
-</script>
+    </script>
 
 
-<script>
+    <script>
+        let sensorList;
+        let date;
+
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2({
                 tags: "true",
@@ -369,91 +397,6 @@
                    }*/
             });
 
-            $('#SingleSensorSelect').on('select2:select select2:unselect select2:clear', function (e) {
-                // var data = e.params.data.text;
-                // var selected_items = $('.js-example-basic-multiple').val();
-                var campus = $("#SensorSelect").val();
-                var building = $("#SensorBuildingSelect").val();
-                var room = $("#SensorRoomSelect").val();
-                var sensorid = $("#SingleSensorSelect").val();
-                document.getElementById('uidvalue').value = "";
-                document.getElementById('airconvalue').value = "";
-                document.getElementById('sensoridvalue').value = "";
-                document.getElementById('roomvalue').value = "";
-                document.getElementById('campusvalue').value = "";
-                document.getElementById('buildingvalue').value = "";
-                document.getElementById('numbervalue').value = "";
-                document.getElementById('wakeuptimervalue').value = "";
-                console.log(campus, building, room, sensorid);
-                if (campus && building && room && sensorid && building.length > 0 && campus.length > 0 && room.length > 0 && sensorid.length > 0) {
-                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
-                        console.log("single sensor selected", campus, building, room, sensorid);
-                        let result = JSON.parse(res)
-                        for (var i = 0; i < result.length; i++) {
-                            if (result[i].name == campus) {
-                                for (var j = 0; j < result[i].buildinglist.length; j++) {
-                                    if (result[i].buildinglist[j].name == building) {
-                                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
-                                            if (result[i].buildinglist[j].roomlist[k].name == room) {
-                                                console.log("this room found")
-                                                for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
-                                                    console.log(result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid);
-                                                    if (result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid == sensorid) {
-                                                        console.log("this sensor id found");
-                                                        var thisid = result[i].buildinglist[j].roomlist[k].sensorlist[x].id;
-                                                        var thisvendor = result[i].buildinglist[j].roomlist[k].sensorlist[x].vendor;
-                                                        var thissensorid = result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid;
-                                                        var thisroom = result[i].buildinglist[j].roomlist[k].sensorlist[x].room;
-                                                        var thiscampus = result[i].buildinglist[j].roomlist[k].sensorlist[x].campus;
-                                                        var thisbuilding = result[i].buildinglist[j].roomlist[k].sensorlist[x].building;
-                                                        var thisnumber = result[i].buildinglist[j].roomlist[k].sensorlist[x].number;
-                                                        var thiswakeuptimer = result[i].buildinglist[j].roomlist[k].sensorlist[x].wakeuptimer;
-                                                        document.getElementById('uidvalue').value = thisid;
-                                                        document.getElementById('airconvalue').value = thisvendor;
-                                                        document.getElementById('sensoridvalue').value = thissensorid;
-                                                        document.getElementById('roomvalue').value = thisroom;
-                                                        document.getElementById('campusvalue').value = thiscampus;
-                                                        document.getElementById('buildingvalue').value = thisbuilding;
-                                                        document.getElementById('numbervalue').value = thisnumber;
-                                                        document.getElementById('wakeuptimervalue').value = thiswakeuptimer;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    })
-                }
-                /*   if ($("#SensorSelect").val()) {
-                       var res = $("#SensorSelect").val()[0];
-                       console.log(res);
-                       const words = res.split('##');
-                       let id = words[0];
-                       let room = words[1];
-                       let sensorid = words[2];
-                       let vendor = words[3];
-                       console.log(id);
-                       document.getElementById('uidvalue').value = id
-                       document.getElementById('airconvalue').value = vendor
-                       document.getElementById('sensoridvalue').value = sensorid
-                       document.getElementById('roomvalue').value = room
-                   }
-                   else {
-                       document.getElementById('uidvalue').value = ''
-                       document.getElementById('airconvalue').value = ''
-                       document.getElementById('sensoridvalue').value = ''
-                       document.getElementById('roomvalue').value = ''
-                   }*/
-            });
-
-            /*  $('#configTable').on('click', 'tr', function () {
-                  var name = $('td', this).eq(1).text();
-                  $('#DescModal').modal("show");
-              });*/
-
-
             $('#CampusSelect').on('select2:select select2:unselect select2:clear', function (e) {
                 // var data = e.params.data.text;
                 // var selected_items = $('.js-example-basic-multiple').val();
@@ -514,7 +457,7 @@
                     }
                     let config = JSON.parse(res2)
                     console.log(config)
-           
+
                 })
             });
 
@@ -534,7 +477,9 @@
                     if (res1 && res1.length > 0) {
                         console.log(res1);
                         const result = JSON.parse(res1)
-                        document.getElementById("demo").innerHTML = JSON.stringify(result.map(a => a.SensorId));
+                        sensorList = JSON.stringify(result.map(a => a.SensorId));
+
+
                     }
                     if (res2 && res2.length > 0) {
                         console.log(res2);
@@ -631,6 +576,118 @@
                 }
             })
         })
-</script>
+
+        const setDate = () => {
+            let x = document.getElementById("dateSelect").value;
+            console.log(x)
+            const currentTime = Math.floor(Date.now() / 1000)
+            switch (x) {
+                case 'day':
+                    date = currentTime - 60 * 60 * 24
+                    break
+                case 'week':
+                    date = currentTime - 60 * 60 * 24 * 7
+                    break
+                case 'month':
+                    date = currentTime - 60 * 60 * 24 * 30
+                    break
+            }
+
+            console.log(date)
+
+        }
+
+
+        const getData = async () => {
+            try {
+                const result = await $.get(`/TopicManager/GetSensorDataCustom?JSONSensorList=${sensorList}&date=${date}`)
+                const data = JSON.parse(result)
+                let localData = data.map((a) =>
+                    (({ Utc, SensorId, RoomTemperature, BatteryPercentage }) => ({ Utc, SensorId, RoomTemperature, BatteryPercentage }))(a),
+                )
+                localData = localData.map(a => ({
+                    SensorId: a.SensorId,
+                    y: a.BatteryPercentage,
+                    x: a.Utc
+                }))
+                const final = groupBy(localData, 'SensorId')
+
+                const output = Object.keys(final).map((SensorId) => {
+                    return {
+                        SensorId: SensorId,
+                        data: final[SensorId].map(a => ({
+                            x: new Date(a.x * 1000),
+                            y: a.y
+                        }))
+                    }
+                })
+
+
+                Chart(output)
+                console.log(output)
+            }
+            catch (error) {
+                console.log(error)
+            }
+        }
+
+
+        function groupBy(objectArray, property) {
+            return objectArray.reduce((acc, obj) => {
+                const key = obj[property];
+                if (!acc[key]) {
+                    acc[key] = [];
+                }
+                acc[key].push(obj);
+                return acc;
+            }, {});
+        }
+
+
+        const Chart = (localData) => {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Battery Chart"
+                },
+                axisX: {
+                    valueFormatString: "DD-MMM HH:mm",
+
+                },
+                axisY: {
+                    suffix: "V"
+                },
+                toolTip: {
+                    shared: true,
+
+                },
+                legend: {
+                    cursor: "pointer",
+                    verticalAlign: "top",
+                    horizontalAlign: "center",
+                    dockInsidePlotArea: true,
+                    itemclick: toogleDataSeries
+                },
+                data: localData.map(a => ({
+                    type: "line",
+                    name: a.SensorId,
+                    showInLegend: true,
+                    dataPoints: a.data
+                }))
+            });
+            chart.render();
+
+            function toogleDataSeries(e) {
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else {
+                    e.dataSeries.visible = true;
+                }
+                chart.render();
+            }
+
+        }
+
+    </script>
 }
 
