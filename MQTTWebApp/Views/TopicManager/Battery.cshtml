@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Chart";
+    ViewData["Title"] = "Battery Chart";
 }
 <hr />
 
@@ -137,11 +137,12 @@
 <br />
 <div class="ui-widget">
     <label for="RoomSelect">Select Date Range </label><br />
-    <select id="dateSelect" onchange="setDate()" class="js-example-basic-multiple" style="width: 65%">
-        <option value="" disabled selected hidden>Select</option>
-        <option value="day">Day</option>
-        <option value="week">Week</option>
-        <option value="month">Month</option>
+    <select id="dateSelect" onchange="setDate()" class="js-example-basic-single" style="width: 65%">
+        <option value="" disabled selected hidden>Please Select</option>
+        <option value="month">1 Month</option>
+        <option value="3month">3 Months</option>
+        <option value="6month">6 Months</option>
+        <option value="12month">1 Year</option>
     </select>
 </div>
 <br />
@@ -208,7 +209,6 @@
     <script>
         let sensorList;
         let date;
-
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2({
                 tags: "true",
@@ -579,21 +579,22 @@
 
         const setDate = () => {
             let x = document.getElementById("dateSelect").value;
-            console.log(x)
             const currentTime = Math.floor(Date.now() / 1000)
             switch (x) {
-                case 'day':
-                    date = currentTime - 60 * 60 * 24
-                    break
-                case 'week':
-                    date = currentTime - 60 * 60 * 24 * 7
-                    break
                 case 'month':
                     date = currentTime - 60 * 60 * 24 * 30
                     break
+                case '3month':
+                    date = currentTime - 60 * 60 * 24 * 30 * 3
+                    break
+                case '6month':
+                    date = currentTime - 60 * 60 * 24 * 30 * 6
+                    break
+                case '12month':
+                    date = currentTime - 60 * 60 * 24 * 30 * 12
+                    break
             }
 
-            console.log(date)
 
         }
 
@@ -624,7 +625,6 @@
 
 
                 Chart(output)
-                console.log(output)
             }
             catch (error) {
                 console.log(error)
@@ -647,11 +647,11 @@
         const Chart = (localData) => {
 
             var chart = new CanvasJS.Chart("chartContainer", {
+                zoomEnabled: true,
                 title: {
                     text: "Battery Chart"
                 },
                 axisX: {
-                    valueFormatString: "DD-MMM HH:mm",
 
                 },
                 axisY: {

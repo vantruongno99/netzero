@@ -45,10 +45,16 @@ namespace MQTTWebApp.Controllers
         {
             return View();
         }
-        public IActionResult SensorCharts()
+        public IActionResult Battery()
         {
             return View();
         }
+
+        public IActionResult Temperature()
+        {
+            return View();
+        }
+
 
         #region APIs
         [HttpGet]

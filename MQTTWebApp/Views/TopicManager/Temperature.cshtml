@@ -1,0 +1,719 @@
+﻿@{
+    ViewData["Title"] = "Temperature Chart";
+}
+<hr />
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto+Condensed:wght@300&display=swap">
+<style>
+    h1 {
+        font-size: 28px;
+    }
+
+    #configTabular {
+        font-size: 10px;
+        background-color: #f2f2f2;
+        line-height: 30px;
+    }
+
+    #sensorTabular {
+        font-size: 10px;
+        background-color: #f2f2f2;
+        line-height: 30px;
+        width: 950px;
+    }
+
+    .tabulator-col-title {
+        text-align: center;
+    }
+
+    .modal-dialog {
+        width: 500px;
+        height: 840px !important;
+    }
+
+    .modal-header {
+        background-color: #337AB7;
+        padding: 16px 16px;
+        color: #FFF;
+        border-bottom: 16px dashed #337AB7;
+    }
+
+    .modal-content {
+        /* 80% of window height */
+        height: 80%;
+        background-color: #e6e6e6;
+    }
+
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        height: 150vh;
+        overflow-y: auto;
+    }
+
+    .ui-dialog {
+        background: #ffd7b3;
+    }
+
+        .ui-dialog .ui-dialog-buttonpane {
+            text-align: center;
+            background: #ffd7b3;
+        }
+
+            .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+                float: none;
+            }
+
+        .ui-dialog .ui-dialog-titlebar {
+            border: 0;
+            padding: .5em 1em;
+            color: white;
+            background: #e65c00;
+            overflow: auto;
+            zoom: 1;
+        }
+
+        .ui-dialog .ui-dialog-titlebar-close {
+            display: none;
+        }
+
+        .ui-dialog .ui-dialog-content {
+            border: 0;
+            overflow: auto;
+            zoom: 1;
+        }
+
+        .ui-dialog .ui-dialog-buttonpane {
+            border: 0;
+            overflow: auto;
+            zoom: 1;
+        }
+
+    table.dataTable tbody tr td {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+</style>
+@section Links {
+<link rel="stylesheet" href=http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css>
+<link rel="stylesheet" href="~/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="~/css/select2.min.css">
+<link href="~/css/jquery-weekdays.css" rel="stylesheet" />
+<link href="~/css/jquery.ptTimeSelect.css" rel="stylesheet" />
+<link href="~/css/jquery-weekdays.css" rel="stylesheet" />
+<link href="~/css/tabulator.min.css" rel="stylesheet" />
+}
+
+<!--<link rel="stylesheet" href="~/css/jquery-ui.css">-->
+<!-- The Modal -->
+
+
+<br />
+<br />
+<h4 class="mt-2">Select Sensors by Location</h4>
+<p>Select a campus, building, or specific rooms </p>
+<div class="ui-widget">
+    <label for="CampusSelect">Select a Campus </label> <br />
+    <select class="js-example-basic-multiple" id=CampusSelect name="CampusSelect[]" multiple="multiple" style="width: 65%">
+    </select>
+</div>
+<br />
+<div class="ui-widget">
+    <label for="BuildingSelect">Select a Building  </label><br />
+    <select class="js-example-basic-multiple" id=BuildingSelect name="BuildingSelect[]" multiple="multiple" style="width: 65%">
+    </select>
+</div>
+<br />
+<div class="ui-widget">
+    <label for="RoomSelect">Select a Room  </label><br />
+    <select class="js-example-basic-multiple" id=RoomSelect name="RoomSelect[]" multiple="multiple" style="width: 65%">
+    </select>
+</div>
+<br />
+<div class="ui-widget">
+    <label for="RoomSelect">Select Date Range </label><br />
+                                                      <select id="dateSelect" onchange="setDate()" class="js-example-basic-single" style="width: 65%">
+                                                          <option value="" disabled selected hidden>Please Select</option>
+                                                          <option value="month">1 Month</option>
+                                                          <option value="3month">3 Months</option>
+                                                          <option value="6month">6 Months</option>
+                                                          <option value="12month">1 Year</option>
+                                                      </select>
+</div>
+<br />
+<div>
+    <button id="myButton" onclick="getData()" class="btn btn-primary">
+        Generate Chart
+    </button>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-12">
+        <div class="p-3 border border-primary">
+            <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
+
+@section Scripts{
+<script src="~/js/jquery.ptTimeSelect.js"></script>
+<script>
+        function getCookie(cookieName) {
+            let cookie = {};
+            document.cookie.split(';').forEach(function (el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            })
+            return cookie[cookieName];
+        }
+
+        const user = getCookie('user')
+        if (user === null || user === '' || user === undefined) {
+            location.href = "/Login";
+        }
+
+</script>
+
+
+<script>
+    let sensorList;
+    let date;
+
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2({
+                tags: "true",
+                placeholder: "Please Select",
+                maximumSelectionLength: 1,
+                allowClear: true,
+                sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+            });
+            $('#SensorSelect').select2({
+                maximumSelectionLength: 1
+            });
+            $('#SensorBuildingSelect').select2({
+                maximumSelectionLength: 1
+            });
+            $('#SensorRoomSelect').select2({
+                maximumSelectionLength: 1
+            });
+
+            $('#SingleSensorSelect').select2({
+                maximumSelectionLength: 1
+            });
+
+            $('#HolidaySelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                var selected_items = $("#HolidaySelect").val();
+                console.log(selected_items);
+            });
+            $('#SensorSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                $('#SensorBuildingSelect').empty();
+                $('#SensorRoomSelect').empty();
+                $('#SingleSensorSelect').empty();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                var campus = $("#SensorSelect").val();
+                console.log(campus);
+                if (campus && campus.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        let result = JSON.parse(res)
+                        let set = []
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    set.push(result[i].buildinglist[j].name);
+                                }
+                            }
+                        }
+                        for (var x = 0; x < set.length; x++) {
+                            $("#SensorBuildingSelect").append(`<option value="${set[x]}">Building: ${set[x]}</option >`);
+                        }
+                    })
+                }
+
+                /*   if ($("#SensorSelect").val()) {
+                       var res = $("#SensorSelect").val()[0];
+                       console.log(res);
+                       const words = res.split('##');
+                       let id = words[0];
+                       let room = words[1];
+                       let sensorid = words[2];
+                       let vendor = words[3];
+                       console.log(id);
+                       document.getElementById('uidvalue').value = id
+                       document.getElementById('airconvalue').value = vendor
+                       document.getElementById('sensoridvalue').value = sensorid
+                       document.getElementById('roomvalue').value = room
+                   }
+                   else {
+                       document.getElementById('uidvalue').value = ''
+                       document.getElementById('airconvalue').value = ''
+                       document.getElementById('sensoridvalue').value = ''
+                       document.getElementById('roomvalue').value = ''
+                   }*/
+            });
+
+            $('#SensorBuildingSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                $('#SensorRoomSelect').empty();
+                $('#SingleSensorSelect').empty();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                var campus = $("#SensorSelect").val();
+                var building = $("#SensorBuildingSelect").val();
+                console.log(campus);
+                console.log(building);
+                if (campus && building && building.length > 0 && campus.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        let result = JSON.parse(res)
+                        let set = []
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    if (result[i].buildinglist[j].name == building) {
+                                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                                            // console.log(result[i].buildinglist[j].roomlist[k]);
+                                            set.push(result[i].buildinglist[j].roomlist[k].name);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (var x = 0; x < set.length; x++) {
+                            $("#SensorRoomSelect").append(`<option value="${set[x]}">Room: ${set[x]}</option >`);
+                        }
+                    })
+                }
+            });
+
+            $('#SensorRoomSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                $('#SingleSensorSelect').empty();
+                var campus = $("#SensorSelect").val();
+                var building = $("#SensorBuildingSelect").val();
+                var room = $("#SensorRoomSelect").val();
+                document.getElementById('uidvalue').value = "";
+                document.getElementById('airconvalue').value = "";
+                document.getElementById('sensoridvalue').value = "";
+                document.getElementById('roomvalue').value = "";
+                document.getElementById('campusvalue').value = "";
+                document.getElementById('buildingvalue').value = "";
+                document.getElementById('numbervalue').value = "";
+                document.getElementById('wakeuptimervalue').value = "";
+                console.log(campus, building, room);
+                if (campus && building && room && building.length > 0 && campus.length > 0 && room.length > 0) {
+                    $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                        console.log("enteselectroom", campus, building, room);
+                        let result = JSON.parse(res)
+                        console.log(result);
+                        let set = []
+                        for (var i = 0; i < result.length; i++) {
+                            if (result[i].name == campus) {
+                                for (var j = 0; j < result[i].buildinglist.length; j++) {
+                                    if (result[i].buildinglist[j].name == building) {
+                                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                                            if (result[i].buildinglist[j].roomlist[k].name == room) {
+                                                for (var x = 0; x < result[i].buildinglist[j].roomlist[k].sensorlist.length; x++) {
+                                                    set.push(result[i].buildinglist[j].roomlist[k].sensorlist[x].sensorid);
+                                                }
+                                                var sensorlist = result[i].buildinglist[j].roomlist[k].sensorlist;
+                                                console.log(sensorlist);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        for (var z = 0; z < set.length; z++) {
+                            $("#SingleSensorSelect").append(`<option value="${set[z]}">Sensor ID: ${set[z]}</option >`);
+                        }
+                    })
+                }
+                /*   if ($("#SensorSelect").val()) {
+                       var res = $("#SensorSelect").val()[0];
+                       console.log(res);
+                       const words = res.split('##');
+                       let id = words[0];
+                       let room = words[1];
+                       let sensorid = words[2];
+                       let vendor = words[3];
+                       console.log(id);
+                       document.getElementById('uidvalue').value = id
+                       document.getElementById('airconvalue').value = vendor
+                       document.getElementById('sensoridvalue').value = sensorid
+                       document.getElementById('roomvalue').value = room
+                   }
+                   else {
+                       document.getElementById('uidvalue').value = ''
+                       document.getElementById('airconvalue').value = ''
+                       document.getElementById('sensoridvalue').value = ''
+                       document.getElementById('roomvalue').value = ''
+                   }*/
+            });
+
+            $('#CampusSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                // var selected_items = $('.js-example-basic-multiple').val();
+                var selected_items = $("#CampusSelect").val();
+                console.log(selected_items);
+                $("#BuildingSelect").empty()
+                $("#RoomSelect").empty()
+
+                $.get(`/TopicManager/MultipleBuildingList?campusList=${selected_items}`).then((res) => {
+                    const words = res.split('KINGOFWORLD');
+                    let res1 = words[0];
+                    let res2 = words[1];
+                    //  let combo = res.split("@@@@");
+                    //  let buildinglist = combo[0];
+                    // let configlist = combo[1];
+                    let result = JSON.parse(res1)
+                    //$('select option:selected').removeAttr('selected');
+                    console.log(result)
+                    //let arr = []
+                    for (var i = 0; i < result.length; i++) {
+                        //arr.push(result[i].Building)
+                        $("#BuildingSelect").append(`<option value="${result[i].Building}">${result[i].Campus},  ${result[i].Building}  Building</option>`);
+                    }
+                    let config = JSON.parse(res2)
+                    console.log(config)
+                })
+            });
+
+
+            // specify the columns
+            $(document).ready(function () {
+                var table = $('#configTable').DataTable({
+                    searching: false,
+                    scrollX: true,
+                    scrollY: '70vh',
+                    scrollCollapse: true,
+                    paging: true,
+                    "autoWidth": false
+                });
+            });
+            $('#BuildingSelect').on('select2:select select2:unselect select2:clear', function (e) {
+                // var data = e.params.data.text;
+                var selected_items = $("#BuildingSelect").val();
+                console.log(selected_items);
+                $("#RoomSelect").empty()
+                $('#messageTable').empty();
+                $.get(`/TopicManager/MultipleRoomList?buildingList=${selected_items}`).then((res) => {
+                    const words = res.split('KINGOFWORLD');
+                    let res1 = words[0];
+                    let res2 = words[1];
+                    let result = JSON.parse(res1)
+                    //$('select option:selected').removeAttr('selected');
+                    console.log(result)
+                    //let arr = []
+                    for (var i = 0; i < result.length; i++) {
+                        //arr.push(result[i].Building)
+                        $("#RoomSelect").append(`<option value="${result[i].Building}-COMBINE-${result[i].Room}">${result[i].Campus},  ${result[i].Building} Building, Room ${result[i].Room} </option >`);
+                    }
+                    let config = JSON.parse(res2)
+                    console.log(config)
+
+                })
+            });
+
+            $('#RoomSelect').on('select2:select select2:unselect select2:clear select2:clearing', function (e) {
+                // var data = e.params.data.text;
+                var selected_items = $("#RoomSelect").val();
+
+                $.get(`/TopicManager/MultipleRoomListData?roomList=${selected_items}`).then((res) => {
+                    const words = res.split('KINGOFWORLD');
+                    let res1 = words[0];
+                    let res2 = words[1];
+                    var result;
+
+                    if (res1)
+                        result = JSON.parse(res1);
+                    //$('select option:selected').removeAttr('selected');
+                    if (res1 && res1.length > 0) {
+                        console.log(res1);
+                        const result = JSON.parse(res1)
+                        sensorList = JSON.stringify(result.map(a => a.SensorId));
+
+
+                    }
+                    if (res2 && res2.length > 0) {
+                        console.log(res2);
+                    }
+                    /*  $('#messageTable').DataTable({
+                          "destroy": true,
+                          data: result,
+                          "columns": [
+                              { "data": "NickName" },
+                              { "data": "Vendor" },
+                              { "data": "Campus" },
+                              { "data": "Building" },
+                              { "data": "Room" },
+                              { "data": "Timestamp" },
+                              { "data": "SetTemperature" },
+                              { "data": "RoomTemperature" },
+                              { "data": "FanSpeed" },
+                              { "data": "Mode" },
+                              { "data": "BatteryPercentage" },
+                              { "data": "PowerOnOff" }
+                          ]
+                      });*/
+
+
+                    /* $('#configTable').DataTable({
+                         "destroy": true,
+                         scrollX: true,
+                         scrollY: '70vh',
+                         scrollCollapse: true,
+                         data: config,
+                         defaultContent: "<button>Click!</button>",
+                         "columns": [
+                             { "data": "Campus" },
+                             { "data": "Building" },
+                             { "data": "Room" },
+                             { "data": "Timestamp" },
+                             { "data": "Priority" },
+                             { "data": "StartDate" },
+                             { "data": "EndDate" },
+                             { "data": "StartTime" },
+                             { "data": "EndTime" },
+                             { "data": "WeekDays" },
+                             { "data": "Temperature" },
+                             { "data": "FanSpeed" },
+                             { "data": "Mode" },
+                             { "data": "ResetTimer" },
+                             { "data": "PowerStatus" }
+                         ]
+                     });
+                     $('#configTable').DataTable().draw();*/
+
+                })
+            });
+            $.get('/TopicManager/GetHolidayList').then((res) => {
+                let result = JSON.parse(res)
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    $("#HolidaySelect").append(`<option value="${result[i].Date}">${result[i].HolidayName} - ${result[i].Date}</option>`);
+                }
+            })
+            $.get('/TopicManager/GetAddSensorJson').then((res) => {
+                let result = JSON.parse(res)
+                let set = []
+                for (var i = 0; i < result.length; i++) {
+                    set.push(result[i].name)
+                    for (var j = 0; j < result[i].buildinglist.length; j++) {
+                        for (var k = 0; k < result[i].buildinglist[j].roomlist.length; k++) {
+                            //  $("#SensorSelect").append(`<option value="${result[i].buildinglist[j].roomlist[k].id}##${result[i].buildinglist[j].roomlist[k].name}##${result[i].buildinglist[j].roomlist[k].sensorid}##${result[i].buildinglist[j].roomlist[k].vendor}">Campus: ${result[i].name}    Building: ${result[i].buildinglist[j].name}    Room: ${result[i].buildinglist[j].roomlist[k].name}  SensorID:  ${result[i].buildinglist[j].roomlist[k].sensorid} Model:  ${result[i].buildinglist[j].roomlist[k].vendor}</option>`);
+                        }
+                    }
+                }
+                for (var x = 0; x < set.length; x++) {
+                    $("#SensorSelect").append(`<option value="${set[x]}">Campus: ${set[x]}</option >`);
+                }
+            })
+
+            $.get('/TopicManager/CampusList').then((res) => {
+                let result = JSON.parse(res)
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    $("#CampusSelect").append(`<option value="${result[i].Campus}">${result[i].Campus}</option>`);
+                }
+            })
+        });
+        $(document).ready(function () {
+            $.get('/TopicManager/CampusList').then((res) => {
+                let result = JSON.parse(res)
+                //let set = []
+                for (var i = 0; i < result.length; i++) {
+                    //set.push(result[i].Campus)
+                    $("#campusList").append(`<option value="${result[i].Campus}">${result[i].Campus}</option>`);
+                }
+            })
+        })
+
+    const setDate = () => {
+        let x = document.getElementById("dateSelect").value;
+        console.log(x)
+        const currentTime = Math.floor(Date.now() / 1000)
+        switch (x) {
+            case 'month':
+                date = currentTime - 60 * 60 * 24 * 30
+                break
+            case '3month':
+                date = currentTime - 60 * 60 * 24 * 30 * 3
+                break
+            case '6month':
+                date = currentTime - 60 * 60 * 24 * 30 * 6
+                break
+            case '12month':
+                date = currentTime - 60 * 60 * 24 * 30 * 12
+                break
+        }
+
+        console.log(date)
+
+    }
+
+
+        const getData = async () => {
+            try {
+                const result = await $.get(`/TopicManager/GetSensorDataCustom?JSONSensorList=${sensorList}&date=${date}`)
+                const data = JSON.parse(result)
+                console.log(data.map(a => a.PowerOnOff))
+                let localData = data.map((a) =>
+                    (({ Utc, SensorId, RoomTemperature, SetTemperature }) => ({ Utc, SensorId, RoomTemperature, SetTemperature}))(a),
+                )
+                    TemperatureChart(localData)            
+            }
+            catch (error) {
+                console.log(error)
+            }
+        }
+
+
+        function groupBy(objectArray, property) {
+            return objectArray.reduce((acc, obj) => {
+                const key = obj[property];
+                if (!acc[key]) {
+                    acc[key] = [];
+                }
+                acc[key].push(obj);
+                return acc;
+            }, {});
+        }
+
+
+    const TemperatureChart = (localData) => {
+
+        const temperature = localData.map(a => a.RoomTemperature)
+
+        const tempMax = Math.max(...temperature)
+
+        const tempMin = Math.min(...temperature)
+
+        console.log(localData.map(a => a.SetTemperature))
+
+        const setTemperature = localData[0].SetTemperature
+
+        const localData1 = localData.map(a => ({
+            SensorId: a.SensorId,
+            y: a.RoomTemperature,
+            x: a.Utc
+        }))
+
+        console.log(tempMin)
+        console.log(tempMax)
+
+
+        const final = groupBy(localData1, 'SensorId')
+
+        const output = Object.keys(final).map((SensorId) => {
+            return {
+                SensorId: SensorId,
+                data: final[SensorId].map(a => ({
+                    x: new Date(a.x * 1000),
+                    y: a.y
+                }))
+            }
+        })
+
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            zoomEnabled: true,
+                title: {
+                    text: "Temperature Chart"
+                },
+                axisX: {
+                },
+                axisY: {
+                    minimum: (tempMin > setTemperature ? setTemperature : tempMin) - 1 ,
+                    maximum: (setTemperature > tempMax ? setTemperature : tempMax) + 1,
+                    suffix: "°C",
+                    stripLines: [
+                        {
+                            value: setTemperature,
+                            label: "Set Temperature"
+                        }
+                    ]
+                },
+                toolTip: {
+                    shared: true,
+
+                },
+                legend: {
+                    cursor: "pointer",
+                    verticalAlign: "top",
+                    horizontalAlign: "center",
+                    dockInsidePlotArea: true,
+                    itemclick: toogleDataSeries
+                },
+                data: output.map(a => ({
+                    type: "line",
+                    name: a.SensorId,
+                    showInLegend: true,
+                    dataPoints: a.data
+                }))
+            });
+        chart.render();
+
+            function toogleDataSeries(e) {
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else {
+                    e.dataSeries.visible = true;
+                }
+                chart.render();
+        }
+
+        }
+
+</script>
+}
+

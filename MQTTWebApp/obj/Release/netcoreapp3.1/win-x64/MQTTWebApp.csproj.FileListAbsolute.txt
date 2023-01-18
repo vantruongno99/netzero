@@ -3020,4 +3020,5 @@ C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\MQTT
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\MQTTWebApp.pdb
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\MQTTWebApp.genruntimeconfig.cache
 C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\Razor\Views\TopicManager\Status.cshtml.g.cs
-C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\Razor\Views\TopicManager\SensorCharts.cshtml.g.cs
+C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\Razor\Views\TopicManager\Temperature.cshtml.g.cs
+C:\Users\vantr\Desktop\netzero\MQTTWebApp\obj\Release\netcoreapp3.1\win-x64\Razor\Views\TopicManager\Battery.cshtml.g.cs
