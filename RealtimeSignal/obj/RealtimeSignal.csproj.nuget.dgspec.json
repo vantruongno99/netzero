@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {}
+    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
+    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "projectUniqueName": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
         "projectName": "RealtimeSignal",
-        "projectPath": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
-        "packagesPath": "C:\\Users\\vantr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vantr\\Desktop\\netzero\\RealtimeSignal\\obj\\",
+        "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vantr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -51,7 +51,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -63,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

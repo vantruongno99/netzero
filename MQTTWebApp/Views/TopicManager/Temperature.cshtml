@@ -130,13 +130,13 @@
 <br />
 <div class="ui-widget">
     <label for="RoomSelect">Select a Room  </label><br />
-    <select class="js-example-basic-multiple" id=RoomSelect name="RoomSelect[]" multiple="multiple" style="width: 65%">
+    <select class="js-example-basic-single" id=RoomSelect name="RoomSelect[]" multiple="multiple" style="width: 65%">
     </select>
 </div>
 <br />
 <div class="ui-widget">
     <label for="RoomSelect">Select Date Range </label><br />
-                                                      <select id="dateSelect" onchange="setDate()" class="js-example-basic-single" style="width: 65%">
+                                                      <select id="dateSelect" onchange="setDate()" style="width: 65%">
                                                           <option value="" disabled selected hidden>Please Select</option>
                                                           <option value="month">1 Month</option>
                                                           <option value="3month">3 Months</option>
@@ -211,6 +211,12 @@
 
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2({
+                tags: "true",
+                placeholder: "Please Select",
+                allowClear: true,
+                sorter: data => data.sort((a, b) => a.text.localeCompare(b.text))
+            });
+            $('.js-example-basic-single').select2({
                 tags: "true",
                 placeholder: "Please Select",
                 maximumSelectionLength: 1,
@@ -580,7 +586,6 @@
 
     const setDate = () => {
         let x = document.getElementById("dateSelect").value;
-        console.log(x)
         const currentTime = Math.floor(Date.now() / 1000)
         switch (x) {
             case 'month':
@@ -596,9 +601,6 @@
                 date = currentTime - 60 * 60 * 24 * 30 * 12
                 break
         }
-
-        console.log(date)
-
     }
 
 
@@ -638,31 +640,21 @@
 
         const tempMin = Math.min(...temperature)
 
+        const SensorId = localData[0].SensorId
+
         console.log(localData.map(a => a.SetTemperature))
 
         const setTemperature = localData[0].SetTemperature
 
         const localData1 = localData.map(a => ({
-            SensorId: a.SensorId,
             y: a.RoomTemperature,
-            x: a.Utc
+            x: new Date (a.Utc * 1000) 
         }))
 
-        console.log(tempMin)
-        console.log(tempMax)
-
-
-        const final = groupBy(localData1, 'SensorId')
-
-        const output = Object.keys(final).map((SensorId) => {
-            return {
-                SensorId: SensorId,
-                data: final[SensorId].map(a => ({
-                    x: new Date(a.x * 1000),
-                    y: a.y
-                }))
-            }
-        })
+            const localData2 = localData.map(a => ({
+            y: a.SetTemperature,
+                x: new Date(a.Utc * 1000)
+        }))
 
 
         var chart = new CanvasJS.Chart("chartContainer", {
@@ -676,12 +668,6 @@
                     minimum: (tempMin > setTemperature ? setTemperature : tempMin) - 1 ,
                     maximum: (setTemperature > tempMax ? setTemperature : tempMax) + 1,
                     suffix: "°C",
-                    stripLines: [
-                        {
-                            value: setTemperature,
-                            label: "Set Temperature"
-                        }
-                    ]
                 },
                 toolTip: {
                     shared: true,
@@ -694,12 +680,18 @@
                     dockInsidePlotArea: true,
                     itemclick: toogleDataSeries
                 },
-                data: output.map(a => ({
+                data:[{
                     type: "line",
-                    name: a.SensorId,
+                    name: SensorId,
                     showInLegend: true,
-                    dataPoints: a.data
-                }))
+                    dataPoints: localData1
+                },
+                {
+                    type: "line",
+                    name: "Set Temperature",
+                    showInLegend: true,
+                    dataPoints: localData2
+                }]
             });
         chart.render();
 
