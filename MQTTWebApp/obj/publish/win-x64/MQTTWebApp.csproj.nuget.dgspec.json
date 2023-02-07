@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\MQTTWebApp.csproj": {}
+    "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj": {
+    "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
         "projectName": "MongoAccess",
-        "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj",
+        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
         "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\obj\\",
+        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -67,8 +67,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -77,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -86,14 +85,14 @@
         }
       }
     },
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
+    "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
+        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
         "projectName": "MQTTTopicManager",
-        "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
+        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj",
         "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTTopicManager\\obj\\",
+        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -110,11 +109,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj": {
-                "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj"
+              "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
+                "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
               },
-              "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
-                "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj"
+              "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
+                "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj"
               }
             }
           }
@@ -156,8 +155,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -169,7 +167,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -178,14 +176,14 @@
         }
       }
     },
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\MQTTWebApp.csproj": {
+    "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
         "projectName": "MQTTWebApp",
-        "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
         "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\obj\\publish\\win-x64\\",
+        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\obj\\publish\\win-x64\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -202,11 +200,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj": {
-                "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj"
+              "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj": {
+                "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj"
               },
-              "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
-                "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj"
+              "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj": {
+                "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTTopicManager\\MQTTTopicManager.csproj"
               }
             }
           }
@@ -260,23 +258,22 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[3.1.32, 3.1.32]"
+              "version": "[3.1.31, 3.1.31]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[3.1.32, 3.1.32]"
+              "version": "[3.1.31, 3.1.31]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[3.1.32, 3.1.32]"
+              "version": "[3.1.31, 3.1.31]"
             }
           ],
           "frameworkReferences": {
@@ -287,7 +284,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -296,14 +293,14 @@
         }
       }
     },
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
+    "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
         "projectName": "RealtimeSignal",
-        "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
         "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\obj\\",
+        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -343,8 +340,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -356,7 +352,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QhAeYNuRFhNq7n1GsR105Dv39DBtEN82y1MKpeAKfb02JU0B5eQdZjt4MdiFV+XQzfbubctDTuWhEaQnu1+NWg==",
+  "dgSpecHash": "+eviAvBCl9uMQcQhb2S9NmPpbrjm35le/zZlgdeD2M2HAGWsHw5z9M5LUAhoPsLtm0gJ7Wzcw11zPFyzDKpBAA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MongoAccess\\MongoAccess.csproj",
+  "projectFilePath": "C:\\Users\\Truong\\Desktop\\netzero\\MongoAccess\\MongoAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Truong\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\Truong\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.0\\microsoft.aspnetcore.mvc.razor.extensions.3.1.0.nupkg.sha512",

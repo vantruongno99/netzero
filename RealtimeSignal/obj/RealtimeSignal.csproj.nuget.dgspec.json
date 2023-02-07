@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {}
+    "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
+    "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "projectUniqueName": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
         "projectName": "RealtimeSignal",
-        "projectPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
+        "projectPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\RealtimeSignal.csproj",
         "packagesPath": "C:\\Users\\Truong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\RealtimeSignal\\obj\\",
+        "outputPath": "C:\\Users\\Truong\\Desktop\\netzero\\RealtimeSignal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Truong\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -51,8 +51,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -64,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
         }
       }
     }

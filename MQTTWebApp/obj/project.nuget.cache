@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FAISfqN50tO3ZgszNxrEtLC02eaaS2EjTLyQyNtIV2aMXWWs+yKe109CSReCgOtVfL3BSfnIo6YZVgooR4LYrg==",
+  "dgSpecHash": "x3GgVVvB256yimpXhcv8o8tKepnSfvfiad29wq7qg4r2yPkzJ4zqXzeF5pfss4V/wmDPO/819dmASuaAmJr0ew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+  "projectFilePath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Truong\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\Truong\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

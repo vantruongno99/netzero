@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5vK0VfaeuFNNURspnMUQ9nU0uzqHSiWfvFWMUTY2XL8sWpVcK9wqSGQo2JdlB6W46S3QW5Fi4XbDMhuJUo5b9w==",
+  "dgSpecHash": "gtSoB+Vba7B1ZiLnhUXmhub5+42pmxAYXx1JaD5GNHXg4oXCfFLK1Pf3tfgyDyw9OZW2rd2T287362oQ6ighug==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Truong\\Documents\\GitHub\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
+  "projectFilePath": "C:\\Users\\Truong\\Desktop\\netzero\\MQTTWebApp\\MQTTWebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Truong\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
     "C:\\Users\\Truong\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
@@ -188,9 +188,9 @@
     "C:\\Users\\Truong\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Truong\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Truong\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Truong\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.32\\microsoft.netcore.app.runtime.win-x64.3.1.32.nupkg.sha512",
-    "C:\\Users\\Truong\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\3.1.32\\microsoft.windowsdesktop.app.runtime.win-x64.3.1.32.nupkg.sha512",
-    "C:\\Users\\Truong\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\3.1.32\\microsoft.aspnetcore.app.runtime.win-x64.3.1.32.nupkg.sha512"
+    "C:\\Users\\Truong\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.31\\microsoft.netcore.app.runtime.win-x64.3.1.31.nupkg.sha512",
+    "C:\\Users\\Truong\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\3.1.31\\microsoft.windowsdesktop.app.runtime.win-x64.3.1.31.nupkg.sha512",
+    "C:\\Users\\Truong\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\3.1.31\\microsoft.aspnetcore.app.runtime.win-x64.3.1.31.nupkg.sha512"
   ],
   "logs": []
 }

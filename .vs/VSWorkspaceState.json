@@ -11,6 +11,6 @@
     "\\MQTTWebApp\\Views\\TopicManager",
     "\\MQTTWebApp\\wwwroot"
   ],
-  "SelectedNode": "\\MQTTTopicManager\\TopicManager.cs",
+  "SelectedNode": "\\MQTTWebApp\\Views\\TopicManager\\Temperature.cshtml",
   "PreviewInSolutionExplorer": false
 }
