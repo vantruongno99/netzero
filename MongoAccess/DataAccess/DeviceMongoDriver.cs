@@ -52,6 +52,7 @@ namespace MongoAccess.DataAccess
 
         public async Task InsertObjectAsync(T deviceObject)
         {
+
             await Collection.InsertOneAsync(deviceObject);
         }
 
